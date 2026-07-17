@@ -1,0 +1,11 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+/generated/prisma
+
+# Database (SANGAT KRUSIAL JANGAN DI-UPLOAD)
+dev.db
+dev.db-journal
+.DS_Store
+*.log

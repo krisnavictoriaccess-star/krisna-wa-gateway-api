@@ -1,0 +1,110 @@
+// This is your Prisma schema file for MySQL
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ApiKey {
+  key              String    @id
+  label            String    @default("User")
+  status           String    @default("active") // active, revoked, expired
+  paket            String    @default("Free")
+  limit_pesan      Int       @default(1000)
+  max_devices      Int       @default(1)
+  terpakai_bulan_ini Int     @default(0)
+  last_reset_month String
+  expired_at       DateTime
+  webhook_url      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  devices          Device[]
+  queued_messages  MessageQueue[]
+  webhook_queues   WebhookQueue[]
+}
+
+model Device {
+  id               Int       @id @default(autoincrement())
+  nomor_device     String    @unique
+  api_key_id       String
+  apiKey           ApiKey    @relation(fields: [api_key_id], references: [key], onDelete: Cascade)
+  status           String    @default("disconnected") // connected, disconnected
+  is_autoread      Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  autoReplies      AutoReply[]
+  inboxMessages    MessageInbox[]
+  authStates       AuthState[]
+  contactStores    ContactStore[]
+}
+
+model AutoReply {
+  id               Int       @id @default(autoincrement())
+  keyword          String    @db.VarChar(255)
+  response         String    @db.Text
+  match_type       String    @default("exact") @db.VarChar(50)
+  media_url        String?   @db.Text
+  media_type       String?   @db.VarChar(50)
+  nomor_device     String    @db.VarChar(50)
+  device           Device    @relation(fields: [nomor_device], references: [nomor_device], onDelete: Cascade)
+  createdAt        DateTime  @default(now())
+}
+
+model MessageInbox {
+  id               Int       @id @default(autoincrement())
+  nomor_device     String
+  device           Device    @relation(fields: [nomor_device], references: [nomor_device], onDelete: Cascade)
+  sender_jid       String
+  message          String    @db.LongText
+  createdAt        DateTime  @default(now())
+}
+
+model MessageQueue {
+  id               Int       @id @default(autoincrement())
+  sender_device    String
+  recipient_jid    String
+  payload          String    @db.LongText // JSON stringified payload
+  status           String    @default("pending") // pending, processing, sent, failed
+  error_message    String?   @db.LongText
+  send_at          DateTime  @default(now())
+  api_key_id       String
+  apiKey           ApiKey    @relation(fields: [api_key_id], references: [key], onDelete: Cascade)
+  createdAt        DateTime  @default(now())
+}
+
+model AuthState {
+  id           Int      @id @default(autoincrement())
+  nomor_device String
+  device       Device   @relation(fields: [nomor_device], references: [nomor_device], onDelete: Cascade)
+  key          String
+  value        String   @db.LongText
+  @@unique([nomor_device, key])
+}
+
+model ContactStore {
+  id           Int      @id @default(autoincrement())
+  nomor_device String
+  device       Device   @relation(fields: [nomor_device], references: [nomor_device], onDelete: Cascade)
+  contact_id   String
+  name         String?
+  notify       String?
+  verifiedName String?
+  updatedAt    DateTime @updatedAt
+  @@unique([nomor_device, contact_id])
+}
+
+model WebhookQueue {
+  id           Int      @id @default(autoincrement())
+  api_key_id   String
+  url          String
+  payload      String   @db.LongText
+  attempts     Int      @default(0)
+  status       String   @default("pending") // pending, success, failed
+  next_retry   DateTime @default(now())
+  createdAt    DateTime @default(now())
+  apiKey       ApiKey   @relation(fields: [api_key_id], references: [key], onDelete: Cascade)
+}

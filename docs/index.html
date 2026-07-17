@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - WA Gateway Enterprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Custom Scrollbar for Code Blocks */
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        
+        .code-container { position: relative; }
+        .copy-btn {
+            position: absolute; top: 12px; right: 12px;
+            background: rgba(255,255,255,0.1); border: none; color: #cbd5e1;
+            padding: 6px 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 12px;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.25); color: white; }
+    </style>
+</head>
+<body class="text-slate-800 flex h-screen overflow-hidden">
+
+    <!-- Mobile Header -->
+    <div class="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 flex items-center justify-between px-4">
+        <div class="font-bold text-xl text-blue-600"><i class="fab fa-whatsapp mr-2"></i> WA API Docs</div>
+        <button id="mobile-menu-btn" class="text-slate-600 text-2xl"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-72 bg-white border-r border-slate-200 flex-shrink-0 h-full overflow-y-auto custom-scrollbar transform -translate-x-full lg:translate-x-0 transition-transform duration-300 fixed lg:relative z-40 pt-16 lg:pt-0 shadow-xl lg:shadow-none">
+        <div class="p-6 hidden lg:block">
+            <div class="font-bold text-2xl text-blue-600 tracking-tight"><i class="fab fa-whatsapp mr-2 text-green-500"></i> Gateway API</div>
+            <p class="text-xs text-slate-400 mt-1">Enterprise v2.0</p>
+        </div>
+        
+        <nav class="px-4 pb-10 space-y-1">
+            <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-2">Getting Started</p>
+            <a href="#intro" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Base URL & Auth</a>
+            <a href="#socket-io" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Real-Time WebSockets</a>
+            
+            <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-2">Admin (Master Key)</p>
+            <a href="#admin-listkey" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">List API Keys</a>
+            <a href="#admin-generate" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Generate API Key</a>
+            <a href="#admin-upgrade" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Upgrade API Key</a>
+            <a href="#admin-listdevice" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">List All Devices</a>
+
+            <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-6 mb-2">Device Management</p>
+            <a href="#device-add" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Add Device</a>
+            <a href="#device-delete" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Delete Device</a>
+            <a href="#device-list" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">List Devices</a>
+            <a href="#device-settings" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Device Settings (Auto-Read)</a>
+
+            <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-6 mb-2">Messaging</p>
+            <a href="#msg-text" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Send Text Message</a>
+            <a href="#msg-massal" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Send Massal (Broadcast)</a>
+            <a href="#msg-grup" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Send to Group</a>
+            <a href="#msg-media" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Send Media</a>
+            <a href="#msg-polling" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Send Polling</a>
+            <a href="#msg-vcard" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Send VCard (Contact)</a>
+            <a href="#msg-lokasi" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Send Location</a>
+
+            <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-6 mb-2">Webhooks & Chatbot</p>
+            <a href="#webhook-set" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Set Webhook URL</a>
+            <a href="#auto-add" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Add Auto-Reply</a>
+            <a href="#auto-del" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Delete Auto-Reply</a>
+            
+            <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-6 mb-2">Data Extraction & Queue</p>
+            <a href="#inbox-get" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Get Inbox</a>
+            <a href="#queue-get" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Get Queue List</a>
+            <a href="#queue-cancel" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Cancel Queue</a>
+            <a href="#data-contact" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Get Contacts</a>
+            <a href="#data-group" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-blue-600">Get Groups</a>
+        </nav>
+    </aside>
+
+    <!-- Overlay Mobile -->
+    <div id="overlay" class="fixed inset-0 bg-slate-800 bg-opacity-50 z-30 hidden lg:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 h-full overflow-y-auto pt-16 lg:pt-0 bg-slate-50 relative custom-scrollbar">
+        <div class="max-w-4xl mx-auto px-4 py-8 sm:px-8 sm:py-12">
+            
+            <div id="intro" class="mb-16">
+                <h1 class="text-4xl font-extrabold text-slate-900 mb-4">API Documentation</h1>
+                <p class="text-lg text-slate-600 mb-6">Integrasikan sistem Anda dengan WhatsApp Gateway kelas Enterprise. Dilengkapi fitur <b>Rotator, Spintax, dan Auto-Read</b>.</p>
+                
+                <!-- BASE URL HIGHLIGHT -->
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-5 mb-8 rounded-r shadow-sm">
+                    <h4 class="font-bold text-blue-800 mb-2 text-lg"><i class="fas fa-globe mr-2"></i> Base URL</h4>
+                    <p class="text-sm text-blue-700 mb-3">Gunakan URL di bawah ini sebagai awalan (prefix) untuk semua rute request API Anda.</p>
+                    <div class="flex items-center">
+                        <code class="text-blue-900 bg-white font-mono px-4 py-2 rounded shadow-sm border border-blue-200 text-lg">https://api.krisnamarket.my.id</code>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h3 class="text-xl font-bold mb-4">🔐 Otorisasi Global</h3>
+                    <p class="text-sm text-slate-600 mb-4">Semua endpoint klien wajib menyertakan <code class="bg-slate-100 text-pink-600 px-1 py-0.5 rounded">x-api-key</code> di Header. Keamanan kami mengandalkan validasi ketat berlapis untuk menjamin perlindungan privasi data.</p>
+                    <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-50 text-slate-700 font-semibold uppercase text-xs">
+                                <tr><th class="px-4 py-3">Header Name</th><th class="px-4 py-3">Wajib?</th><th class="px-4 py-3">Deskripsi</th></tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 bg-white">
+                                <tr>
+                                    <td class="px-4 py-3 font-mono text-blue-600">x-api-key</td>
+                                    <td class="px-4 py-3 text-red-500 font-medium">Ya</td>
+                                    <td class="px-4 py-3 text-slate-600">Token API yang didapatkan klien saat berlangganan.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-mono text-blue-600">sender_id</td>
+                                    <td class="px-4 py-3 text-slate-500">Opsional</td>
+                                    <td class="px-4 py-3 text-slate-600">Bisa disertakan di Headers, Query URL, atau Body JSON. <b>Jika dikosongkan, fitur ROTATOR akan otomatis aktif!</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SOCKET IO HIGHLIGHT -->
+                <div id="socket-io" class="bg-indigo-50 border-l-4 border-indigo-500 p-5 mt-8 rounded-r shadow-sm">
+                    <h4 class="font-bold text-indigo-800 mb-2 text-lg"><i class="fas fa-bolt mr-2 text-yellow-500"></i> Real-Time WebSockets (Socket.io)</h4>
+                    <p class="text-sm text-indigo-700 mb-3">Server mendengarkan di port yang sama. Anda dapat menggunakan <code>socket.io-client</code> di Frontend untuk menangkap status perangkat secara real-time. Server akan melakukan <b>Emit</b> (memancarkan) event bernama <code>device_status</code>.</p>
+                    <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                        <pre><code class="text-blue-300 text-sm font-mono">// Contoh di Frontend (React / Vanilla JS)
+const socket = io("https://api.krisnamarket.my.id");
+
+socket.on("device_status", (data) => {
+    console.log(data);
+    // { "device": "62812xxx", "status": "WAITING_PAIRING", "code": "A1B2-C3D4" }
+    // { "device": "62812xxx", "status": "CONNECTED" }
+    // { "device": "62812xxx", "status": "DISCONNECTED" }
+});</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-slate-200 my-10">
+
+            <!-- Admin List Keys -->
+            <section id="admin-listkey" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">GET</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/api-key/list</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-master-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Kunci rahasia master.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (URL)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">GET https://api.krisnamarket.my.id/api-key/list</code></pre>
+                </div>
+            </section>
+
+            <!-- Admin Generate -->
+            <section id="admin-generate" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/api-key/generate</h2>
+                </div>
+                <p class="text-slate-600 mb-4">Mencetak API Key baru untuk Pelanggan. Rute ini rahasia dan hanya bisa diakses oleh Master.</p>
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded-r shadow-sm">
+                    <p class="text-sm text-red-700 font-bold">PENTING (ENTERPRISE SECURITY):</p>
+                    <p class="text-sm text-red-600">API Key yang dihasilkan akan di-hash (enkripsi) di database. `plain_key` HANYA akan ditampilkan 1 kali pada response ini. Simpan baik-baik!</p>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-master-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Kunci rahasia dari file .env VPS.</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">paket</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2"><code>Free</code>, <code>Lite</code>, <code>Pro</code>, <code>Premium</code>. Default: Free.</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">label</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2">Nama pemilik API Key (Default: User).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "paket": "Lite",
+    "label": "PT Krisna Dev"
+}</code></pre>
+                </div>
+
+                <h4 class="font-semibold text-slate-700 mb-2 mt-4">Response Example</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-green-400 text-sm font-mono">{
+    "status": true,
+    "message": "API Key Lite berhasil dibuat.",
+    "plain_key": "KEY-1A2B3C4D5E",
+    "data": { "key": "8f4a... (Hashed)", "label": "PT Krisna Dev", "paket": "Lite", "limit_pesan": 10000, "max_devices": 1 }
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Admin Upgrade -->
+            <section id="admin-upgrade" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/api-key/upgrade</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-master-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Kunci rahasia master.</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">target_api_key</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Token API klien.</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">nama_paket</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2"><code>Lite</code>, <code>Pro</code>, <code>Premium</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "target_api_key": "API-1a2b3c4d5e",
+    "nama_paket": "Premium"
+}</code></pre>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-4">Response Example</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-green-400 text-sm font-mono">{
+    "status": true,
+    "message": "Paket berhasil diupgrade ke Premium"
+}</code></pre>
+                </div>
+                </div>
+            </section>
+
+            <!-- Admin List Devices -->
+            <section id="admin-listdevice" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">GET</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/device/all</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-master-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Kunci rahasia master.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (URL)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">GET https://api.krisnamarket.my.id/device/all</code></pre>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-10">
+
+            <!-- Device Add -->
+            <section id="device-add" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/device/add</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">API Key Klien</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">nomor_device</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Nomor WA Pengirim (Contoh: 62812xxx)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "nomor_device": "628123456789"
+}</code></pre>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-4">Response Example</h4>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 mt-4 rounded-r shadow-sm">
+                    <p class="text-sm text-blue-700 font-bold">INFO PAIRING CODE:</p>
+                    <p class="text-sm text-blue-600">Selain QR Code via WebSocket, Endpoint ini otomatis mengembalikan <code class="font-bold">pairing_code</code> 8 digit untuk verifikasi login langsung tanpa kamera.</p>
+                </div>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-green-400 text-sm font-mono">{
+    "status": true,
+    "pairing_code": "4B8X9N1P",
+    "device_status": "WAITING_PAIRING"
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Device Delete -->
+            <section id="device-delete" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/device/delete</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">sender_id</td><td class="px-4 py-2 text-red-500">Ya (Body/Head)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "sender_id": "0812345"
+}</code></pre>
+                </div>
+                </div>
+            </section>
+
+            <!-- Device Settings -->
+            <section id="device-settings" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/device/settings</h2>
+                </div>
+                <p class="text-slate-600 mb-4">Mengonfigurasi pengaturan khusus untuk perangkat Anda, misalnya menghidupkan atau mematikan fitur <b>Auto-Read (Centang Biru)</b>.</p>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">API Key Klien</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">sender_id</td><td class="px-4 py-2 text-red-500">Ya (Head/Body)</td><td class="px-4 py-2">Nomor WA target (Device)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">is_autoread</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2"><code>true</code> (nyala) atau <code>false</code> (mati)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "sender_id": "0812345678",
+    "is_autoread": false
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Device List -->
+            <section id="device-list" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">GET</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/device/list</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th></tr></thead>
+                        <tbody><tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td></tr></tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-4">Response Example</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-green-400 text-sm font-mono">{
+    "status": true,
+    "data": [
+        { "nomor_device": "0812345", "status": "CONNECTED" }
+    ]
+}</code></pre>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-10">
+
+            <!-- Send Text -->
+            <section id="msg-text" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/kirim-pesan</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Token API</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">nomor</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Nomor penerima</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">pesan</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Isi pesan teks (Dukung Spintax)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">sender_id</td><td class="px-4 py-2 text-slate-500">Ops. (Body/Head)</td><td class="px-4 py-2">Nomor pengirim. <b>PENTING:</b> Jika dikosongkan, sistem akan mengaktifkan <b>Round-Robin Rotator</b> (Membagi beban pengiriman secara merata ke seluruh Device Anda yang berstatus Connected).</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">send_at</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2">Penjadwalan (Contoh: "Jumat, 17 Juni 2026 15:00" atau "17-06-2026")</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "nomor": "08999888777",
+    "pesan": "{Halo|Hai} Budi, tagihan Anda Rp 50.000."
+}</code></pre>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-4">Response Example</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-green-400 text-sm font-mono">{
+    "status": true,
+    "message": "Pesan berhasil diantrekan"
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Send Massal -->
+            <section id="msg-massal" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/kirim-massal</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Token API</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">pesan_list</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Array berisi objek { nomor, pesan }</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">send_at</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2">Penjadwalan (Contoh: "Jumat, 17 Juni 2026 15:00" atau "17-06-2026")</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "pesan_list": [
+        { "nomor": "08111", "pesan": "Promo 1 khusus untukmu" },
+        { "nomor": "08222", "pesan": "{Hai|Halo} Member setia!" }
+    ]
+}</code></pre>
+                </div>
+            </section>
+            
+            <!-- Send Grup -->
+            <section id="msg-grup" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/kirim-grup</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">group_id</td><td class="px-4 py-2 text-red-500">Ya (Body)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">pesan</td><td class="px-4 py-2 text-red-500">Ya (Body)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "group_id": "1234567890@g.us",
+    "pesan": "Pengumuman: Rapat hari ini jam 2 siang."
+}</code></pre>
+                </div>
+            </section>
+            
+            <!-- Send Media -->
+            <section id="msg-media" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/kirim-media</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Token API</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">nomor</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Nomor penerima</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">url</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">URL absolut (https://...)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">tipe</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2"><code>image</code>, <code>video</code>, atau <code>document</code></td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">caption</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2">Keterangan teks</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "nomor": "08999",
+    "url": "https://domain.com/brosur.jpg",
+    "tipe": "image",
+    "caption": "Silakan lihat brosur kami."
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Send Polling -->
+            <section id="msg-polling" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/kirim-polling</h2>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "nomor": "08999",
+    "nama_polling": "Berapa bintang untuk layanan kami?",
+    "opsi": ["Sangat Puas", "Biasa", "Buruk"],
+    "multiple_choice": false
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Send VCard -->
+            <section id="msg-vcard" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/kirim-vcard</h2>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "nomor": "08999",
+    "nama_kontak": "Budi CEO",
+    "nomor_kontak": "0812345"
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Send Lokasi -->
+            <section id="msg-lokasi" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/kirim-lokasi</h2>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "nomor": "08999",
+    "lat": -6.200000,
+    "long": 106.816666
+}</code></pre>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-10">
+            
+            <!-- Webhook Set -->
+            <section id="webhook-set" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/webhook/set</h2>
+                </div>
+                <p class="text-slate-600 mb-4">Daftarkan URL Webhook Anda untuk menerima notifikasi secara real-time setiap kali ada <b>pesan masuk</b> atau <b>perubahan status pesan/koneksi</b>.</p>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded-r shadow-sm">
+                    <p class="text-sm text-blue-700 font-bold">💡 TIPS SYNCHRONOUS REPLY:</p>
+                    <p class="text-sm text-blue-600">Jika server Webhook Anda merespon HTTP POST dengan format JSON: <code>{"reply": "Balasan otomatis Anda"}</code>, maka bot akan membalas pesan tersebut secara instan tanpa perlu memanggil endpoint /kirim-pesan.</p>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">API Key Anda</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">webhook_url</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">URL server Anda (Gunakan null/kosong untuk mematikan)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "webhook_url": "https://server-klien.com/webhook/wa"
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Auto Reply Add -->
+            <section id="auto-add" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/auto-reply/add</h2>
+                </div>
+                <p class="text-slate-600 mb-4">Tambahkan kata kunci Auto-Reply. Mendukung pengiriman <b>Teks, Gambar, Video, Dokumen, VCard, dan Lokasi</b>.</p>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">API Key Anda</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">sender_id</td><td class="px-4 py-2 text-red-500">Ya (Head/Body)</td><td class="px-4 py-2">Nomor WA pengirim Anda</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">keyword</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Kata kunci pemicu (contoh: PING)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">response</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">Teks balasan atau *caption* media</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">match_type</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2"><code>exact</code> (Sama persis) atau <code>contains</code> (Mengandung kata). Default: <code>exact</code></td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">media_type</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2">Kosongkan untuk Teks. Isi dengan: <code>image</code>, <code>video</code>, <code>document</code>, <code>location</code>, <code>vcard</code></td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">media_url</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2">URL file gambar/video/dokumen, ATAU koordinat <code>lat,long</code> untuk lokasi, ATAU <code>nomor_wa</code> untuk vcard</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON - Media Image)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "sender_id": "0812345678",
+    "keyword": "PROMO",
+    "response": "Berikut adalah katalog promo bulan ini!",
+    "match_type": "exact",
+    "media_type": "image",
+    "media_url": "https://domain.com/katalog.jpg"
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Auto Reply Delete -->
+            <section id="auto-del" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/auto-reply/delete</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">API Key Klien</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">sender_id</td><td class="px-4 py-2 text-red-500">Ya (Head/Body)</td><td class="px-4 py-2">Nomor pengirim Anda</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">id</td><td class="px-4 py-2 text-red-500">Ya (Body)</td><td class="px-4 py-2">ID unik Auto-Reply</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "sender_id": "0812345678",
+    "id": 5
+}</code></pre>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 my-10">
+
+            <!-- Queue Get -->
+            <section id="queue-get" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">GET</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/queue/my <span class="text-sm text-slate-500 font-normal">atau /queue/all</span></h2>
+                </div>
+                <p class="text-slate-600 mb-4">Melihat daftar pesan yang masih berada di dalam antrean (Queue) server. <br><code>/queue/my</code> untuk klien biasa, dan <code>/queue/all</code> khusus untuk Admin.</p>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Query</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Token API</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (URL)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">GET https://api.krisnamarket.my.id/queue/my</code></pre>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-4">Response Example</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-green-400 text-sm font-mono">{
+    "status": true,
+    "data": [
+        {
+            "id": 1,
+            "sender_device": "0812345",
+            "recipient_jid": "08999@s.whatsapp.net",
+            "status": "pending",
+            "createdAt": "2026-07-10T12:00:00Z"
+        }
+    ]
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Queue Cancel -->
+            <section id="queue-cancel" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">POST</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/queue/cancel</h2>
+                </div>
+                <p class="text-slate-600 mb-4">Berfungsi sebagai **Kill Switch** untuk membatalkan seluruh pesan yang berstatus `pending` di antrean. Sangat berguna jika Anda salah mengirim pesan massal dan ingin menyelamatkan limit kuota Anda.</p>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Body</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Token API</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">device</td><td class="px-4 py-2 text-slate-500">Ops. (Body)</td><td class="px-4 py-2">Hanya membatalkan antrean dari nomor sender tertentu. (Kosongkan untuk hapus semua).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (JSON)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">{
+    "device": "0812345678" // Opsional
+}</code></pre>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-4">Response Example</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-green-400 text-sm font-mono">{
+    "status": true,
+    "message": "Berhasil membatalkan dan menghapus 150 antrean pesan yang berstatus pending."
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Inbox Get -->
+            <section id="inbox-get" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">GET</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/inbox</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Query</th><th class="px-4 py-2">Wajib</th><th class="px-4 py-2">Deskripsi</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td><td class="px-4 py-2">Token API</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">limit</td><td class="px-4 py-2 text-slate-500">Ops. (Query)</td><td class="px-4 py-2">Maksimum 500 (Default: 100).</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">page</td><td class="px-4 py-2 text-slate-500">Ops. (Query)</td><td class="px-4 py-2">Halaman (Default: 1).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (URL)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">GET https://api.krisnamarket.my.id/inbox?limit=50&page=1</code></pre>
+                </div>
+            </section>
+            
+            <!-- Contact Get -->
+            <section id="data-contact" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">GET</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/contact/list</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Query</th><th class="px-4 py-2">Wajib</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">sender_id</td><td class="px-4 py-2 text-red-500">Ya (Head/Query)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (URL)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">GET https://api.krisnamarket.my.id/contact/list?sender_id=0812345</code></pre>
+                </div>
+            </section>
+            
+            <!-- Group Get -->
+            <section id="data-group" class="mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">GET</span>
+                    <h2 class="text-2xl font-bold text-slate-800">/group/list</h2>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-lg mb-4 bg-white">
+                    <table class="w-full text-sm text-left"><thead class="bg-slate-50"><tr><th class="px-4 py-2">Header / Query</th><th class="px-4 py-2">Wajib</th></tr></thead>
+                        <tbody>
+                            <tr><td class="px-4 py-2 font-mono text-blue-600">x-api-key</td><td class="px-4 py-2 text-red-500">Ya (Header)</td></tr>
+                            <tr><td class="px-4 py-2 font-mono text-slate-700">sender_id</td><td class="px-4 py-2 text-red-500">Ya (Head/Query)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4 class="font-semibold text-slate-700 mb-2 mt-6">Request Example (URL)</h4>
+                <div class="code-container bg-slate-900 rounded-lg p-4 overflow-x-auto custom-scrollbar">
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy mr-1"></i> Copy</button>
+                    <pre><code class="text-yellow-400 text-sm font-mono">GET https://api.krisnamarket.my.id/group/list?sender_id=0812345</code></pre>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- JavaScript for Mobile Menu & SweetAlert -->
+    <script>
+        // Copy to Clipboard with SweetAlert2
+        function copyCode(btn) {
+            const pre = btn.nextElementSibling;
+            const text = pre.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                Swal.fire({
+                    title: 'Disalin!',
+                    text: 'Kode berhasil disalin ke Clipboard.',
+                    icon: 'success',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+            });
+        }
+
+        // Mobile Sidebar Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function toggleMenu() {
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+        
+        // Auto-close sidebar on mobile when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth < 1024) { toggleMenu(); }
+            });
+        });
+    </script>
+</body>
+</html>

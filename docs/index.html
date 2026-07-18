@@ -95,7 +95,8 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="sidebar"><h2>Navigasi API</h2><a href="#top">🌍 Base URL & Auth</a><div class="sidebar-cat"><a href="#AdminMasterManajemenAPIKey" style="padding:0;">👑 Admin / Master (Manajemen API Key)</a></div><a href="#GETapikeylist"><span style="font-weight:bold; color:var(--get)">GET</span> /api-key/list</a><a href="#POSTapikeygenerate"><span style="font-weight:bold; color:var(--post)">POST</span> /api-key/generate</a><a href="#POSTapikeyextend"><span style="font-weight:bold; color:var(--post)">POST</span> /api-key/extend</a><a href="#POSTapikeyupgrade"><span style="font-weight:bold; color:var(--post)">POST</span> /api-key/upgrade</a><a href="#POSTapikeydelete"><span style="font-weight:bold; color:var(--post)">POST</span> /api-key/delete</a><a href="#GETdeviceall"><span style="font-weight:bold; color:var(--get)">GET</span> /device/all</a><a href="#GETqueueall"><span style="font-weight:bold; color:var(--get)">GET</span> /queue/all</a><div class="sidebar-cat"><a href="#InformasiKlienAPIKey" style="padding:0;">👤 Informasi Klien (API Key)</a></div><a href="#GETapikeyinfo"><span style="font-weight:bold; color:var(--get)">GET</span> /api-key/info</a><div class="sidebar-cat"><a href="#DeviceManagementSesiWA" style="padding:0;">📱 Device Management (Sesi WA)</a></div><a href="#POSTdeviceadd"><span style="font-weight:bold; color:var(--post)">POST</span> /device/add</a><a href="#GETdevicelist"><span style="font-weight:bold; color:var(--get)">GET</span> /device/list</a><a href="#POSTdevicesettings"><span style="font-weight:bold; color:var(--post)">POST</span> /device/settings</a><a href="#POSTdevicedelete"><span style="font-weight:bold; color:var(--post)">POST</span> /device/delete</a><div class="sidebar-cat"><a href="#KontakData" style="padding:0;">📇 Kontak & Data</a></div><a href="#GETcontactlist"><span style="font-weight:bold; color:var(--get)">GET</span> /contact/list</a><a href="#GETgrouplist"><span style="font-weight:bold; color:var(--get)">GET</span> /group/list</a><a href="#GETinbox"><span style="font-weight:bold; color:var(--get)">GET</span> /inbox</a><div class="sidebar-cat"><a href="#WebhooksAutoReply" style="padding:0;">🤖 Webhooks & Auto-Reply</a></div><a href="#POSTwebhookset"><span style="font-weight:bold; color:var(--post)">POST</span> /webhook/set</a><a href="#POSTautoreplyadd"><span style="font-weight:bold; color:var(--post)">POST</span> /auto-reply/add</a><a href="#GETautoreplylist"><span style="font-weight:bold; color:var(--get)">GET</span> /auto-reply/list</a><a href="#POSTautoreplydelete"><span style="font-weight:bold; color:var(--post)">POST</span> /auto-reply/delete</a><div class="sidebar-cat"><a href="#MessagingPengiriman" style="padding:0;">✉️ Messaging (Pengiriman)</a></div><a href="#POSTkirimpesan"><span style="font-weight:bold; color:var(--post)">POST</span> /kirim-pesan</a><a href="#POSTkirimmassal"><span style="font-weight:bold; color:var(--post)">POST</span> /kirim-massal</a><a href="#POSTkirimmedia"><span style="font-weight:bold; color:var(--post)">POST</span> /kirim-media</a><a href="#POSTkirimgrup"><span style="font-weight:bold; color:var(--post)">POST</span> /kirim-grup</a><a href="#POSTkirimpolling"><span style="font-weight:bold; color:var(--post)">POST</span> /kirim-polling</a><a href="#POSTkirimlokasi"><span style="font-weight:bold; color:var(--post)">POST</span> /kirim-lokasi</a><a href="#POSTkirimvcard"><span style="font-weight:bold; color:var(--post)">POST</span> /kirim-vcard</a><div class="sidebar-cat"><a href="#ManajemenAntreanQueue" style="padding:0;">⏳ Manajemen Antrean (Queue)</a></div><a href="#GETqueuemy"><span style="font-weight:bold; color:var(--get)">GET</span> /queue/my</a><a href="#POSTqueuecancel"><span style="font-weight:bold; color:var(--post)">POST</span> /queue/cancel</a><div class="sidebar-cat"><a href="#websocket" style="padding:0;">⚡ WebSockets</a></div></div><div class="content-area">
+<div class="container" id="top">
     <header>
         <h1>Krisna WA Gateway API</h1>
         <p>Referensi Lengkap Integrasi Gateway Enterprise</p>
@@ -120,9 +121,9 @@
     </div>
 
     <!-- KATEGORI BARU -->
-    <h2 class="section-title">👑 Admin / Master (Manajemen API Key)</h2>
+    <h2 id="AdminMasterManajemenAPIKey" class="section-title">👑 Admin / Master (Manajemen API Key)</h2>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETapikeylist">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/api-key/list</span>
@@ -162,7 +163,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTapikeygenerate">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/api-key/generate</span>
@@ -208,7 +209,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTapikeyextend">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/api-key/extend</span>
@@ -250,7 +251,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTapikeyupgrade">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/api-key/upgrade</span>
@@ -292,7 +293,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTapikeydelete">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/api-key/delete</span>
@@ -332,7 +333,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETdeviceall">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/device/all</span>
@@ -362,7 +363,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETqueueall">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/queue/all</span>
@@ -390,9 +391,9 @@
     </div>
 
     <!-- KATEGORI BARU -->
-    <h2 class="section-title">👤 Informasi Klien (API Key)</h2>
+    <h2 id="InformasiKlienAPIKey" class="section-title">👤 Informasi Klien (API Key)</h2>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETapikeyinfo">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/api-key/info</span>
@@ -429,9 +430,9 @@
     </div>
 
     <!-- KATEGORI BARU -->
-    <h2 class="section-title">📱 Device Management (Sesi WA)</h2>
+    <h2 id="DeviceManagementSesiWA" class="section-title">📱 Device Management (Sesi WA)</h2>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTdeviceadd">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/device/add</span>
@@ -473,7 +474,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETdevicelist">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/device/list</span>
@@ -501,7 +502,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTdevicesettings">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/device/settings</span>
@@ -542,7 +543,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTdevicedelete">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/device/delete</span>
@@ -579,9 +580,9 @@
     </div>
 
     <!-- KATEGORI BARU -->
-    <h2 class="section-title">📇 Kontak & Data</h2>
+    <h2 id="KontakData" class="section-title">📇 Kontak & Data</h2>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETcontactlist">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/contact/list</span>
@@ -619,7 +620,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETgrouplist">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/group/list</span>
@@ -657,7 +658,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETinbox">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/inbox</span>
@@ -689,9 +690,9 @@
     </div>
 
     <!-- KATEGORI BARU -->
-    <h2 class="section-title">🤖 Webhooks & Auto-Reply</h2>
+    <h2 id="WebhooksAutoReply" class="section-title">🤖 Webhooks & Auto-Reply</h2>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTwebhookset">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/webhook/set</span>
@@ -731,7 +732,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTautoreplyadd">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/auto-reply/add</span>
@@ -780,7 +781,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETautoreplylist">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/auto-reply/list</span>
@@ -815,7 +816,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTautoreplydelete">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/auto-reply/delete</span>
@@ -856,9 +857,9 @@
     </div>
 
     <!-- KATEGORI BARU -->
-    <h2 class="section-title">✉️ Messaging (Pengiriman)</h2>
+    <h2 id="MessagingPengiriman" class="section-title">✉️ Messaging (Pengiriman)</h2>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTkirimpesan">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/kirim-pesan</span>
@@ -903,7 +904,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTkirimmassal">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/kirim-massal</span>
@@ -946,7 +947,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTkirimmedia">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/kirim-media</span>
@@ -992,7 +993,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTkirimgrup">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/kirim-grup</span>
@@ -1034,7 +1035,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTkirimpolling">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/kirim-polling</span>
@@ -1080,7 +1081,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTkirimlokasi">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/kirim-lokasi</span>
@@ -1124,7 +1125,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTkirimvcard">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/kirim-vcard</span>
@@ -1169,9 +1170,9 @@
     </div>
 
     <!-- KATEGORI BARU -->
-    <h2 class="section-title">⏳ Manajemen Antrean (Queue)</h2>
+    <h2 id="ManajemenAntreanQueue" class="section-title">⏳ Manajemen Antrean (Queue)</h2>
 
-    <div class="endpoint">
+    <div class="endpoint" id="GETqueuemy">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/queue/my</span>
@@ -1199,7 +1200,7 @@
         </div>
     </div>
 
-    <div class="endpoint">
+    <div class="endpoint" id="POSTqueuecancel">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/queue/cancel</span>

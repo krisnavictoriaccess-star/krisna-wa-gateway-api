@@ -717,7 +717,8 @@ let html = `<!DOCTYPE html>
     </style>
 </head>
 <body>
-<div class="container">
+${sidebarHtml}
+<div class="container" id="top">
     <header>
         <h1>Krisna WA Gateway API</h1>
         <p>Referensi Lengkap Integrasi Gateway Enterprise</p>
@@ -744,14 +745,14 @@ let html = `<!DOCTYPE html>
 
 endpoints.forEach(ep => {
     if (ep.category) {
-        html += `\n    <!-- KATEGORI BARU -->\n    <h2 class="section-title">${ep.category}</h2>\n`;
+        let catId = ep.category.replace(/[^a-zA-Z0-9]/g, '');
+        html += `\n    <!-- KATEGORI BARU -->\n    <h2 id="${catId}" class="section-title">${ep.category}</h2>\n`;
     }
 
     const methodClass = ep.method.toLowerCase();
     
-    html += `
-    <div class="endpoint">
-        <div class="endpoint-header">
+    let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
+    html += `\n    <div class="endpoint" id="${epId}">\n        <div class="endpoint-header">
             <span class="method ${methodClass}">${ep.method}</span>
             <span class="path">${ep.path}</span>
             <span class="summary">${ep.summary}</span>

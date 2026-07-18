@@ -1,0 +1,1023 @@
+{
+  "info": {
+    "name": "Krisna WA Gateway API",
+    "description": "Dokumentasi Resmi Integrasi API Enterprise",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.krisnamarket.my.id",
+      "type": "string"
+    },
+    {
+      "key": "x_master_key",
+      "value": "MASTER_KEY_ANDA",
+      "type": "string"
+    },
+    {
+      "key": "x_api_key",
+      "value": "API_KEY_ANDA",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Admin / Master (Manajemen API Key)",
+      "item": [
+        {
+          "name": "/api-key/list",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-master-key",
+                "value": "{{x_master_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api-key/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api-key",
+                "list"
+              ]
+            },
+            "description": "Melihat daftar semua akun klien (API Key) yang terdaftar di database."
+          },
+          "response": []
+        },
+        {
+          "name": "/api-key/generate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-master-key",
+                "value": "{{x_master_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api-key/generate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api-key",
+                "generate"
+              ]
+            },
+            "description": "Membuat kredensial API Key baru untuk klien.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paket\": \"Pro\",\n  \"label\": \"Klien VIP\",\n  \"expiry_days\": 365\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api-key/extend",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-master-key",
+                "value": "{{x_master_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api-key/extend",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api-key",
+                "extend"
+              ]
+            },
+            "description": "Menambahkan masa aktif (hari) pada klien yang sudah ada.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_api_key\": \"KEY-XXXXYYYYZZZZ\",\n  \"tambah_hari\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api-key/upgrade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-master-key",
+                "value": "{{x_master_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api-key/upgrade",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api-key",
+                "upgrade"
+              ]
+            },
+            "description": "Mengubah tipe paket atau limit pesan bulanan klien.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_api_key\": \"KEY-XXXXYYYYZZZZ\",\n  \"paket\": \"Premium\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api-key/delete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-master-key",
+                "value": "{{x_master_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api-key/delete",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api-key",
+                "delete"
+              ]
+            },
+            "description": "Menghapus klien secara permanen dari server.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_api_key\": \"KEY-XXXXYYYYZZZZ\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/device/all",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-master-key",
+                "value": "{{x_master_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/device/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "device",
+                "all"
+              ]
+            },
+            "description": "Memantau seluruh sesi perangkat WhatsApp dari SEMUA pengguna di server."
+          },
+          "response": []
+        },
+        {
+          "name": "/queue/all",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-master-key",
+                "value": "{{x_master_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/queue/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "queue",
+                "all"
+              ]
+            },
+            "description": "Memantau lalu lintas seluruh antrean pesan server secara global."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Informasi Klien (API Key)",
+      "item": [
+        {
+          "name": "/api-key/info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api-key/info",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api-key",
+                "info"
+              ]
+            },
+            "description": "Mengecek sisa kuota, limit, dan masa tenggang API Key Anda sendiri."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Device Management (Sesi WA)",
+      "item": [
+        {
+          "name": "/device/add",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/device/add",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "device",
+                "add"
+              ]
+            },
+            "description": "Menyambungkan nomor WhatsApp ke server untuk mendapatkan Pairing Code.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor_hp\": \"628123456789\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/device/list",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/device/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "device",
+                "list"
+              ]
+            },
+            "description": "Melihat daftar perangkat/nomor WhatsApp milik Anda yang tersambung di server."
+          },
+          "response": []
+        },
+        {
+          "name": "/device/settings",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/device/settings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "device",
+                "settings"
+              ]
+            },
+            "description": "Mengubah pengaturan otomatisasi pada perangkat spesifik.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_autoread\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/device/delete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/device/delete",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "device",
+                "delete"
+              ]
+            },
+            "description": "Logout dan putuskan sambungan WhatsApp Anda dari server secara paksa.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor_device\": \"628123456789\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Kontak  Data",
+      "item": [
+        {
+          "name": "/contact/list",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "sender_id",
+                "value": "628xxx",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/contact/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "contact",
+                "list"
+              ]
+            },
+            "description": "Mengambil daftar kontak (nomor dan nama) yang tersimpan di HP Anda."
+          },
+          "response": []
+        },
+        {
+          "name": "/group/list",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "sender_id",
+                "value": "628xxx",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/group/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "group",
+                "list"
+              ]
+            },
+            "description": "Mengambil daftar ID Grup tempat Anda bergabung (dibutuhkan untuk kirim pesan grup)."
+          },
+          "response": []
+        },
+        {
+          "name": "/inbox",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/inbox",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "inbox"
+              ]
+            },
+            "description": "Melihat daftar pesan terakhir yang masuk (hanya berfungsi jika record_inbox diaktifkan)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Webhooks  Auto-Reply",
+      "item": [
+        {
+          "name": "/webhook/set",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/webhook/set",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "webhook",
+                "set"
+              ]
+            },
+            "description": "Mengatur URL sistem/server Anda sendiri untuk menerima notifikasi pesan masuk secara Real-Time.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook_url\": \"https://server-anda.com/api/wa-callback\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/auto-reply/add",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auto-reply/add",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auto-reply",
+                "add"
+              ]
+            },
+            "description": "Membuat robot balasan otomatis berdasarkan kata kunci spesifik.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor_device\": \"628123456789\",\n  \"keyword\": \"harga\",\n  \"response\": \"Berikut adalah daftar harga kami:\",\n  \"match_type\": \"exact\",\n  \"media_url\": \"https://domain.com/brosur.jpg\",\n  \"media_type\": \"image\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/auto-reply/list",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "sender_id",
+                "value": "628xxx",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auto-reply/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auto-reply",
+                "list"
+              ]
+            },
+            "description": "Melihat daftar seluruh aturan Auto-Reply yang telah Anda buat."
+          },
+          "response": []
+        },
+        {
+          "name": "/auto-reply/delete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auto-reply/delete",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auto-reply",
+                "delete"
+              ]
+            },
+            "description": "Menghapus salah satu kata kunci Auto-Reply.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 12\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Messaging (Pengiriman)",
+      "item": [
+        {
+          "name": "/kirim-pesan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kirim-pesan",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "kirim-pesan"
+              ]
+            },
+            "description": "Mengirim pesan teks ke satu nomor.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor\": \"628123456789\",\n  \"pesan\": \"Halo bosku!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/kirim-massal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kirim-massal",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "kirim-massal"
+              ]
+            },
+            "description": "Mengirim broadcast ke banyak nomor sekaligus menggunakan sistem antrean anti-banned.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pesan_list\": [\n    { \"nomor\": \"628111\", \"pesan\": \"Pesan 1\" },\n    { \"nomor\": \"628222\", \"pesan\": \"Pesan 2\" }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/kirim-media",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kirim-media",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "kirim-media"
+              ]
+            },
+            "description": "Mengirim dokumen, gambar, atau video berdasarkan tautan publik.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor\": \"628123456789\",\n  \"url\": \"https://domain.com/brosur.pdf\",\n  \"tipe\": \"document\",\n  \"caption\": \"Ini brosur bulan ini.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/kirim-grup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kirim-grup",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "kirim-grup"
+              ]
+            },
+            "description": "Mengirim pesan teks ke dalam Grup WhatsApp.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"group_id\": \"1234567890-123456@g.us\",\n  \"pesan\": \"Halo member grup!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/kirim-polling",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kirim-polling",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "kirim-polling"
+              ]
+            },
+            "description": "Mengirimkan formulir interaktif (Voting/Polling).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor\": \"628123456789\",\n  \"nama_polling\": \"Berapa umur Anda?\",\n  \"opsi\": [\"18-25\", \"26-35\", \"35+\"],\n  \"multiple_choice\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/kirim-lokasi",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kirim-lokasi",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "kirim-lokasi"
+              ]
+            },
+            "description": "Mengirimkan pin koordinat peta (Google Maps).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor\": \"628123456789\",\n  \"lat\": -6.200000,\n  \"long\": 106.816666\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/kirim-vcard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/kirim-vcard",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "kirim-vcard"
+              ]
+            },
+            "description": "Mengirimkan kartu kontak.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomor\": \"628123456789\",\n  \"nama_kontak\": \"CS Support\",\n  \"nomor_kontak\": \"+628111222333\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Manajemen Antrean (Queue)",
+      "item": [
+        {
+          "name": "/queue/my",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/queue/my",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "queue",
+                "my"
+              ]
+            },
+            "description": "Memantau status seluruh antrean pesan milik Anda (Pending/Sukses/Gagal)."
+          },
+          "response": []
+        },
+        {
+          "name": "/queue/cancel",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{x_api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/queue/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "queue",
+                "cancel"
+              ]
+            },
+            "description": "Membatalkan pesan spesifik di antrean yang belum sempat terkirim.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queue_id\": 150\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

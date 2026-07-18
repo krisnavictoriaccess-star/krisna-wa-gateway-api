@@ -108,7 +108,7 @@
 
         @media (max-width: 768px) { 
             .hamburger { display: block; }
-            .sidebar { position: fixed; z-index: 50; -webkit-transform: translateX(-100%); transform: translateX(-100%); top: 60px; height: calc(100vh - 60px); }
+            .sidebar { position: fixed; left: 0; z-index: 50; -webkit-transform: translateX(-100%); transform: translateX(-100%); top: 60px; height: calc(100vh - 60px); }
             .sidebar.open { -webkit-transform: translateX(0); transform: translateX(0); }
             .overlay.active { display: block; top: 60px; }
             .main-content { padding: 25px 15px; }
@@ -127,7 +127,7 @@
 <body>
 
 <nav class="top-header">
-    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <button type="button" class="hamburger" onclick="toggleSidebar()">☰</button>
     <span>Krisna WA Gateway</span>
 </nav>
 

@@ -22,7 +22,14 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding: 40px 20px; font-size: 15px; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; font-size: 15px; display: flex; margin: 0; }
+        .sidebar { width: 280px; min-width: 280px; background: var(--bg-card); height: 100vh; position: sticky; top: 0; padding: 30px 20px; overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar h2 { color: #60a5fa; font-size: 1.2rem; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .sidebar-cat { color: #cbd5e1; font-weight: bold; margin: 15px 0 5px; font-size: 0.95rem; }
+        .sidebar a { display: block; color: var(--text-muted); text-decoration: none; padding: 6px 10px; font-size: 0.9rem; border-radius: 4px; }
+        .sidebar a:hover { color: var(--text-main); background: rgba(59, 130, 246, 0.2); }
+        .content-area { flex-grow: 1; padding: 40px 20px; }
+        @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: static; } }
         .container { max-width: 1000px; margin: 0 auto; }
 
         header { text-align: center; margin-bottom: 50px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
@@ -1233,7 +1240,7 @@
     </div>
 
     <!-- WEBSOCKET -->
-    <h2 class="section-title">⚡ Real-Time Events (WebSocket)</h2>
+    <h2 id="websocket" class="section-title">⚡ Real-Time Events (WebSocket)</h2>
 
     <div class="endpoint">
         <div class="endpoint-header" style="background-color: rgba(59, 130, 246, 0.2);">

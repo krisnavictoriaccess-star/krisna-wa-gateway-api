@@ -73,9 +73,10 @@
         th { background-color: rgba(255,255,255,0.03); color: #e2e8f0; font-weight: 600; }
         td { color: var(--text-muted); }
         
-        .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; min-width: 0; }
+        .code-grid > div { min-width: 0; overflow: hidden; }
         
-        pre { background-color: var(--bg-code); padding: 15px; border-radius: 6px; overflow-x: auto; font-family: 'Courier New', Courier, monospace; color: #a5b4fc; border: 1px solid var(--border); font-size: 0.9rem; line-height: 1.5; margin-bottom: 10px; }
+        pre { background-color: var(--bg-code); padding: 15px; border-radius: 6px; overflow-x: auto; font-family: 'Courier New', Courier, monospace; color: #a5b4fc; border: 1px solid var(--border); font-size: 0.9rem; line-height: 1.5; margin-bottom: 10px; max-width: 100%; box-sizing: border-box; }
         .pre-success { border-color: rgba(16, 185, 129, 0.5); }
         .pre-error { border-color: rgba(239, 68, 68, 0.5); color: #fca5a5; }
 

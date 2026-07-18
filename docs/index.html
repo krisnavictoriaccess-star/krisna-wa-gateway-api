@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gateway API Enterprise - Dokumentasi Lengkap</title>
+    <title>Krisna WA Gateway - Dokumentasi API</title>
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -22,11 +22,10 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; font-size: 15px; }
-        
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
-        
-        header { text-align: center; margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid var(--border); }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding: 40px 20px; font-size: 15px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 50px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
         h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         header p { color: var(--text-muted); font-size: 1.1rem; }
 
@@ -36,24 +35,26 @@
 
         .auth-box { background-color: var(--bg-card); padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin-bottom: 40px; }
         .auth-box h3 { color: var(--text-main); margin-bottom: 15px; }
-        .auth-box table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .auth-box th, .auth-box td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); }
-        .auth-box th { background-color: rgba(255,255,255,0.05); color: #cbd5e1; }
-        .auth-box td { color: var(--text-muted); }
+        
+        .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); }
+        th { background-color: rgba(255,255,255,0.05); color: #cbd5e1; }
+        td { color: var(--text-muted); }
         code { font-family: 'Courier New', Courier, monospace; color: #fbbf24; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; }
 
         .section-title { font-size: 1.8rem; margin: 50px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); color: #cbd5e1; }
 
         .endpoint { background-color: var(--bg-card); border-radius: 8px; margin-bottom: 30px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         
-        .endpoint-header { display: flex; align-items: center; padding: 15px 20px; background-color: rgba(0,0,0,0.3); }
+        .endpoint-header { display: flex; align-items: center; padding: 15px 20px; background-color: rgba(0,0,0,0.3); flex-wrap: wrap; }
         .method { padding: 5px 12px; border-radius: 4px; font-weight: bold; font-size: 0.95rem; margin-right: 15px; letter-spacing: 0.5px; }
         .method.get { background-color: rgba(16, 185, 129, 0.2); color: var(--get); border: 1px solid var(--get); }
         .method.post { background-color: rgba(245, 158, 11, 0.2); color: var(--post); border: 1px solid var(--post); }
         .method.delete { background-color: rgba(239, 68, 68, 0.2); color: var(--delete); border: 1px solid var(--delete); }
         
         .path { font-family: monospace; font-size: 1.2rem; flex-grow: 1; font-weight: bold; color: #e2e8f0; }
-        .summary { color: var(--text-muted); font-size: 0.95rem; }
+        .summary { color: var(--text-muted); font-size: 0.95rem; flex-basis: 100%; margin-top: 10px; }
 
         .endpoint-body { padding: 25px; border-top: 1px solid var(--border); }
         
@@ -67,12 +68,6 @@
 
         h4 { margin: 25px 0 10px; color: #cbd5e1; font-size: 1.1rem; border-left: 3px solid var(--accent); padding-left: 10px; }
         
-        .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 20px; background: rgba(0,0,0,0.1); border-radius: 6px; }
-        table { width: 100%; border-collapse: collapse; min-width: 500px; }
-        th, td { text-align: left; padding: 12px 15px; border-bottom: 1px solid var(--border); }
-        th { background-color: rgba(255,255,255,0.03); color: #e2e8f0; font-weight: 600; }
-        td { color: var(--text-muted); }
-        
         .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; min-width: 0; }
         .code-grid > div { min-width: 0; overflow: hidden; }
         
@@ -85,15 +80,10 @@
         .text-error { color: #f87171; }
 
         @media (max-width: 768px) { 
-            .container { padding: 20px 10px; }
-            h1 { font-size: 1.8rem; }
-            .base-url-box code { font-size: 1.1rem; word-break: break-all; }
             .code-grid { grid-template-columns: 1fr; } 
             .endpoint-header { flex-direction: column; align-items: flex-start; }
-            .method { margin-bottom: 8px; }
-            .path { font-size: 1rem; word-break: break-all; }
-            .summary { margin-top: 6px; font-size: 0.85rem; }
-            .endpoint-body { padding: 15px; }
+            .path { font-size: 1rem; word-break: break-all; margin-top: 10px; }
+            .summary { margin-top: 5px; }
         }
     </style>
 </head>
@@ -101,381 +91,473 @@
 
 <div class="container">
     <header>
-        <h1>WhatsApp Gateway Enterprise</h1>
-        <p>Dokumentasi Teknis API Lengkap (Base URL, Parameter, dan Respon)</p>
+        <h1>Krisna WA Gateway</h1>
+        <p>Dokumentasi Resmi Integrasi API Enterprise</p>
     </header>
 
     <div class="base-url-box">
-        <h3>🌍 Base URL (Akar URL)</h3>
-        <p style="color: var(--text-muted); margin-bottom: 15px;">Semua endpoint di bawah ini harus dipanggil dengan awalan URL berikut:</p>
+        <h3>🌍 Base URL</h3>
         <code>https://api.krisnamarket.my.id</code>
     </div>
 
     <div class="auth-box">
         <h3>🔐 Autentikasi (Headers)</h3>
-        <p>Sistem ini menggunakan autentikasi berbasis Header. Anda wajib menyertakan header berikut pada setiap request sesuai dengan tingkat akses endpoint.</p>
-        <div class="table-wrapper"><table>
-            <tr>
-                <th>Nama Header</th>
-                <th>Tipe</th>
-                <th>Status</th>
-                <th>Deskripsi</th>
-            </tr>
-            <tr>
-                <td><code>x-master-key</code></td>
-                <td>String</td>
-                <td><span class="req-opt wajib">Wajib (Admin)</span></td>
-                <td>Kunci rahasia master dari VPS. Hanya digunakan untuk endpoint bertanda <span class="badge master">Master</span>.</td>
-            </tr>
-            <tr>
-                <td><code>x-api-key</code></td>
-                <td>String</td>
-                <td><span class="req-opt wajib">Wajib (Klien)</span></td>
-                <td>Token API unik milik klien. Digunakan untuk endpoint bertanda <span class="badge user">User</span>.</td>
-            </tr>
-            <tr>
-                <td><code>Content-Type</code></td>
-                <td>String</td>
-                <td><span class="req-opt wajib">Wajib</span></td>
-                <td>Harus selalu bernilai <code>application/json</code> untuk request bertipe POST.</td>
-            </tr>
-            <tr>
-                <td><code>sender_id</code></td>
-                <td>String</td>
-                <td><span class="req-opt opsional">Opsional</span></td>
-                <td>Khusus endpoint pengiriman pesan. Jika diisi nomor (ex: 62812xxx), pesan akan dikirim dari nomor tersebut. Jika kosong, sistem menggunakan <b>Rotator Otomatis</b>.</td>
-            </tr>
-        </table></div>
+        <p style="margin-bottom: 15px; color: var(--text-muted);">Sertakan kredensial di header HTTP pada setiap request.</p>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Header</th><th>Status</th><th>Deskripsi</th></tr>
+                <tr><td><code>x-master-key</code></td><td><span class="req-opt wajib">Wajib (Admin)</span></td><td>Untuk akses endpoint master / admin (manajemen klien).</td></tr>
+                <tr><td><code>x-api-key</code></td><td><span class="req-opt wajib">Wajib (Klien)</span></td><td>Token klien yang didapatkan dari Generate API Key.</td></tr>
+                <tr><td><code>sender_id</code></td><td><span class="req-opt opsional">Opsional</span></td><td>Digunakan pada fitur Messaging untuk menetapkan device/nomor pengirim spesifik (format: 628xxx).</td></tr>
+            </table>
+        </div>
     </div>
 
-    <!-- ADMIN SECTION -->
-    <h2 class="section-title">👑 Admin (Master Key)</h2>
+    <!-- ADMIN (MASTER) -->
+    <h2 class="section-title">👑 Admin / Master (Manajemen API Key)</h2>
 
+    <!-- GET /api-key/list -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method get">GET</span>
             <span class="path">/api-key/list</span>
-            <span class="summary">Melihat semua klien terdaftar</span>
+            <span class="summary">Melihat semua akun klien yang terdaftar.</span>
         </div>
         <div class="endpoint-body">
             <span class="badge master">Requires x-master-key</span>
-            
-            <div class="code-grid">
-                <div>
-                    <span class="response-label text-success">Contoh Respon Sukses (200 OK)</span>
-                    <pre class="pre-success">{
-  "status": true,
-  "data": [
-    {
-      "key": "KEY-XXXX",
-      "label": "User A",
-      "status": "active",
-      "paket": "Premium",
-      "limit_pesan": 500000,
-      "terpakai_bulan_ini": 150,
-      "expired_at": "2026-12-31T00:00:00.000Z"
-    }
-  ]
-}</pre>
-                </div>
-                <div>
-                    <span class="response-label text-error">Contoh Respon Error (401 Unauthorized)</span>
-                    <pre class="pre-error">{
-  "status": false,
-  "message": "Akses ditolak. Master Key salah."
-}</pre>
-                </div>
-            </div>
         </div>
     </div>
 
+    <!-- POST /api-key/generate -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/api-key/generate</span>
-            <span class="summary">Membuat API Key baru untuk klien</span>
+            <span class="summary">Membuat kredensial klien baru.</span>
         </div>
         <div class="endpoint-body">
             <span class="badge master">Requires x-master-key</span>
-            
-            <h4>Body Parameters (JSON)</h4>
+            <h4>Body JSON</h4>
             <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>paket</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Pilihan: <code>Free</code>, <code>Lite</code>, <code>Pro</code>, <code>Premium</code>. Default: Free.</td></tr>
-                <tr><td><code>label</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Nama/label klien. Default: User.</td></tr>
-                <tr><td><code>expiry_days</code></td><td>Integer</td><td><span class="req-opt opsional">Opsional</span></td><td>Masa aktif kustom dalam hari (ex: 365). Jika kosong, mengikuti bawaan paket.</td></tr>
+                <tr><td><code>paket</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Free, Lite, Pro, Premium.</td></tr>
+                <tr><td><code>label</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Nama klien.</td></tr>
+                <tr><td><code>expiry_days</code></td><td>Integer</td><td><span class="req-opt opsional">Opsional</span></td><td>Masa aktif dalam hari.</td></tr>
             </table></div>
-
-            <h4>Contoh Request Body</h4>
-            <pre>{
-  "paket": "Premium",
-  "label": "Klien VIP A",
-  "expiry_days": 30
-}</pre>
-
-            <div class="code-grid">
-                <div>
-                    <span class="response-label text-success">Respon Sukses (201 Created)</span>
-                    <pre class="pre-success">{
-  "status": true,
-  "message": "API Key Premium berhasil dibuat.",
-  "plain_key": "KEY-ABC123DEF456",
-  "data": { ... }
-}</pre>
-                </div>
-                <div>
-                    <span class="response-label text-error">Respon Error (400 Bad Request)</span>
-                    <pre class="pre-error">{
-  "status": false,
-  "message": "Paket tidak valid."
-}</pre>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- MESSAGING SECTION -->
-    <h2 class="section-title">✉️ Messaging (Pengiriman Pesan)</h2>
-
+    <!-- POST /api-key/extend -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method post">POST</span>
-            <span class="path">/kirim-pesan</span>
-            <span class="summary">Kirim Pesan Teks (Mendukung Rotator)</span>
+            <span class="path">/api-key/extend</span>
+            <span class="summary">Menambahkan masa aktif hari pada klien lama.</span>
         </div>
         <div class="endpoint-body">
-            <span class="badge user">Requires x-api-key</span>
-            
-            <h4>Body Parameters (JSON)</h4>
-            <div class="table-wrapper"><table>
-                <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor tujuan (Contoh: 628123456789). Boleh pakai awalan 0 atau 62.</td></tr>
-                <tr><td><code>pesan</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Isi teks pesan WhatsApp.</td></tr>
-            </table></div>
-
-            <h4>Contoh Request Body</h4>
-            <pre>{
-  "nomor": "628123456789",
-  "pesan": "Halo, ini pesan dari *API Gateway*! \n\nBaris baru didukung."
-}</pre>
-
-            <div class="code-grid">
-                <div>
-                    <span class="response-label text-success">Respon Sukses (200 OK)</span>
-                    <pre class="pre-success">{
-  "status": true,
-  "message": "Pesan dimasukkan ke antrean pengiriman.",
-  "queue_id": 1542
-}</pre>
-                </div>
-                <div>
-                    <span class="response-label text-error">Respon Error (402 Payment Required)</span>
-                    <pre class="pre-error">{
-  "status": false,
-  "message": "Kuota pesan Anda habis. Silakan upgrade."
-}</pre>
-                </div>
-                <div>
-                    <span class="response-label text-error">Respon Error (403 Forbidden)</span>
-                    <pre class="pre-error">{
-  "status": false,
-  "message": "API Key tidak valid atau telah kedaluwarsa."
-}</pre>
-                </div>
-            </div>
+            <span class="badge master">Requires x-master-key</span>
+            <pre>{ "target_api_key": "KEY-XXXX", "tambah_hari": 30 }</pre>
         </div>
     </div>
 
+    <!-- POST /api-key/upgrade -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method post">POST</span>
-            <span class="path">/kirim-media</span>
-            <span class="summary">Kirim Gambar / Video / Dokumen</span>
+            <span class="path">/api-key/upgrade</span>
+            <span class="summary">Mengubah paket klien atau limit pesan bulanan.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+            <pre>{ "target_api_key": "KEY-XXXX", "paket": "Premium" }</pre>
+        </div>
+    </div>
+
+    <!-- POST /api-key/delete -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method delete">POST</span>
+            <span class="path">/api-key/delete</span>
+            <span class="summary">Menghapus klien secara permanen.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+            <pre>{ "target_api_key": "KEY-XXXX" }</pre>
+        </div>
+    </div>
+
+    <!-- GET /device/all -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/device/all</span>
+            <span class="summary">Memantau seluruh sesi perangkat dari SEMUA pengguna di server.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+        </div>
+    </div>
+
+    <!-- GET /queue/all -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/queue/all</span>
+            <span class="summary">Memantau lalu lintas antrean pesan server secara global.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+        </div>
+    </div>
+
+    <!-- KLIEN (API KEY INFO) -->
+    <h2 class="section-title">👤 Informasi Klien (API Key)</h2>
+
+    <!-- GET /api-key/info -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/api-key/info</span>
+            <span class="summary">Mengecek sisa kuota dan masa tenggang API Key Anda sendiri.</span>
         </div>
         <div class="endpoint-body">
             <span class="badge user">Requires x-api-key</span>
-            
-            <h4>Body Parameters (JSON)</h4>
-            <div class="table-wrapper"><table>
-                <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor tujuan (Contoh: 628123456789).</td></tr>
-                <tr><td><code>media_url</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>URL Publik dari media (Bukan path lokal).</td></tr>
-                <tr><td><code>media_type</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Pilihan: <code>image</code>, <code>video</code>, <code>document</code>, atau <code>audio</code>.</td></tr>
-                <tr><td><code>caption</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Teks keterangan di bawah gambar/video.</td></tr>
-            </table></div>
-
-            <h4>Contoh Request Body</h4>
-            <pre>{
-  "nomor": "628123456789",
-  "media_url": "https://domain.com/gambar.jpg",
-  "media_type": "image",
-  "caption": "Silakan lihat brosur terlampir."
-}</pre>
         </div>
     </div>
 
     <!-- DEVICE MANAGEMENT -->
     <h2 class="section-title">📱 Device Management (Sesi WA)</h2>
 
+    <!-- POST /device/add -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/device/add</span>
-            <span class="summary">Membuat sesi WhatsApp baru (Mendapatkan Pairing Code)</span>
+            <span class="summary">Menyambungkan nomor WhatsApp ke server untuk mendapatkan Pairing Code (Kode Tautan).</span>
         </div>
         <div class="endpoint-body">
             <span class="badge user">Requires x-api-key</span>
             
-            <h4>Body Parameters (JSON)</h4>
+            <h4>Body JSON</h4>
             <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>nomor_hp</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor HP WhatsApp yang akan dijadikan pengirim (Server).</td></tr>
+                <tr><td><code>nomor_hp</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor HP WA yang akan dihubungkan (format: 628xxx).</td></tr>
             </table></div>
 
             <h4>Contoh Request Body</h4>
-            <pre>{
-  "nomor_hp": "6285551234"
-}</pre>
-
-            <div class="code-grid">
-                <div>
-                    <span class="response-label text-success">Respon Sukses (201 Created)</span>
-                    <pre class="pre-success">{
-  "status": true,
-  "message": "Sesi berhasil diinisiasi.",
-  "pairing_code": "A1B2-C3D4"
-}</pre>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">*Masukkan Pairing Code ini ke dalam aplikasi WhatsApp di HP Anda (Tautkan Perangkat).</p>
-                </div>
-                <div>
-                    <span class="response-label text-error">Respon Error (400 Bad Request)</span>
-                    <pre class="pre-error">{
-  "status": false,
-  "message": "Nomor sudah terkoneksi sebelumnya."
-}</pre>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="endpoint">
-        <div class="endpoint-header">
-            <span class="method post">POST</span>
-            <span class="path">/device/delete</span>
-            <span class="summary">Logout dan hapus sesi WhatsApp secara paksa</span>
-        </div>
-        <div class="endpoint-body">
-            <span class="badge user">Requires x-api-key</span>
-            
-            <h4>Body Parameters (JSON)</h4>
-            <div class="table-wrapper"><table>
-                <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor HP device yang ingin dihapus sesinya.</td></tr>
-            </table></div>
+            <pre>{ "nomor_hp": "6285551234" }</pre>
 
             <div class="code-grid">
                 <div>
                     <span class="response-label text-success">Respon Sukses (200 OK)</span>
                     <pre class="pre-success">{
   "status": true,
-  "message": "Sesi WhatsApp berhasil dihapus dan dilogout."
+  "message": "Silakan masukkan kode pairing ini di WhatsApp.",
+  "pairing_code": "V5Y2A9XR",
+  "device_status": "WAITING_PAIRING"
 }</pre>
                 </div>
             </div>
+            <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.9rem;">
+                <b>Catatan:</b> Anda harus membuka aplikasi WhatsApp di HP Anda, pilih menu <b>Tautkan Perangkat</b> > <b>Tautkan dengan Nomor Telepon Saja</b>, lalu masukkan kode 8 karakter dari respon di atas.
+            </p>
+        </div>
+    </div>
+
+    <!-- GET /device/list -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/device/list</span>
+            <span class="summary">Melihat daftar device milik Anda yang saat ini tersambung ke server.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+        </div>
+    </div>
+
+    <!-- POST /device/settings -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/device/settings</span>
+            <span class="summary">Mengubah pengaturan otomatisasi pada perangkat spesifik.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>Body JSON</h4>
+            <div class="table-wrapper"><table>
+                <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
+                <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor device Anda (628xxx).</td></tr>
+                <tr><td><code>reject_call</code></td><td>Boolean</td><td><span class="req-opt opsional">Opsional</span></td><td>Otomatis menolak telepon masuk (true/false).</td></tr>
+                <tr><td><code>autoread</code></td><td>Boolean</td><td><span class="req-opt opsional">Opsional</span></td><td>Otomatis membaca (centang biru) pesan masuk (true/false).</td></tr>
+                <tr><td><code>record_inbox</code></td><td>Boolean</td><td><span class="req-opt opsional">Opsional</span></td><td>Menyimpan riwayat chat masuk ke database (true/false).</td></tr>
+            </table></div>
+        </div>
+    </div>
+
+    <!-- POST /device/delete -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method delete">POST</span>
+            <span class="path">/device/delete</span>
+            <span class="summary">Logout dan putuskan sambungan WhatsApp Anda dari server.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{ "nomor_device": "6285551234" }</pre>
+        </div>
+    </div>
+
+    <!-- KONTAK & DATA -->
+    <h2 class="section-title">📇 Kontak & Data</h2>
+
+    <!-- GET /contact/list -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/contact/list</span>
+            <span class="summary">Mengambil seluruh daftar kontak (nomor dan nama) yang tersimpan di HP Anda.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <p style="color: var(--text-muted);">Gunakan header <code>sender_id</code> (nomor HP Anda) pada request.</p>
+        </div>
+    </div>
+
+    <!-- GET /group/list -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/group/list</span>
+            <span class="summary">Mengambil seluruh daftar ID Grup tempat Anda bergabung.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <p style="color: var(--text-muted);">Gunakan header <code>sender_id</code> (nomor HP Anda) pada request.</p>
+            <div class="code-grid">
+                <div>
+                    <span class="response-label text-success">Respon Sukses (200 OK)</span>
+                    <pre class="pre-success">{
+  "status": true,
+  "data": [
+    { "id": "1234567890@g.us", "name": "Grup Keluarga" }
+  ]
+}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GET /inbox -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/inbox</span>
+            <span class="summary">Melihat daftar pesan terakhir yang masuk (jika record_inbox diaktifkan di settings).</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
         </div>
     </div>
 
     <!-- WEBHOOKS & AUTO REPLY -->
-    <h2 class="section-title">🤖 Webhooks & Chatbot (Auto-Reply)</h2>
+    <h2 class="section-title">🤖 Webhooks & Auto-Reply</h2>
 
+    <!-- POST /webhook/set -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/webhook/set</span>
-            <span class="summary">Mendaftarkan URL Webhook untuk menerima Pesan Masuk (Event)</span>
+            <span class="summary">Atur URL eksternal milik Anda untuk menerima notifikasi pesan WA masuk secara Real-Time.</span>
         </div>
         <div class="endpoint-body">
             <span class="badge user">Requires x-api-key</span>
-            
-            <h4>Body Parameters (JSON)</h4>
-            <div class="table-wrapper"><table>
-                <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>webhook_url</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>URL server Anda yang akan menerima POST Request dari API Gateway.</td></tr>
-            </table></div>
-
-            <h4>Contoh Request Body</h4>
-            <pre>{
-  "webhook_url": "https://serveranda.com/api/wa-callback"
-}</pre>
+            <pre>{ "webhook_url": "https://serveranda.com/api/callback" }</pre>
         </div>
     </div>
 
+    <!-- POST /auto-reply/add -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/auto-reply/add</span>
-            <span class="summary">Menambahkan aturan balasan otomatis (Chatbot)</span>
+            <span class="summary">Buat Bot (Robot Chat) tanpa coding dengan kata kunci spesifik.</span>
         </div>
         <div class="endpoint-body">
             <span class="badge user">Requires x-api-key</span>
-            
-            <h4>Body Parameters (JSON)</h4>
+            <h4>Body JSON</h4>
             <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor device yang akan membalas otomatis.</td></tr>
-                <tr><td><code>keyword</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Kata kunci pemicu.</td></tr>
-                <tr><td><code>response</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Teks balasan.</td></tr>
-                <tr><td><code>match_type</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Pilihan: <code>exact</code> (sama persis) atau <code>contains</code> (mengandung kata). Default: exact.</td></tr>
+                <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor HP Bot Anda.</td></tr>
+                <tr><td><code>keyword</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Kata pemicu.</td></tr>
+                <tr><td><code>response</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Balasan pesan.</td></tr>
+                <tr><td><code>match_type</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>exact / contains.</td></tr>
             </table></div>
-
-            <h4>Contoh Request Body</h4>
-            <pre>{
-  "nomor_device": "628123456789",
-  "keyword": "harga",
-  "response": "Harga paket kami mulai dari Rp 50.000,-",
-  "match_type": "contains"
-}</pre>
-            
-            <div class="code-grid">
-                <div>
-                    <span class="response-label text-success">Respon Sukses (200 OK)</span>
-                    <pre class="pre-success">{
-  "status": true,
-  "message": "Auto-Reply berhasil ditambahkan."
-}</pre>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- DATA & INFO -->
-    <h2 class="section-title">📊 Data & Antrean</h2>
-
+    <!-- GET /auto-reply/list -->
     <div class="endpoint">
         <div class="endpoint-header">
             <span class="method get">GET</span>
-            <span class="path">/api-key/info</span>
-            <span class="summary">Cek status paket, sisa limit, dan masa aktif API Key saat ini</span>
+            <span class="path">/auto-reply/list</span>
+            <span class="summary">Melihat seluruh kata kunci Bot yang telah Anda buat.</span>
         </div>
         <div class="endpoint-body">
             <span class="badge user">Requires x-api-key</span>
-            
-            <div class="code-grid">
-                <div>
-                    <span class="response-label text-success">Respon Sukses (200 OK)</span>
-                    <pre class="pre-success">{
-  "status": true,
-  "data": {
-    "paket": "Pro",
-    "status": "active",
-    "limit_pesan": 50000,
-    "terpakai_bulan_ini": 1520,
-    "sisa_kuota": 48480,
-    "expired_at": "2026-08-15T12:00:00Z"
-  }
+        </div>
+    </div>
+
+    <!-- POST /auto-reply/delete -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/auto-reply/delete</span>
+            <span class="summary">Menghapus salah satu kata kunci Bot.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{ "nomor_device": "628xxx", "keyword": "harga" }</pre>
+        </div>
+    </div>
+
+    <!-- MESSAGING -->
+    <h2 class="section-title">✉️ Messaging (Pengiriman)</h2>
+
+    <!-- POST /kirim-pesan -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-pesan</span>
+            <span class="summary">Kirim pesan teks biasa ke target.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{ "nomor": "628123456789", "pesan": "Halo bosku!" }</pre>
+        </div>
+    </div>
+
+    <!-- POST /kirim-massal -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-massal</span>
+            <span class="summary">Kirim Broadcast ke ratusan nomor sekaligus menggunakan antrean (Queue).</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{
+  "delay_ms": 3000,
+  "data": [
+    { "nomor": "628xxx", "pesan": "Pesan 1" },
+    { "nomor": "628yyy", "pesan": "Pesan 2" }
+  ]
 }</pre>
-                </div>
-            </div>
+        </div>
+    </div>
+
+    <!-- POST /kirim-media -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-media</span>
+            <span class="summary">Kirim Gambar, Video, PDF dari URL publik.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{
+  "nomor": "628xxx",
+  "media_url": "https://domain.com/brosur.jpg",
+  "media_type": "image",
+  "caption": "Silakan dicek."
+}</pre>
+        </div>
+    </div>
+
+    <!-- POST /kirim-grup -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-grup</span>
+            <span class="summary">Kirim pesan teks ke dalam Grup.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{ "group_id": "1234567890@g.us", "pesan": "Halo member grup!" }</pre>
+        </div>
+    </div>
+
+    <!-- POST /kirim-polling -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-polling</span>
+            <span class="summary">Kirim formulir Polling/Vote.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{
+  "nomor": "628xxx",
+  "name": "Berapa umur Anda?",
+  "values": ["18-25", "26-35"],
+  "selectableCount": 1
+}</pre>
+        </div>
+    </div>
+
+    <!-- POST /kirim-lokasi -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-lokasi</span>
+            <span class="summary">Kirim Pin Peta Lokasi (Latitude / Longitude).</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{ "nomor": "628xxx", "lat": -6.200000, "long": 106.816666 }</pre>
+        </div>
+    </div>
+
+    <!-- POST /kirim-vcard -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-vcard</span>
+            <span class="summary">Kirim Kontak (VCard).</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{ "nomor": "628xxx", "contact_name": "Budi", "contact_number": "628123" }</pre>
+        </div>
+    </div>
+
+    <!-- QUEUE MANAGEMENT -->
+    <h2 class="section-title">⏳ Manajemen Antrean (Queue)</h2>
+
+    <!-- GET /queue/my -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/queue/my</span>
+            <span class="summary">Pantau status pengiriman massal Anda.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <p style="color: var(--text-muted);">Menampilkan jumlah pesan yang masih pending, sukses, maupun gagal (error).</p>
+        </div>
+    </div>
+
+    <!-- POST /queue/cancel -->
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/queue/cancel</span>
+            <span class="summary">Hentikan/batalkan antrean broadcast yang sedang berjalan.</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <pre>{ "queue_id": 150 }</pre>
         </div>
     </div>
 
@@ -486,44 +568,39 @@
         <div class="endpoint-header" style="background-color: rgba(59, 130, 246, 0.2);">
             <span class="method get" style="border-color: #3b82f6; color: #60a5fa;">SOCKET.IO</span>
             <span class="path">WSS Connection</span>
-            <span class="summary">Dengarkan perubahan status WhatsApp secara instan (QR Code / Pairing Code)</span>
+            <span class="summary">Dengarkan pembaruan status Pairing Code secara instan.</span>
         </div>
         <div class="endpoint-body">
             <p style="margin-bottom: 20px; color: var(--text-muted);">
-                Gateway kami juga memancarkan sinyal langsung <i>(real-time)</i> setiap kali ada perubahan status pada nomor WhatsApp klien (misalnya saat meminta QR Code, Pairing Code, atau saat koneksi terputus). Anda dapat mendengarkan (*listen*) *event* ini di *frontend* (Web/Mobile) Anda menggunakan *library* <b>Socket.IO Client</b>.
+                Saat Anda memanggil <code>/device/add</code>, server akan meminta WhatsApp untuk menghasilkan <b>Pairing Code (8 digit)</b>. Agar antarmuka Anda bisa merespon secara langsung (Real-Time) tanpa perlu memuat ulang (*refresh*), Anda wajib menggunakan <b>Socket.IO Client</b>.
             </p>
 
             <h4>Cara Koneksi di Frontend (JavaScript)</h4>
             <pre>&lt;script src="https://cdn.socket.io/4.7.2/socket.io.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
-  // 1. Hubungkan ke Server Gateway
   const socket = io("https://api.krisnamarket.my.id");
 
-  // 2. Dengarkan event 'device_status'
   socket.on("device_status", (data) =&gt; {
-      console.log("Status Baru:", data);
+      console.log("Pembaruan Status:", data);
       
       if(data.status === "WAITING_PAIRING") {
-          alert("Kode Pairing Anda: " + data.code);
-      } else if (data.status === "WAITING_QR") {
-          // data.qr berisi string Base64 gambar QR Code
-          document.getElementById('qr-image').src = data.qr;
+          alert("KODE PAIRING ANDA: " + data.code);
+          // Tampilkan data.code ini ke layar besar Anda agar bisa dibaca jelas
       } else if (data.status === "CONNECTED") {
-          alert("WhatsApp " + data.device + " Berhasil Terhubung!");
+          alert("WhatsApp Berhasil Terhubung!");
       } else if (data.status === "DISCONNECTED") {
-          alert("WhatsApp " + data.device + " Terputus dari server.");
+          alert("WhatsApp Terputus / Logout.");
       }
   });
 &lt;/script&gt;</pre>
 
-            <h4 style="margin-top: 30px;">Tabel Payload (Struktur Data <code>device_status</code>)</h4>
+            <h4 style="margin-top: 30px;">Tabel Payload <code>device_status</code></h4>
             <div class="table-wrapper">
                 <table>
                     <tr><th>Status</th><th>Deskripsi</th><th>Property Tambahan</th></tr>
-                    <tr><td><code>WAITING_PAIRING</code></td><td>Menunggu Anda memasukkan kode di HP.</td><td><code>code</code>: Berisi 8 digit kode angka/huruf.</td></tr>
-                    <tr><td><code>WAITING_QR</code></td><td>Menunggu Anda melakukan scan barcode.</td><td><code>qr</code>: Berisi URL Base64 Gambar QR Code.</td></tr>
-                    <tr><td><code>CONNECTED</code></td><td>Nomor WhatsApp berhasil tersambung & siap dipakai.</td><td>-</td></tr>
-                    <tr><td><code>DISCONNECTED</code></td><td>Nomor WhatsApp terputus (Keluar/Log Out).</td><td>-</td></tr>
+                    <tr><td><code>WAITING_PAIRING</code></td><td>Server telah mengirimkan kode rahasia.</td><td><code>code</code>: Berisi 8 digit kode kombinasi.</td></tr>
+                    <tr><td><code>CONNECTED</code></td><td>WhatsApp berhasil diotorisasi.</td><td>-</td></tr>
+                    <tr><td><code>DISCONNECTED</code></td><td>Sesi terputus (Keluar/Dihapus paksa).</td><td>-</td></tr>
                 </table>
             </div>
         </div>

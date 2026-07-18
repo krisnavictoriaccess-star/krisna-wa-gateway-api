@@ -585,10 +585,11 @@ app.get('/api-key/list', validateMasterKey, async (req, res) => {
 
 app.post('/api-key/generate', validateMasterKey, async (req, res) => {
     try {
-        const { paket = 'Free', label = 'User' } = req.body;
+        const { paket = 'Free', label = 'User', expiry_days } = req.body;
         if (!PAKET_CONFIG[paket]) return res.status(400).json({ status: false, message: 'Paket tidak valid.' });
 
         const config = PAKET_CONFIG[paket];
+        const finalExpiryDays = expiry_days ? parseInt(expiry_days) : config.expiry_days;
         const plainKey = 'KEY-' + crypto.randomBytes(16).toString('hex').toUpperCase();
         
         // Poin 4: Hashing API Key
@@ -596,7 +597,7 @@ app.post('/api-key/generate', validateMasterKey, async (req, res) => {
 
         const now = new Date();
         const expiredAt = new Date(now);
-        expiredAt.setDate(now.getDate() + config.expiry_days);
+        expiredAt.setDate(now.getDate() + finalExpiryDays);
 
         const keyData = await prisma.apiKey.create({
             data: {
@@ -605,6 +606,30 @@ app.post('/api-key/generate', validateMasterKey, async (req, res) => {
             }
         });
         return res.status(201).json({ status: true, message: `API Key ${paket} berhasil dibuat.`, plain_key: plainKey, data: keyData });
+    } catch (error) { console.error('[API ERROR]', error.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
+});
+
+app.post('/api-key/extend', validateMasterKey, async (req, res) => {
+    try {
+        const { target_api_key, tambah_hari } = req.body;
+        if (!target_api_key || !tambah_hari) return res.status(400).json({ status: false, message: 'Parameter tidak lengkap.' });
+        
+        const hashedTargetKey = crypto.createHash('sha256').update(target_api_key).digest('hex');
+        const currentUser = await prisma.apiKey.findUnique({ where: { key: hashedTargetKey } });
+        if (!currentUser) return res.status(404).json({ status: false, message: 'API Key tidak ditemukan.' });
+
+        const now = new Date();
+        let currentExpiry = new Date(currentUser.expired_at);
+        if (currentExpiry < now) currentExpiry = now; // Jika sudah kedaluwarsa, mulai dari hari ini
+        
+        currentExpiry.setDate(currentExpiry.getDate() + parseInt(tambah_hari));
+        
+        const updated = await prisma.apiKey.update({
+            where: { key: hashedTargetKey },
+            data: { expired_at: currentExpiry, status: 'active' } // Pastikan status aktif kembali
+        });
+        
+        return res.status(200).json({ status: true, message: `Masa aktif berhasil diperpanjang ${tambah_hari} hari.`, data: updated });
     } catch (error) { console.error('[API ERROR]', error.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
 });
 

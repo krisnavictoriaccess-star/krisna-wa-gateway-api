@@ -287,9 +287,7 @@ async function initWhatsAppSession(sessionId) {
     sock.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect, qr } = update;
 
-        if (qr) {
-            global.io?.emit('device_status', { device: sessionId, status: 'WAITING_QR', qr: qr });
-        }
+
 
         if (connection === 'close') {
             const shouldReconnect = lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;

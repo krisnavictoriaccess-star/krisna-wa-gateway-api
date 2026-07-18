@@ -96,14 +96,14 @@ function formatMessage(msgStr) {
 }
 
 console.log = function(...args) {
-    const time = new Date().toLocaleTimeString('id-ID', { hour12: false });
+    const time = moment().format('dddd, HH:mm:ss [WIB]');
     const msgStr = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
     const f = formatMessage(msgStr);
     originalLog(`${COLORS.gray}[${time}]${COLORS.reset} ${f.color}${f.icon} [${f.module}]${COLORS.reset} ${f.text}`);
 };
 
 console.error = function(...args) {
-    const time = new Date().toLocaleTimeString('id-ID', { hour12: false });
+    const time = moment().format('dddd, HH:mm:ss [WIB]');
     const msgStr = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
     const f = formatMessage(msgStr);
     originalError(`${COLORS.gray}[${time}]${COLORS.reset} ${COLORS.red}❌ [ERROR]${COLORS.reset} ${f.text}`);
@@ -111,7 +111,7 @@ console.error = function(...args) {
 
 // Custom Morgan untuk API Logs
 app.use(morgan((tokens, req, res) => {
-    const time = new Date().toLocaleTimeString('id-ID', { hour12: false });
+    const time = moment().format('dddd, HH:mm:ss [WIB]');
     const method = tokens.method(req, res);
     const url = tokens.url(req, res);
     const status = tokens.status(req, res);

@@ -479,6 +479,56 @@
         </div>
     </div>
 
+    <!-- WEBSOCKET -->
+    <h2 class="section-title">⚡ Real-Time Events (WebSocket)</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header" style="background-color: rgba(59, 130, 246, 0.2);">
+            <span class="method get" style="border-color: #3b82f6; color: #60a5fa;">SOCKET.IO</span>
+            <span class="path">WSS Connection</span>
+            <span class="summary">Dengarkan perubahan status WhatsApp secara instan (QR Code / Pairing Code)</span>
+        </div>
+        <div class="endpoint-body">
+            <p style="margin-bottom: 20px; color: var(--text-muted);">
+                Gateway kami juga memancarkan sinyal langsung <i>(real-time)</i> setiap kali ada perubahan status pada nomor WhatsApp klien (misalnya saat meminta QR Code, Pairing Code, atau saat koneksi terputus). Anda dapat mendengarkan (*listen*) *event* ini di *frontend* (Web/Mobile) Anda menggunakan *library* <b>Socket.IO Client</b>.
+            </p>
+
+            <h4>Cara Koneksi di Frontend (JavaScript)</h4>
+            <pre>&lt;script src="https://cdn.socket.io/4.7.2/socket.io.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // 1. Hubungkan ke Server Gateway
+  const socket = io("https://api.krisnamarket.my.id");
+
+  // 2. Dengarkan event 'device_status'
+  socket.on("device_status", (data) =&gt; {
+      console.log("Status Baru:", data);
+      
+      if(data.status === "WAITING_PAIRING") {
+          alert("Kode Pairing Anda: " + data.code);
+      } else if (data.status === "WAITING_QR") {
+          // data.qr berisi string Base64 gambar QR Code
+          document.getElementById('qr-image').src = data.qr;
+      } else if (data.status === "CONNECTED") {
+          alert("WhatsApp " + data.device + " Berhasil Terhubung!");
+      } else if (data.status === "DISCONNECTED") {
+          alert("WhatsApp " + data.device + " Terputus dari server.");
+      }
+  });
+&lt;/script&gt;</pre>
+
+            <h4 style="margin-top: 30px;">Tabel Payload (Struktur Data <code>device_status</code>)</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>Status</th><th>Deskripsi</th><th>Property Tambahan</th></tr>
+                    <tr><td><code>WAITING_PAIRING</code></td><td>Menunggu Anda memasukkan kode di HP.</td><td><code>code</code>: Berisi 8 digit kode angka/huruf.</td></tr>
+                    <tr><td><code>WAITING_QR</code></td><td>Menunggu Anda melakukan scan barcode.</td><td><code>qr</code>: Berisi URL Base64 Gambar QR Code.</td></tr>
+                    <tr><td><code>CONNECTED</code></td><td>Nomor WhatsApp berhasil tersambung & siap dipakai.</td><td>-</td></tr>
+                    <tr><td><code>DISCONNECTED</code></td><td>Nomor WhatsApp terputus (Keluar/Log Out).</td><td>-</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>

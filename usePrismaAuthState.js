@@ -1,19 +1,8 @@
 const { BufferJSON, initAuthCreds } = require('@whiskeysockets/baileys');
 
-// Global mutex untuk mencegah SQLite P2024 (Connection Pool Timeout)
-let mutex = Promise.resolve();
-const lock = async (fn) => {
-    let next;
-    const current = mutex;
-    mutex = new Promise(resolve => { next = resolve });
-    await current;
-    try { return await fn(); } finally { next(); }
-};
-
 const usePrismaAuthState = async (sessionId, prisma) => {
     const writeData = async (data, key) => {
         const value = JSON.stringify(data, BufferJSON.replacer);
-        return lock(async () => {
             try {
                 await prisma.authState.upsert({
                     where: {
@@ -34,15 +23,14 @@ const usePrismaAuthState = async (sessionId, prisma) => {
                     console.error('[AUTH STATE ERROR] Write failed:', error.message);
                 }
             }
-        });
+        }
     };
 
     const readData = async (key) => {
-        return lock(async () => {
-            try {
-                const data = await prisma.authState.findUnique({
-                    where: {
-                        nomor_device_key: {
+        try {
+            const data = await prisma.authState.findUnique({
+                where: {
+                    nomor_device_key: {
                             nomor_device: sessionId,
                             key: key
                         }
@@ -53,27 +41,24 @@ const usePrismaAuthState = async (sessionId, prisma) => {
                 }
                 return null;
             } catch (error) {
-                console.error('Error reading auth state from DB', error);
-                return null;
-            }
-        });
+            console.error('Error reading auth state from DB', error);
+            return null;
+        }
     };
 
     const removeData = async (key) => {
-        return lock(async () => {
-            try {
-                await prisma.authState.delete({
-                    where: {
+        try {
+            await prisma.authState.delete({
+                where: {
                         nomor_device_key: {
                             nomor_device: sessionId,
                             key: key
                         }
                     }
                 });
-            } catch (error) {
-                // Ignore if not found
-            }
-        });
+        } catch (error) {
+            // Ignore if not found
+        }
     };
 
     const creds = (await readData('creds')) || initAuthCreds();
@@ -84,27 +69,31 @@ const usePrismaAuthState = async (sessionId, prisma) => {
             keys: {
                 get: async (type, ids) => {
                     const data = {};
-                    for (const id of ids) {
-                        let value = await readData(`${type}-${id}`);
-                        if (type === 'app-state-sync-key' && value) {
-                            value = Buffer.from(value.data || value);
-                        }
-                        data[id] = value;
-                    }
+                    await Promise.all(
+                        ids.map(async (id) => {
+                            let value = await readData(`${type}-${id}`);
+                            if (type === 'app-state-sync-key' && value) {
+                                value = Buffer.from(value.data || value);
+                            }
+                            data[id] = value;
+                        })
+                    );
                     return data;
                 },
                 set: async (data) => {
+                    const tasks = [];
                     for (const category in data) {
                         for (const id in data[category]) {
                             const value = data[category][id];
                             const key = `${category}-${id}`;
                             if (value) {
-                                await writeData(value, key);
+                                tasks.push(writeData(value, key));
                             } else {
-                                await removeData(key);
+                                tasks.push(removeData(key));
                             }
                         }
                     }
+                    await Promise.all(tasks);
                 }
             }
         },

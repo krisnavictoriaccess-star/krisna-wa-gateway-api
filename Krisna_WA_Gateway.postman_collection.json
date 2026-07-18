@@ -173,7 +173,7 @@
             "description": "Mengubah tipe paket atau limit pesan bulanan klien.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"target_api_key\": \"KEY-XXXXYYYYZZZZ\",\n  \"paket\": \"Premium\"\n}",
+              "raw": "{\n  \"target_api_key\": \"KEY-XXXXYYYYZZZZ\",\n  \"nama_paket\": \"Premium\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -356,7 +356,7 @@
             "description": "Menyambungkan nomor WhatsApp ke server untuk mendapatkan Pairing Code.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nomor_hp\": \"628123456789\"\n}",
+              "raw": "{\n  \"nomor_device\": \"628123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -406,6 +406,12 @@
                 "type": "text"
               },
               {
+                "key": "sender_id",
+                "value": "628xxx",
+                "type": "text",
+                "disabled": true
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/json",
                 "type": "text"
@@ -449,6 +455,12 @@
                 "type": "text"
               },
               {
+                "key": "sender_id",
+                "value": "628xxx",
+                "type": "text",
+                "disabled": true
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/json",
                 "type": "text"
@@ -468,16 +480,7 @@
                 "delete"
               ]
             },
-            "description": "Logout dan putuskan sambungan WhatsApp Anda dari server secara paksa.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"nomor_device\": \"628123456789\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "description": "Logout dan putuskan sambungan WhatsApp Anda dari server secara paksa."
           },
           "response": []
         }
@@ -643,6 +646,12 @@
                 "type": "text"
               },
               {
+                "key": "sender_id",
+                "value": "628xxx",
+                "type": "text",
+                "disabled": true
+              },
+              {
                 "key": "Content-Type",
                 "value": "application/json",
                 "type": "text"
@@ -665,7 +674,7 @@
             "description": "Membuat robot balasan otomatis berdasarkan kata kunci spesifik.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nomor_device\": \"628123456789\",\n  \"keyword\": \"harga\",\n  \"response\": \"Berikut adalah daftar harga kami:\",\n  \"match_type\": \"exact\",\n  \"media_url\": \"https://domain.com/brosur.jpg\",\n  \"media_type\": \"image\"\n}",
+              "raw": "{\n  \"keyword\": \"harga\",\n  \"response\": \"Berikut adalah daftar harga kami:\",\n  \"match_type\": \"exact\",\n  \"media_url\": \"https://domain.com/brosur.jpg\",\n  \"media_type\": \"image\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1116,10 +1125,10 @@
                 "cancel"
               ]
             },
-            "description": "Membatalkan pesan spesifik di antrean yang belum sempat terkirim.",
+            "description": "Membatalkan seluruh pesan di antrean yang belum sempat terkirim.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"queue_id\": 150\n}",
+              "raw": "{\n  \"device\": \"628123456789\"\n}",
               "options": {
                 "raw": {
                   "language": "json"

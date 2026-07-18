@@ -257,13 +257,13 @@
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                     <tr><td><code>target_api_key</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>API Key target.</td></tr>
-                    <tr><td><code>paket</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Paket baru (Free, Lite, Pro, Premium).</td></tr>
+                    <tr><td><code>nama_paket</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Paket baru (Free, Lite, Pro, Premium).</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
   "target_api_key": "KEY-XXXXYYYYZZZZ",
-  "paket": "Premium"
+  "nama_paket": "Premium"
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">
@@ -437,12 +437,12 @@
             <div class="table-wrapper">
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>nomor_hp</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor HP WA Anda beserta kode negara tanpa '+' (contoh: 628xxx).</td></tr>
+                    <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor HP WA Anda beserta kode negara tanpa '+' (contoh: 628xxx).</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
-  "nomor_hp": "628123456789"
+  "nomor_device": "628123456789"
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">
@@ -507,7 +507,7 @@
             <div class="table-wrapper">
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device Anda.</td></tr>
+                    <tr><td><code>sender_id</code></td><td>String (Header)</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device Anda di HTTP Header.</td></tr>
                     <tr><td><code>is_autoread</code></td><td>Boolean</td><td><span class="req-opt wajib">wajib</span></td><td>Aktifkan atau matikan fitur membaca/centang biru otomatis (true/false).</td></tr>
                 </table>
             </div>
@@ -548,13 +548,9 @@
             <div class="table-wrapper">
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device yang akan dilogout.</td></tr>
+                    <tr><td><code>sender_id</code></td><td>String (Header)</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device yang akan dilogout di HTTP Header.</td></tr>
                 </table>
             </div>
-            <h4>Contoh Request Body (JSON)</h4>
-            <pre>{
-  "nomor_device": "628123456789"
-}</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">
                 <div>
@@ -741,7 +737,7 @@
             <div class="table-wrapper">
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device/bot yang akan merespon.</td></tr>
+                    <tr><td><code>sender_id</code></td><td>String (Header)</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device/bot yang akan merespon diletakkan di HTTP Header.</td></tr>
                     <tr><td><code>keyword</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Kata pemicu.</td></tr>
                     <tr><td><code>response</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Balasan yang akan dikirim bot.</td></tr>
                     <tr><td><code>match_type</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>exact (sama persis) / contains (mengandung). Default: exact.</td></tr>
@@ -751,7 +747,6 @@
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
-  "nomor_device": "628123456789",
   "keyword": "harga",
   "response": "Berikut adalah daftar harga kami:",
   "match_type": "exact",
@@ -1201,7 +1196,7 @@
         <div class="endpoint-header">
             <span class="method post">POST</span>
             <span class="path">/queue/cancel</span>
-            <span class="summary">Membatalkan pesan spesifik di antrean yang belum sempat terkirim.</span>
+            <span class="summary">Membatalkan seluruh pesan di antrean yang belum sempat terkirim.</span>
         </div>
         <div class="endpoint-body">
             <span class="badge user">Requires x-api-key</span>
@@ -1210,12 +1205,12 @@
             <div class="table-wrapper">
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>queue_id</code></td><td>Integer</td><td><span class="req-opt wajib">wajib</span></td><td>ID antrean (didapat dari respon saat kirim-pesan).</td></tr>
+                    <tr><td><code>device</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>Nomor pengirim jika ingin membatalkan antrean pada device tertentu.</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
-  "queue_id": 150
+  "device": "628123456789"
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">

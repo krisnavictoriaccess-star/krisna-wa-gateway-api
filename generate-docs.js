@@ -84,11 +84,11 @@ const endpoints = [
         badge: "master",
         params: [
             { field: "target_api_key", type: "String", status: "wajib", desc: "API Key target." },
-            { field: "paket", type: "String", status: "wajib", desc: "Paket baru (Free, Lite, Pro, Premium)." }
+            { field: "nama_paket", type: "String", status: "wajib", desc: "Paket baru (Free, Lite, Pro, Premium)." }
         ],
         reqBody: `{
   "target_api_key": "KEY-XXXXYYYYZZZZ",
-  "paket": "Premium"
+  "nama_paket": "Premium"
 }`,
         resSuccess: `{
   "status": true,
@@ -184,10 +184,10 @@ const endpoints = [
         summary: "Menyambungkan nomor WhatsApp ke server untuk mendapatkan Pairing Code.",
         badge: "user",
         params: [
-            { field: "nomor_hp", type: "String", status: "wajib", desc: "Nomor HP WA Anda beserta kode negara tanpa '+' (contoh: 628xxx)." }
+            { field: "nomor_device", type: "String", status: "wajib", desc: "Nomor HP WA Anda beserta kode negara tanpa '+' (contoh: 628xxx)." }
         ],
         reqBody: `{
-  "nomor_hp": "628123456789"
+  "nomor_device": "628123456789"
 }`,
         resSuccess: `{
   "status": true,
@@ -219,7 +219,7 @@ const endpoints = [
         summary: "Mengubah pengaturan otomatisasi pada perangkat spesifik.",
         badge: "user",
         params: [
-            { field: "nomor_device", type: "String", status: "wajib", desc: "Nomor device Anda." },
+            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor device Anda di HTTP Header." },
             { field: "is_autoread", type: "Boolean", status: "wajib", desc: "Aktifkan atau matikan fitur membaca/centang biru otomatis (true/false)." }
         ],
         reqBody: `{
@@ -239,11 +239,9 @@ const endpoints = [
         summary: "Logout dan putuskan sambungan WhatsApp Anda dari server secara paksa.",
         badge: "user",
         params: [
-            { field: "nomor_device", type: "String", status: "wajib", desc: "Nomor device yang akan dilogout." }
+            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor device yang akan dilogout di HTTP Header." }
         ],
-        reqBody: `{
-  "nomor_device": "628123456789"
-}`,
+        reqBody: null,
         resSuccess: `{
   "status": true,
   "message": "Sesi WhatsApp berhasil dihapus dan dilogout."
@@ -342,7 +340,7 @@ const endpoints = [
         summary: "Membuat robot balasan otomatis berdasarkan kata kunci spesifik.",
         badge: "user",
         params: [
-            { field: "nomor_device", type: "String", status: "wajib", desc: "Nomor device/bot yang akan merespon." },
+            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor device/bot yang akan merespon diletakkan di HTTP Header." },
             { field: "keyword", type: "String", status: "wajib", desc: "Kata pemicu." },
             { field: "response", type: "String", status: "wajib", desc: "Balasan yang akan dikirim bot." },
             { field: "match_type", type: "String", status: "opsional", desc: "exact (sama persis) / contains (mengandung). Default: exact." },
@@ -350,7 +348,6 @@ const endpoints = [
             { field: "media_type", type: "String", status: "opsional", desc: "Tipe file media (contoh: image, video, document)." }
         ],
         reqBody: `{
-  "nomor_device": "628123456789",
   "keyword": "harga",
   "response": "Berikut adalah daftar harga kami:",
   "match_type": "exact",
@@ -590,13 +587,13 @@ const endpoints = [
     },
     {
         method: "POST", path: "/queue/cancel",
-        summary: "Membatalkan pesan spesifik di antrean yang belum sempat terkirim.",
+        summary: "Membatalkan seluruh pesan di antrean yang belum sempat terkirim.",
         badge: "user",
         params: [
-            { field: "queue_id", type: "Integer", status: "wajib", desc: "ID antrean (didapat dari respon saat kirim-pesan)." }
+            { field: "device", type: "String", status: "opsional", desc: "Nomor pengirim jika ingin membatalkan antrean pada device tertentu." }
         ],
         reqBody: `{
-  "queue_id": 150
+  "device": "628123456789"
 }`,
         resSuccess: `{
   "status": true,

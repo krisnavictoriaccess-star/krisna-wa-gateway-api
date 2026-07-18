@@ -216,7 +216,7 @@ async function countOwnedDevices(apiKey) {
 async function initWhatsAppSession(sessionId) {
     if (activeSessions[sessionId]) return activeSessions[sessionId];
 
-    const { state, saveCreds } = await usePrismaAuthState(sessionId);
+    const { state, saveCreds } = await usePrismaAuthState(sessionId, prisma);
     
     const sock = makeWASocket({
         auth: state,

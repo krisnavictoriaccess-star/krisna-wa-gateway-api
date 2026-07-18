@@ -1,24 +1,28 @@
 const { BufferJSON, initAuthCreds } = require('@whiskeysockets/baileys');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
 
-const usePrismaAuthState = async (sessionId) => {
+const usePrismaAuthState = async (sessionId, prisma) => {
     const writeData = async (data, key) => {
         const value = JSON.stringify(data, BufferJSON.replacer);
-        await prisma.authState.upsert({
-            where: {
-                nomor_device_key: {
+        try {
+            await prisma.authState.upsert({
+                where: {
+                    nomor_device_key: {
+                        nomor_device: sessionId,
+                        key: key
+                    }
+                },
+                update: { value },
+                create: {
                     nomor_device: sessionId,
-                    key: key
+                    key: key,
+                    value: value
                 }
-            },
-            update: { value },
-            create: {
-                nomor_device: sessionId,
-                key: key,
-                value: value
+            });
+        } catch (error) {
+            if (error.code !== 'P2002') {
+                console.error('[AUTH STATE ERROR] Write failed:', error.message);
             }
-        });
+        }
     };
 
     const readData = async (key) => {
@@ -64,31 +68,27 @@ const usePrismaAuthState = async (sessionId) => {
             keys: {
                 get: async (type, ids) => {
                     const data = {};
-                    await Promise.all(
-                        ids.map(async (id) => {
-                            let value = await readData(`${type}-${id}`);
-                            if (type === 'app-state-sync-key' && value) {
-                                value = Buffer.from(value.data || value);
-                            }
-                            data[id] = value;
-                        })
-                    );
+                    for (const id of ids) {
+                        let value = await readData(`${type}-${id}`);
+                        if (type === 'app-state-sync-key' && value) {
+                            value = Buffer.from(value.data || value);
+                        }
+                        data[id] = value;
+                    }
                     return data;
                 },
                 set: async (data) => {
-                    const tasks = [];
                     for (const category in data) {
                         for (const id in data[category]) {
                             const value = data[category][id];
                             const key = `${category}-${id}`;
                             if (value) {
-                                tasks.push(writeData(value, key));
+                                await writeData(value, key);
                             } else {
-                                tasks.push(removeData(key));
+                                await removeData(key);
                             }
                         }
                     }
-                    await Promise.all(tasks);
                 }
             }
         },

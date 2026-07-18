@@ -847,11 +847,7 @@ html += `
   socket.on("device_status", (data) => {
     console.log("Nomor:", data.device, "| Status:", data.status);
     
-    if (data.status === "WAITING_QR") {
-       // data.qr berisi string gambar (Data URI Base64) siap pakai
-       // document.getElementById("qr-image").src = data.qr;
-    } 
-    else if (data.status === "WAITING_PAIRING") {
+    if (data.status === "WAITING_PAIRING") {
        console.log("Masukkan kode pairing ini di WhatsApp Anda:", data.code);
     }
     else if (data.status === "CONNECTED") {

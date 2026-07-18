@@ -8,6 +8,7 @@ const pino = require('pino');
 const fs = require('fs');
 process.env.TZ = 'Asia/Jakarta'; // Set global timezone ke WIB (Jakarta)
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const crypto = require('crypto');
 const axios = require('axios');
@@ -57,6 +58,9 @@ app.use(apiLimiter);
 app.use(cors());
 app.use(express.json({ limit: '50mb' })); // Poin 5: 50MB JSON limit
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Rute Statis untuk Dokumentasi
+app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
 // ==========================================
 //        TERMINAL BEAUTIFIER (LOGGER)

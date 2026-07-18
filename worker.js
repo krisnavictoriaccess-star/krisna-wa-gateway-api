@@ -181,6 +181,39 @@ async function processWebhookQueue() {
     setTimeout(processWebhookQueue, 10000);
 }
 
+// --- AUTO CLEANUP WORKER (14 Days) ---
+async function cleanupOldQueues() {
+    try {
+        const fourteenDaysAgo = new Date();
+        fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+
+        // Delete from MessageQueue (sent & failed)
+        const deletedMessages = await prisma.messageQueue.deleteMany({
+            where: {
+                createdAt: { lt: fourteenDaysAgo },
+                status: { in: ['sent', 'failed'] }
+            }
+        });
+
+        // Delete from WebhookQueue (success & failed)
+        const deletedWebhooks = await prisma.webhookQueue.deleteMany({
+            where: {
+                createdAt: { lt: fourteenDaysAgo },
+                status: { in: ['success', 'failed'] }
+            }
+        });
+
+        if (deletedMessages.count > 0 || deletedWebhooks.count > 0) {
+            console.log(`[AUTO CLEANUP] Terhapus: ${deletedMessages.count} pesan, ${deletedWebhooks.count} webhook yang lebih dari 14 hari.`);
+        }
+    } catch (e) {
+        console.error('[AUTO CLEANUP ERROR]', e.message);
+    }
+
+    // Jalankan pengecekan ini setiap 12 jam
+    setTimeout(cleanupOldQueues, 12 * 60 * 60 * 1000);
+}
+
 async function startWorker() {
     await prisma.messageQueue.updateMany({
         where: { status: 'processing' },
@@ -189,6 +222,7 @@ async function startWorker() {
     console.log('[QUEUE WORKER] Worker process started.');
     processQueue();
     processWebhookQueue();
+    cleanupOldQueues(); // Start the cleanup worker
 }
 
 startWorker();

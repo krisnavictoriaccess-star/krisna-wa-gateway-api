@@ -387,12 +387,10 @@ const endpoints = [
         summary: "Menghapus salah satu kata kunci Auto-Reply.",
         badge: "user",
         params: [
-            { field: "nomor_device", type: "String", status: "wajib", desc: "Nomor device." },
-            { field: "keyword", type: "String", status: "wajib", desc: "Kata kunci pemicu yang akan dihapus." }
+            { field: "id", type: "Integer", status: "wajib", desc: "ID Auto-Reply yang akan dihapus." }
         ],
         reqBody: `{
-  "nomor_device": "628123456789",
-  "keyword": "ping"
+  "id": 12
 }`,
         resSuccess: `{
   "status": true,
@@ -414,7 +412,9 @@ const endpoints = [
         badge: "user",
         params: [
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
-            { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan teks." }
+            { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan teks." },
+            { field: "media_url", type: "String", status: "opsional", desc: "Tautan/URL gambar jika ingin mengirim pesan gambar." },
+            { field: "media_type", type: "String", status: "opsional", desc: "Tipe media (saat ini mendukung image, video, document)." }
         ],
         reqBody: `{
   "nomor": "628123456789",
@@ -435,12 +435,10 @@ const endpoints = [
         summary: "Mengirim broadcast ke banyak nomor sekaligus menggunakan sistem antrean anti-banned.",
         badge: "user",
         params: [
-            { field: "delay_ms", type: "Integer", status: "wajib", desc: "Waktu jeda antar pesan dalam milidetik (misal 3000 = 3 detik)." },
-            { field: "data", type: "Array", status: "wajib", desc: "Daftar objek tujuan dan pesannya." }
+            { field: "pesan_list", type: "Array", status: "wajib", desc: "Daftar objek tujuan dan pesannya." }
         ],
         reqBody: `{
-  "delay_ms": 3000,
-  "data": [
+  "pesan_list": [
     { "nomor": "628111", "pesan": "Pesan 1" },
     { "nomor": "628222", "pesan": "Pesan 2" }
   ]
@@ -460,14 +458,14 @@ const endpoints = [
         badge: "user",
         params: [
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan." },
-            { field: "media_url", type: "String", status: "wajib", desc: "Tautan/URL publik file Anda." },
-            { field: "media_type", type: "String", status: "wajib", desc: "Tipe file: image, video, document, atau audio." },
+            { field: "url", type: "String", status: "wajib", desc: "Tautan/URL publik file Anda." },
+            { field: "tipe", type: "String", status: "wajib", desc: "Tipe file: image, video, document." },
             { field: "caption", type: "String", status: "opsional", desc: "Keterangan/teks pendamping gambar/video." }
         ],
         reqBody: `{
   "nomor": "628123456789",
-  "media_url": "https://domain.com/brosur.pdf",
-  "media_type": "document",
+  "url": "https://domain.com/brosur.pdf",
+  "tipe": "document",
   "caption": "Ini brosur bulan ini."
 }`,
         resSuccess: `{
@@ -506,15 +504,15 @@ const endpoints = [
         badge: "user",
         params: [
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan." },
-            { field: "name", type: "String", status: "wajib", desc: "Judul pertanyaan polling." },
-            { field: "values", type: "Array", status: "wajib", desc: "Pilihan jawaban (minimal 2)." },
-            { field: "selectableCount", type: "Integer", status: "opsional", desc: "Jumlah pilihan maksimum yang bisa dipilih user (Default: 1)." }
+            { field: "nama_polling", type: "String", status: "wajib", desc: "Judul pertanyaan polling." },
+            { field: "opsi", type: "Array", status: "wajib", desc: "Pilihan jawaban (minimal 2)." },
+            { field: "multiple_choice", type: "Boolean", status: "opsional", desc: "Apabila true, user bisa memilih lebih dari satu opsi. Default: false." }
         ],
         reqBody: `{
   "nomor": "628123456789",
-  "name": "Berapa umur Anda?",
-  "values": ["18-25", "26-35", "35+"],
-  "selectableCount": 1
+  "nama_polling": "Berapa umur Anda?",
+  "opsi": ["18-25", "26-35", "35+"],
+  "multiple_choice": false
 }`,
         resSuccess: `{
   "status": true,
@@ -554,13 +552,13 @@ const endpoints = [
         badge: "user",
         params: [
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor penerima pesan." },
-            { field: "contact_name", type: "String", status: "wajib", desc: "Nama kontak yang akan dibagikan." },
-            { field: "contact_number", type: "String", status: "wajib", desc: "Nomor telepon kontak yang akan dibagikan." }
+            { field: "nama_kontak", type: "String", status: "wajib", desc: "Nama kontak yang akan dibagikan." },
+            { field: "nomor_kontak", type: "String", status: "wajib", desc: "Nomor telepon kontak yang akan dibagikan." }
         ],
         reqBody: `{
   "nomor": "628123456789",
-  "contact_name": "CS Support",
-  "contact_number": "+628111222333"
+  "nama_kontak": "CS Support",
+  "nomor_kontak": "+628111222333"
 }`,
         resSuccess: `{
   "status": true,

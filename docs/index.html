@@ -826,14 +826,12 @@
             <div class="table-wrapper">
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device.</td></tr>
-                    <tr><td><code>keyword</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Kata kunci pemicu yang akan dihapus.</td></tr>
+                    <tr><td><code>id</code></td><td>Integer</td><td><span class="req-opt wajib">wajib</span></td><td>ID Auto-Reply yang akan dihapus.</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
-  "nomor_device": "628123456789",
-  "keyword": "ping"
+  "id": 12
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">
@@ -873,6 +871,8 @@
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                     <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor tujuan (628xxx).</td></tr>
                     <tr><td><code>pesan</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Isi pesan teks.</td></tr>
+                    <tr><td><code>media_url</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>Tautan/URL gambar jika ingin mengirim pesan gambar.</td></tr>
+                    <tr><td><code>media_type</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>Tipe media (saat ini mendukung image, video, document).</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
@@ -914,14 +914,12 @@
             <div class="table-wrapper">
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>delay_ms</code></td><td>Integer</td><td><span class="req-opt wajib">wajib</span></td><td>Waktu jeda antar pesan dalam milidetik (misal 3000 = 3 detik).</td></tr>
-                    <tr><td><code>data</code></td><td>Array</td><td><span class="req-opt wajib">wajib</span></td><td>Daftar objek tujuan dan pesannya.</td></tr>
+                    <tr><td><code>pesan_list</code></td><td>Array</td><td><span class="req-opt wajib">wajib</span></td><td>Daftar objek tujuan dan pesannya.</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
-  "delay_ms": 3000,
-  "data": [
+  "pesan_list": [
     { "nomor": "628111", "pesan": "Pesan 1" },
     { "nomor": "628222", "pesan": "Pesan 2" }
   ]
@@ -960,16 +958,16 @@
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                     <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor tujuan.</td></tr>
-                    <tr><td><code>media_url</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Tautan/URL publik file Anda.</td></tr>
-                    <tr><td><code>media_type</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Tipe file: image, video, document, atau audio.</td></tr>
+                    <tr><td><code>url</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Tautan/URL publik file Anda.</td></tr>
+                    <tr><td><code>tipe</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Tipe file: image, video, document.</td></tr>
                     <tr><td><code>caption</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>Keterangan/teks pendamping gambar/video.</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
   "nomor": "628123456789",
-  "media_url": "https://domain.com/brosur.pdf",
-  "media_type": "document",
+  "url": "https://domain.com/brosur.pdf",
+  "tipe": "document",
   "caption": "Ini brosur bulan ini."
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
@@ -1048,17 +1046,17 @@
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                     <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor tujuan.</td></tr>
-                    <tr><td><code>name</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Judul pertanyaan polling.</td></tr>
-                    <tr><td><code>values</code></td><td>Array</td><td><span class="req-opt wajib">wajib</span></td><td>Pilihan jawaban (minimal 2).</td></tr>
-                    <tr><td><code>selectableCount</code></td><td>Integer</td><td><span class="req-opt opsional">opsional</span></td><td>Jumlah pilihan maksimum yang bisa dipilih user (Default: 1).</td></tr>
+                    <tr><td><code>nama_polling</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Judul pertanyaan polling.</td></tr>
+                    <tr><td><code>opsi</code></td><td>Array</td><td><span class="req-opt wajib">wajib</span></td><td>Pilihan jawaban (minimal 2).</td></tr>
+                    <tr><td><code>multiple_choice</code></td><td>Boolean</td><td><span class="req-opt opsional">opsional</span></td><td>Apabila true, user bisa memilih lebih dari satu opsi. Default: false.</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
   "nomor": "628123456789",
-  "name": "Berapa umur Anda?",
-  "values": ["18-25", "26-35", "35+"],
-  "selectableCount": 1
+  "nama_polling": "Berapa umur Anda?",
+  "opsi": ["18-25", "26-35", "35+"],
+  "multiple_choice": false
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">
@@ -1138,15 +1136,15 @@
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                     <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor penerima pesan.</td></tr>
-                    <tr><td><code>contact_name</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nama kontak yang akan dibagikan.</td></tr>
-                    <tr><td><code>contact_number</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor telepon kontak yang akan dibagikan.</td></tr>
+                    <tr><td><code>nama_kontak</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nama kontak yang akan dibagikan.</td></tr>
+                    <tr><td><code>nomor_kontak</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor telepon kontak yang akan dibagikan.</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
   "nomor": "628123456789",
-  "contact_name": "CS Support",
-  "contact_number": "+628111222333"
+  "nama_kontak": "CS Support",
+  "nomor_kontak": "+628111222333"
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">

@@ -685,7 +685,7 @@ ${mobileNavHtml}
     <section id="top" class="mb-16 scroll-mt-24 md:scroll-mt-8">
       <div class="bg-blue-900/10 border border-blue-800/40 rounded-2xl p-5 md:p-8 mb-8 shadow-xl shadow-black/20">
          <h3 class="text-blue-400 font-bold mb-4 flex items-center gap-2 text-lg">🌍 Base URL</h3>
-         <code class="block overflow-x-auto bg-black/60 p-4 md:p-5 rounded-xl text-amber-400 font-mono text-sm md:text-lg border border-slate-800 shadow-inner">https://api.krisnamarket.my.id</code>
+         <code class="block overflow-x-auto whitespace-nowrap bg-black/60 p-4 md:p-5 rounded-xl text-amber-400 font-mono text-sm md:text-lg border border-slate-800 shadow-inner">https://api.krisnamarket.my.id</code>
       </div>
       
       <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 md:p-8 shadow-xl shadow-black/20">
@@ -797,16 +797,16 @@ endpoints.forEach(ep => {
 
     // Responses
     html += `
-         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Response</h5>
-         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div>
-               <div class="text-emerald-400 font-bold mb-2 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex-1">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="overflow-x-auto bg-emerald-950/20 p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
                  <pre class="font-mono text-sm text-emerald-200/90">${ep.resSuccess}</pre>
                </div>
             </div>
-            <div>
-               <div class="text-rose-400 font-bold mb-2 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+            <div class="flex-1">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="overflow-x-auto bg-rose-950/20 p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre class="font-mono text-sm text-rose-200/90">${ep.resError}</pre>
                </div>

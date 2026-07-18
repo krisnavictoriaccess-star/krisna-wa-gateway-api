@@ -50,6 +50,13 @@ const swagger = {
         responses: { "200": { description: "Sukses" } }
       }
     },
+    "/api-key/delete": {
+      post: {
+        tags: ["Admin (Master Key)"], summary: "Delete API Key", security: [{ MasterKeyAuth: [] }],
+        requestBody: { content: { "application/json": { schema: { type: "object", required: ["target_api_key"], properties: { target_api_key: { type: "string" } } } } } },
+        responses: { "200": { description: "Terhapus Total" } }
+      }
+    },
     "/device/all": {
       get: { tags: ["Admin (Master Key)"], summary: "Daftar Semua Devices di Server", security: [{ MasterKeyAuth: [] }], responses: { "200": { description: "Sukses" } } }
     },

@@ -666,6 +666,42 @@ app.post('/api-key/upgrade', validateMasterKey, async (req, res) => {
     } catch (error) { console.error('[API ERROR]', error.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
 });
 
+app.post('/api-key/delete', validateMasterKey, async (req, res) => {
+    try {
+        const { target_api_key } = req.body;
+        if (!target_api_key) return res.status(400).json({ status: false, message: 'Parameter target_api_key dibutuhkan.' });
+
+        const hashedTargetKey = crypto.createHash('sha256').update(target_api_key).digest('hex');
+        
+        // 1. Cek apakah key ada dan ambil perangkatnya
+        const keyData = await prisma.apiKey.findUnique({ where: { key: hashedTargetKey }, include: { devices: true } });
+        if (!keyData) return res.status(404).json({ status: false, message: 'API Key tidak ditemukan.' });
+
+        // 2. Pembersihan Memori (Tendang perangkat dari sesi aktif)
+        for (const device of keyData.devices) {
+            const sock = activeSessions[device.nomor_device];
+            if (sock) {
+                try {
+                    await sock.logout();
+                    sock.ws?.close();
+                    delete activeSessions[device.nomor_device];
+                    console.log(`[SESSION KILLED] Perangkat ${device.nomor_device} ditendang karena API Key dihapus.`);
+                } catch(e) {
+                    console.error('[SESSION ERROR]', e.message);
+                }
+            }
+        }
+
+        // 3. Pembersihan Database (Cascade delete)
+        await prisma.apiKey.delete({ where: { key: hashedTargetKey } });
+
+        return res.status(200).json({ status: true, message: 'API Key beserta semua sesi, perangkat, pesan, dan antrean telah dimusnahkan secara permanen.' });
+    } catch (error) { 
+        console.error('[API ERROR]', error.message); 
+        return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); 
+    }
+});
+
 app.post('/webhook/set', validateApiKey, async (req, res) => {
     try {
         const { webhook_url } = req.body;

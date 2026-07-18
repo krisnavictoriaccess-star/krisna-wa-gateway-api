@@ -67,13 +67,13 @@
 
         h4 { margin: 25px 0 10px; color: #cbd5e1; font-size: 1.1rem; border-left: 3px solid var(--accent); padding-left: 10px; }
         
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden; }
+        .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 20px; background: rgba(0,0,0,0.1); border-radius: 6px; }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
         th, td { text-align: left; padding: 12px 15px; border-bottom: 1px solid var(--border); }
         th { background-color: rgba(255,255,255,0.03); color: #e2e8f0; font-weight: 600; }
         td { color: var(--text-muted); }
         
         .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 768px) { .code-grid { grid-template-columns: 1fr; } }
         
         pre { background-color: var(--bg-code); padding: 15px; border-radius: 6px; overflow-x: auto; font-family: 'Courier New', Courier, monospace; color: #a5b4fc; border: 1px solid var(--border); font-size: 0.9rem; line-height: 1.5; margin-bottom: 10px; }
         .pre-success { border-color: rgba(16, 185, 129, 0.5); }
@@ -82,6 +82,18 @@
         .response-label { font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; display: block; color: var(--text-muted); }
         .text-success { color: #34d399; }
         .text-error { color: #f87171; }
+
+        @media (max-width: 768px) { 
+            .container { padding: 20px 10px; }
+            h1 { font-size: 1.8rem; }
+            .base-url-box code { font-size: 1.1rem; word-break: break-all; }
+            .code-grid { grid-template-columns: 1fr; } 
+            .endpoint-header { flex-direction: column; align-items: flex-start; }
+            .method { margin-bottom: 8px; }
+            .path { font-size: 1rem; word-break: break-all; }
+            .summary { margin-top: 6px; font-size: 0.85rem; }
+            .endpoint-body { padding: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -101,7 +113,7 @@
     <div class="auth-box">
         <h3>🔐 Autentikasi (Headers)</h3>
         <p>Sistem ini menggunakan autentikasi berbasis Header. Anda wajib menyertakan header berikut pada setiap request sesuai dengan tingkat akses endpoint.</p>
-        <table>
+        <div class="table-wrapper"><table>
             <tr>
                 <th>Nama Header</th>
                 <th>Tipe</th>
@@ -132,7 +144,7 @@
                 <td><span class="req-opt opsional">Opsional</span></td>
                 <td>Khusus endpoint pengiriman pesan. Jika diisi nomor (ex: 62812xxx), pesan akan dikirim dari nomor tersebut. Jika kosong, sistem menggunakan <b>Rotator Otomatis</b>.</td>
             </tr>
-        </table>
+        </table></div>
     </div>
 
     <!-- ADMIN SECTION -->
@@ -186,12 +198,12 @@
             <span class="badge master">Requires x-master-key</span>
             
             <h4>Body Parameters (JSON)</h4>
-            <table>
+            <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                 <tr><td><code>paket</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Pilihan: <code>Free</code>, <code>Lite</code>, <code>Pro</code>, <code>Premium</code>. Default: Free.</td></tr>
                 <tr><td><code>label</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Nama/label klien. Default: User.</td></tr>
                 <tr><td><code>expiry_days</code></td><td>Integer</td><td><span class="req-opt opsional">Opsional</span></td><td>Masa aktif kustom dalam hari (ex: 365). Jika kosong, mengikuti bawaan paket.</td></tr>
-            </table>
+            </table></div>
 
             <h4>Contoh Request Body</h4>
             <pre>{
@@ -234,11 +246,11 @@
             <span class="badge user">Requires x-api-key</span>
             
             <h4>Body Parameters (JSON)</h4>
-            <table>
+            <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                 <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor tujuan (Contoh: 628123456789). Boleh pakai awalan 0 atau 62.</td></tr>
                 <tr><td><code>pesan</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Isi teks pesan WhatsApp.</td></tr>
-            </table>
+            </table></div>
 
             <h4>Contoh Request Body</h4>
             <pre>{
@@ -283,13 +295,13 @@
             <span class="badge user">Requires x-api-key</span>
             
             <h4>Body Parameters (JSON)</h4>
-            <table>
+            <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                 <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor tujuan (Contoh: 628123456789).</td></tr>
                 <tr><td><code>media_url</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>URL Publik dari media (Bukan path lokal).</td></tr>
                 <tr><td><code>media_type</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Pilihan: <code>image</code>, <code>video</code>, <code>document</code>, atau <code>audio</code>.</td></tr>
                 <tr><td><code>caption</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Teks keterangan di bawah gambar/video.</td></tr>
-            </table>
+            </table></div>
 
             <h4>Contoh Request Body</h4>
             <pre>{
@@ -314,10 +326,10 @@
             <span class="badge user">Requires x-api-key</span>
             
             <h4>Body Parameters (JSON)</h4>
-            <table>
+            <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                 <tr><td><code>nomor_hp</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor HP WhatsApp yang akan dijadikan pengirim (Server).</td></tr>
-            </table>
+            </table></div>
 
             <h4>Contoh Request Body</h4>
             <pre>{
@@ -355,10 +367,10 @@
             <span class="badge user">Requires x-api-key</span>
             
             <h4>Body Parameters (JSON)</h4>
-            <table>
+            <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                 <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor HP device yang ingin dihapus sesinya.</td></tr>
-            </table>
+            </table></div>
 
             <div class="code-grid">
                 <div>
@@ -385,10 +397,10 @@
             <span class="badge user">Requires x-api-key</span>
             
             <h4>Body Parameters (JSON)</h4>
-            <table>
+            <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                 <tr><td><code>webhook_url</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>URL server Anda yang akan menerima POST Request dari API Gateway.</td></tr>
-            </table>
+            </table></div>
 
             <h4>Contoh Request Body</h4>
             <pre>{
@@ -407,13 +419,13 @@
             <span class="badge user">Requires x-api-key</span>
             
             <h4>Body Parameters (JSON)</h4>
-            <table>
+            <div class="table-wrapper"><table>
                 <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                 <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor device yang akan membalas otomatis.</td></tr>
                 <tr><td><code>keyword</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Kata kunci pemicu.</td></tr>
                 <tr><td><code>response</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Teks balasan.</td></tr>
                 <tr><td><code>match_type</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Pilihan: <code>exact</code> (sama persis) atau <code>contains</code> (mengandung kata). Default: exact.</td></tr>
-            </table>
+            </table></div>
 
             <h4>Contoh Request Body</h4>
             <pre>{

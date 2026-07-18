@@ -23,7 +23,6 @@ const usePrismaAuthState = async (sessionId, prisma) => {
                     console.error('[AUTH STATE ERROR] Write failed:', error.message);
                 }
             }
-        }
     };
 
     const readData = async (key) => {

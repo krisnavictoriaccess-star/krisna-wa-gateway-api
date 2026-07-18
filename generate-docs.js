@@ -829,9 +829,37 @@ html += `
     <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10">
       <div class="p-5 md:p-8">
         <p class="text-slate-400 mb-4">API ini menyediakan WebSocket untuk memantau status sesi perangkat (Koneksi WA) secara *real-time*.</p>
-        <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 shadow-inner mb-6">
-           <pre class="font-mono text-sm text-blue-300">ws://api.krisnamarket.my.id</pre>
-        </div>
+          <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 shadow-inner mb-6">
+             <div class="flex items-center gap-2 mb-3">
+                 <span class="bg-blue-600/30 text-blue-400 px-2 py-1 rounded text-xs font-bold tracking-wider">SOCKET.IO</span>
+                 <code class="text-sm text-slate-300">https://api.krisnamarket.my.id</code>
+             </div>
+             <p class="text-xs text-slate-400 mb-3 border-t border-slate-700/50 pt-3">Contoh Implementasi Klien (HTML/JavaScript):</p>
+             <pre class="font-mono text-xs text-slate-300 overflow-x-auto"><code>&lt;!-- Load library Socket.IO Client --&gt;
+&lt;script src="https://cdn.socket.io/4.7.5/socket.io.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // Inisialisasi koneksi Socket.IO
+  const socket = io("https://api.krisnamarket.my.id", {
+    transports: ["websocket", "polling"]
+  });
+
+  // Mendengarkan event 'device_status'
+  socket.on("device_status", (data) => {
+    console.log("Nomor:", data.device, "| Status:", data.status);
+    
+    if (data.status === "WAITING_QR") {
+       // data.qr berisi string gambar (Data URI Base64) siap pakai
+       // document.getElementById("qr-image").src = data.qr;
+    } 
+    else if (data.status === "WAITING_PAIRING") {
+       console.log("Masukkan kode pairing ini di WhatsApp Anda:", data.code);
+    }
+    else if (data.status === "CONNECTED") {
+       console.log("WhatsApp berhasil terhubung dan siap digunakan!");
+    }
+  });
+&lt;/script&gt;</code></pre>
+          </div>
         
         <h5 class="text-slate-300 font-bold mb-3 uppercase tracking-wider text-sm">Event: device_status</h5>
         <p class="text-slate-400 text-sm mb-4">Klien dapat mendengarkan (*listen*) event <code>device_status</code>. Berikut adalah contoh payload (*response*) yang akan diterima sesuai dengan kondisi perangkat Anda:</p>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gateway API Enterprise - Dokumentasi Lengkap</title>
+    <title>Krisna WA Gateway - Dokumentasi API</title>
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -23,38 +23,46 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; font-size: 15px; display: flex; flex-direction: row; height: 100vh; overflow: hidden; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; font-size: 15px; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         
-        /* Layout */
-        .sidebar { width: 260px; min-width: 260px; background-color: #0b1120; border-right: 1px solid var(--border); overflow-y: auto; height: 100vh; padding: 20px 0; transition: transform 0.3s ease; }
-        .main-content { flex-grow: 1; height: 100vh; overflow-y: auto; padding: 40px 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
+        /* Top Header */
+        .top-header { height: 60px; background-color: #0b1120; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; font-weight: bold; font-size: 1.3rem; color: #60a5fa; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 60; position: relative; }
+        
+        /* Layout Wrapper */
+        .main-wrapper { display: flex; flex-direction: row; height: calc(100vh - 60px); overflow: hidden; position: relative; }
 
         /* Sidebar Styling */
-        .sidebar-brand { font-size: 1.2rem; font-weight: bold; padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 15px; color: #60a5fa; }
-        .sidebar-title { font-size: 0.85rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin: 20px 20px 5px; font-weight: bold; }
-        .sidebar a { display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none; font-size: 0.95rem; border-left: 3px solid transparent; transition: all 0.2s; }
-        .sidebar a:hover { background-color: rgba(255,255,255,0.05); color: #fff; border-left-color: var(--accent); }
+        .sidebar { width: 270px; min-width: 270px; background-color: #0f172a; border-right: 1px solid var(--border); overflow-y: auto; height: 100%; padding: 10px 0 30px; transition: transform 0.3s ease; }
+        .sidebar-title { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 20px 10px; font-weight: bold; }
+        .sidebar a { display: block; padding: 10px 20px; color: #cbd5e1; text-decoration: none; font-size: 0.95rem; border-left: 3px solid transparent; transition: all 0.2s; cursor: pointer; }
+        .sidebar a:hover, .sidebar a.active-link { background-color: rgba(255,255,255,0.05); color: #fff; border-left-color: var(--accent); }
         .sidebar a .badge-menu { float: right; font-size: 0.7rem; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; }
         .badge-menu.get { color: var(--get); }
         .badge-menu.post { color: var(--post); }
+        .badge-menu.delete { color: var(--delete); }
 
         /* Main Content */
-        header { text-align: center; margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid var(--border); }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .main-content { flex-grow: 1; height: 100%; overflow-y: auto; padding: 40px 20px; background-color: #0b1120; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* SPA Sections */
+        .doc-section { display: none; animation: fadeIn 0.4s ease-out; }
+        .doc-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Typography & Elements */
+        header { text-align: left; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         header p { color: var(--text-muted); font-size: 1.1rem; }
 
-        .base-url-box { background-color: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); padding: 20px; border-radius: 8px; margin-bottom: 40px; text-align: center; }
-        .base-url-box h3 { color: #60a5fa; margin-bottom: 10px; }
-        .base-url-box code { font-size: 1.1rem; color: #fbbf24; background: var(--bg-code); padding: 12px 16px; border-radius: 6px; letter-spacing: 1px; overflow-x: auto; white-space: nowrap; display: block; text-align: left; }
+        .base-url-box { background-color: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); padding: 25px; border-radius: 8px; margin-bottom: 40px; }
+        .base-url-box h3 { color: #60a5fa; margin-bottom: 10px; font-size: 1.3rem; }
+        .base-url-box code { font-size: 1.2rem; color: #fbbf24; background: var(--bg-code); padding: 12px 16px; border-radius: 6px; letter-spacing: 1px; overflow-x: auto; white-space: nowrap; display: block; text-align: left; border: 1px solid var(--border); }
 
-        .auth-box { background-color: var(--bg-card); padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin-bottom: 40px; }
-        .auth-box h3 { color: var(--text-main); margin-bottom: 15px; }
+        .auth-box { background-color: var(--bg-card); padding: 25px; border-radius: 8px; border-left: 4px solid var(--accent); margin-bottom: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .auth-box h3 { color: var(--text-main); margin-bottom: 15px; font-size: 1.3rem; }
         
-        .section-title { font-size: 1.8rem; margin: 60px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); color: #cbd5e1; scroll-margin-top: 20px; }
-
-        .endpoint { background-color: var(--bg-card); border-radius: 8px; margin-bottom: 30px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); scroll-margin-top: 20px; }
-        
+        .endpoint { background-color: var(--bg-card); border-radius: 8px; margin-bottom: 30px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .endpoint-header { display: flex; align-items: center; padding: 15px 20px; background-color: rgba(0,0,0,0.3); }
         .method { padding: 5px 12px; border-radius: 4px; font-weight: bold; font-size: 0.95rem; margin-right: 15px; letter-spacing: 0.5px; }
         .method.get { background-color: rgba(16, 185, 129, 0.2); color: var(--get); border: 1px solid var(--get); }
@@ -66,7 +74,7 @@
 
         .endpoint-body { padding: 25px; border-top: 1px solid var(--border); }
         
-        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
         .badge.master { background-color: rgba(124, 58, 237, 0.2); color: #c4b5fd; border: 1px solid #7c3aed; }
         .badge.user { background-color: rgba(37, 99, 235, 0.2); color: #93c5fd; border: 1px solid #2563eb; }
 
@@ -95,15 +103,15 @@
         .text-error { color: #f87171; }
 
         /* Mobile Controls */
-        .hamburger { display: none; position: fixed; top: 15px; left: 15px; z-index: 100; background: var(--accent); border: none; color: white; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; }
+        .hamburger { display: none; background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-right: 15px; padding: 5px; }
         .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 40; backdrop-filter: blur(2px); }
 
         @media (max-width: 768px) { 
             .hamburger { display: block; }
-            .sidebar { position: fixed; z-index: 50; transform: translateX(-100%); }
+            .sidebar { position: fixed; z-index: 50; transform: translateX(-100%); top: 60px; height: calc(100vh - 60px); }
             .sidebar.open { transform: translateX(0); }
-            .overlay.active { display: block; }
-            .main-content { padding-top: 60px; padding-left: 15px; padding-right: 15px; }
+            .overlay.active { display: block; top: 60px; }
+            .main-content { padding: 25px 15px; }
             
             h1 { font-size: 1.8rem; }
             .base-url-box code { font-size: 1rem; }
@@ -118,80 +126,91 @@
 </head>
 <body>
 
-<button class="hamburger" onclick="toggleSidebar()">☰ Menu</button>
-<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<nav class="top-header">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <span>Krisna WA Gateway</span>
+</nav>
 
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-brand">📖 WA Gateway API</div>
-    
-    <div class="sidebar-title">Admin</div>
-    <a href="#admin-api-key-list" onclick="closeSidebar()">List API Key <span class="badge-menu get">GET</span></a>
-    <a href="#admin-api-key-generate" onclick="closeSidebar()">Generate Key <span class="badge-menu post">POST</span></a>
-    <a href="#admin-api-key-extend" onclick="closeSidebar()">Extend Key <span class="badge-menu post">POST</span></a>
-    <a href="#admin-api-key-delete" onclick="closeSidebar()">Delete Key <span class="badge-menu post">POST</span></a>
-    
-    <div class="sidebar-title">Messaging</div>
-    <a href="#msg-kirim-pesan" onclick="closeSidebar()">Kirim Pesan <span class="badge-menu post">POST</span></a>
-    <a href="#msg-kirim-massal" onclick="closeSidebar()">Kirim Massal <span class="badge-menu post">POST</span></a>
-    <a href="#msg-kirim-media" onclick="closeSidebar()">Kirim Media <span class="badge-menu post">POST</span></a>
-    <a href="#msg-kirim-polling" onclick="closeSidebar()">Kirim Polling <span class="badge-menu post">POST</span></a>
-    <a href="#msg-kirim-grup" onclick="closeSidebar()">Kirim Grup <span class="badge-menu post">POST</span></a>
-    
-    <div class="sidebar-title">Device</div>
-    <a href="#dev-add" onclick="closeSidebar()">Add Device <span class="badge-menu post">POST</span></a>
-    <a href="#dev-delete" onclick="closeSidebar()">Delete Device <span class="badge-menu post">POST</span></a>
-    
-    <div class="sidebar-title">Webhooks & Chatbot</div>
-    <a href="#bot-webhook-set" onclick="closeSidebar()">Set Webhook <span class="badge-menu post">POST</span></a>
-    <a href="#bot-autoreply-add" onclick="closeSidebar()">Add Auto-Reply <span class="badge-menu post">POST</span></a>
-    
-    <div class="sidebar-title">Data</div>
-    <a href="#data-api-key-info" onclick="closeSidebar()">API Key Info <span class="badge-menu get">GET</span></a>
-</div>
+<div class="main-wrapper">
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<div class="main-content">
-    <div class="container">
-        <header>
-            <h1>WhatsApp Gateway Enterprise</h1>
-            <p>Dokumentasi Teknis API Lengkap (Base URL, Parameter, dan Respon)</p>
-        </header>
+    <div class="sidebar" id="sidebar">
+        <a class="nav-link active-link" onclick="showSection('home-section', this)">🏠 Beranda (Mulai Disini)</a>
 
-        <div class="base-url-box">
-            <h3>🌍 Base URL (Akar URL)</h3>
-            <p style="color: var(--text-muted); margin-bottom: 15px;">Semua endpoint di bawah ini harus dipanggil dengan awalan URL berikut:</p>
-            <code>https://api.krisnamarket.my.id</code>
-        </div>
+        <div class="sidebar-title">Admin (Master)</div>
+        <a class="nav-link" onclick="showSection('admin-api-key-list', this)">List API Key <span class="badge-menu get">GET</span></a>
+        <a class="nav-link" onclick="showSection('admin-api-key-generate', this)">Generate Key <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('admin-api-key-extend', this)">Extend Key <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('admin-api-key-delete', this)">Delete Key <span class="badge-menu delete">POST</span></a>
+        
+        <div class="sidebar-title">Messaging</div>
+        <a class="nav-link" onclick="showSection('msg-kirim-pesan', this)">Kirim Pesan <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('msg-kirim-massal', this)">Kirim Massal <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('msg-kirim-media', this)">Kirim Media <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('msg-kirim-polling', this)">Kirim Polling <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('msg-kirim-grup', this)">Kirim Grup <span class="badge-menu post">POST</span></a>
+        
+        <div class="sidebar-title">Device</div>
+        <a class="nav-link" onclick="showSection('dev-add', this)">Add Device <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('dev-delete', this)">Delete Device <span class="badge-menu post">POST</span></a>
+        
+        <div class="sidebar-title">Webhooks & Chatbot</div>
+        <a class="nav-link" onclick="showSection('bot-webhook-set', this)">Set Webhook <span class="badge-menu post">POST</span></a>
+        <a class="nav-link" onclick="showSection('bot-autoreply-add', this)">Add Auto-Reply <span class="badge-menu post">POST</span></a>
+        
+        <div class="sidebar-title">Data</div>
+        <a class="nav-link" onclick="showSection('data-api-key-info', this)">API Key Info <span class="badge-menu get">GET</span></a>
+    </div>
 
-        <div class="auth-box">
-            <h3>🔐 Autentikasi (Headers)</h3>
-            <p>Sistem ini menggunakan autentikasi berbasis Header. Anda wajib menyertakan header berikut pada setiap request.</p>
-            <div class="table-wrapper">
-                <table>
-                    <tr><th>Nama Header</th><th>Tipe</th><th>Status</th><th>Deskripsi</th></tr>
-                    <tr><td><code>x-master-key</code></td><td>String</td><td><span class="req-opt wajib">Wajib (Admin)</span></td><td>Kunci rahasia master dari VPS.</td></tr>
-                    <tr><td><code>x-api-key</code></td><td>String</td><td><span class="req-opt wajib">Wajib (Klien)</span></td><td>Token API unik milik klien.</td></tr>
-                    <tr><td><code>Content-Type</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Selalu bernilai <code>application/json</code> (POST).</td></tr>
-                    <tr><td><code>sender_id</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Digunakan pada Messaging untuk menentukan pengirim spesifik.</td></tr>
-                </table>
-            </div>
-        </div>
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            
+            <!-- HOME SECTION -->
+            <section id="home-section" class="doc-section active">
+                <header>
+                    <h1>Selamat Datang di API Gateway</h1>
+                    <p>Dokumentasi resmi untuk integrasi sistem Anda dengan Enterprise WhatsApp Gateway.</p>
+                </header>
 
-        <!-- ADMIN SECTION -->
-        <h2 class="section-title">👑 Admin (Master Key)</h2>
+                <div class="base-url-box">
+                    <h3>🌍 Base URL (Akar URL)</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 15px;">Semua endpoint yang ada di menu navigasi harus digabung (disambung) dengan awalan URL berikut:</p>
+                    <code>https://api.krisnamarket.my.id</code>
+                </div>
 
-        <div class="endpoint" id="admin-api-key-list">
-            <div class="endpoint-header">
-                <span class="method get">GET</span>
-                <span class="path">/api-key/list</span>
-                <span class="summary">Melihat semua klien terdaftar</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge master">Requires x-master-key</span>
-                
-                <div class="code-grid">
-                    <div>
-                        <span class="response-label text-success">Contoh Respon Sukses (200 OK)</span>
-                        <pre class="pre-success">{
+                <div class="auth-box">
+                    <h3>🔐 Konfigurasi Autentikasi (Headers)</h3>
+                    <p>Sistem ini menggunakan autentikasi berbasis Header. Anda wajib menyertakan header berikut pada setiap permintaan (request).</p>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr><th>Nama Header</th><th>Tipe</th><th>Status</th><th>Deskripsi</th></tr>
+                            <tr><td><code>x-master-key</code></td><td>String</td><td><span class="req-opt wajib">Wajib (Admin)</span></td><td>Kunci rahasia master dari VPS Anda. Digunakan khusus untuk operasi sensitif.</td></tr>
+                            <tr><td><code>x-api-key</code></td><td>String</td><td><span class="req-opt wajib">Wajib (Klien)</span></td><td>Token API unik milik klien (yang dibuat melalui Generate API Key).</td></tr>
+                            <tr><td><code>Content-Type</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Selalu bernilai <code>application/json</code> untuk semua tipe pengiriman POST.</td></tr>
+                            <tr><td><code>sender_id</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Digunakan pada fitur Messaging untuk memilih nomor pengirim spesifik (Jika Anda memiliki banyak device). Kosongkan jika ingin mode Rotator Otomatis.</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ADMIN API KEY LIST -->
+            <section id="admin-api-key-list" class="doc-section">
+                <header>
+                    <h1>List API Key</h1>
+                    <p>Melihat semua akun klien yang terdaftar di dalam database.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/api-key/list</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge master">Requires x-master-key</span>
+                        
+                        <div class="code-grid">
+                            <div>
+                                <span class="response-label text-success">Contoh Respon Sukses (200 OK)</span>
+                                <pre class="pre-success">{
   "status": true,
   "data": [
     {
@@ -201,309 +220,384 @@
     }
   ]
 }</pre>
-                    </div>
-                    <div>
-                        <span class="response-label text-error">Contoh Respon Error (401 Unauthorized)</span>
-                        <pre class="pre-error">{
+                            </div>
+                            <div>
+                                <span class="response-label text-error">Contoh Respon Error (401 Unauthorized)</span>
+                                <pre class="pre-error">{
   "status": false,
   "message": "Akses ditolak. Master Key salah."
 }</pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <div class="endpoint" id="admin-api-key-generate">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/api-key/generate</span>
-                <span class="summary">Membuat API Key baru untuk klien</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge master">Requires x-master-key</span>
-                
-                <h4>Body Parameters (JSON)</h4>
-                <div class="table-wrapper">
-                    <table>
-                        <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                        <tr><td><code>paket</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Pilihan: <code>Free</code>, <code>Lite</code>, <code>Pro</code>, <code>Premium</code>. Default: Free.</td></tr>
-                        <tr><td><code>label</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Nama/label klien. Default: User.</td></tr>
-                        <tr><td><code>expiry_days</code></td><td>Integer</td><td><span class="req-opt opsional">Opsional</span></td><td>Masa aktif kustom dalam hari (ex: 365).</td></tr>
-                    </table>
-                </div>
+            <!-- ADMIN GENERATE KEY -->
+            <section id="admin-api-key-generate" class="doc-section">
+                <header>
+                    <h1>Generate API Key</h1>
+                    <p>Membuat kredensial klien baru agar mereka bisa menggunakan WhatsApp Gateway Anda.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api-key/generate</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge master">Requires x-master-key</span>
+                        
+                        <h4>Body Parameters (JSON)</h4>
+                        <div class="table-wrapper">
+                            <table>
+                                <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
+                                <tr><td><code>paket</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Pilihan: <code>Free</code>, <code>Lite</code>, <code>Pro</code>, <code>Premium</code>. Default: Free.</td></tr>
+                                <tr><td><code>label</code></td><td>String</td><td><span class="req-opt opsional">Opsional</span></td><td>Nama/label klien. Default: User.</td></tr>
+                                <tr><td><code>expiry_days</code></td><td>Integer</td><td><span class="req-opt opsional">Opsional</span></td><td>Masa aktif kustom dalam hari (ex: 365).</td></tr>
+                            </table>
+                        </div>
 
-                <h4>Contoh Request Body</h4>
-                <pre>{
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "paket": "Premium",
   "label": "Klien VIP A",
   "expiry_days": 30
 }</pre>
 
-                <div class="code-grid">
-                    <div>
-                        <span class="response-label text-success">Respon Sukses (201 Created)</span>
-                        <pre class="pre-success">{
+                        <div class="code-grid">
+                            <div>
+                                <span class="response-label text-success">Respon Sukses (201 Created)</span>
+                                <pre class="pre-success">{
   "status": true,
   "plain_key": "KEY-ABC123DEF456"
 }</pre>
-                    </div>
-                    <div>
-                        <span class="response-label text-error">Respon Error (400 Bad Request)</span>
-                        <pre class="pre-error">{
+                            </div>
+                            <div>
+                                <span class="response-label text-error">Respon Error (400 Bad Request)</span>
+                                <pre class="pre-error">{
   "status": false,
   "message": "Paket tidak valid."
 }</pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <div class="endpoint" id="admin-api-key-extend">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/api-key/extend</span>
-                <span class="summary">Menambah masa aktif klien</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge master">Requires x-master-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- ADMIN EXTEND -->
+            <section id="admin-api-key-extend" class="doc-section">
+                <header>
+                    <h1>Extend API Key</h1>
+                    <p>Menambahkan masa aktif (hari) kepada klien lama Anda.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api-key/extend</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge master">Requires x-master-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "target_api_key": "KEY-XXXXX",
   "tambah_hari": 30
 }</pre>
-            </div>
-        </div>
+                        <div class="code-grid" style="margin-top: 20px;">
+                            <div>
+                                <span class="response-label text-success">Respon Sukses (200 OK)</span>
+                                <pre class="pre-success">{
+  "status": true,
+  "message": "Masa aktif berhasil diperpanjang."
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div class="endpoint" id="admin-api-key-delete">
-            <div class="endpoint-header">
-                <span class="method delete">POST</span>
-                <span class="path">/api-key/delete</span>
-                <span class="summary">Menghapus total API Key klien</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge master">Requires x-master-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- ADMIN DELETE -->
+            <section id="admin-api-key-delete" class="doc-section">
+                <header>
+                    <h1>Delete API Key</h1>
+                    <p>Menghapus klien dari database beserta seluruh koneksi WhatsApp (Sesi) yang tersangkut di sistem.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method delete">POST</span>
+                        <span class="path">/api-key/delete</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge master">Requires x-master-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "target_api_key": "KEY-XXXXX"
 }</pre>
-            </div>
-        </div>
-
-        <!-- MESSAGING SECTION -->
-        <h2 class="section-title">✉️ Messaging (Pengiriman Pesan)</h2>
-
-        <div class="endpoint" id="msg-kirim-pesan">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/kirim-pesan</span>
-                <span class="summary">Kirim Pesan Teks (Mendukung Rotator)</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                
-                <h4>Body Parameters (JSON)</h4>
-                <div class="table-wrapper">
-                    <table>
-                        <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
-                        <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor tujuan (Contoh: 628123456789).</td></tr>
-                        <tr><td><code>pesan</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Isi teks pesan WhatsApp.</td></tr>
-                    </table>
+                    </div>
                 </div>
+            </section>
 
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- MSG KIRIM PESAN -->
+            <section id="msg-kirim-pesan" class="doc-section">
+                <header>
+                    <h1>Kirim Pesan</h1>
+                    <p>Mengirim pesan teks biasa ke WhatsApp target.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/kirim-pesan</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        
+                        <h4>Body Parameters (JSON)</h4>
+                        <div class="table-wrapper">
+                            <table>
+                                <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
+                                <tr><td><code>nomor</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Nomor tujuan (Contoh: 628123456789).</td></tr>
+                                <tr><td><code>pesan</code></td><td>String</td><td><span class="req-opt wajib">Wajib</span></td><td>Isi teks pesan WhatsApp. Format *Tebal*, _Miring_ didukung.</td></tr>
+                            </table>
+                        </div>
+
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "nomor": "628123456789",
   "pesan": "Halo, ini pesan dari *API Gateway*! \n\nBaris baru didukung."
 }</pre>
 
-                <div class="code-grid">
-                    <div>
-                        <span class="response-label text-success">Respon Sukses (200 OK)</span>
-                        <pre class="pre-success">{
+                        <div class="code-grid">
+                            <div>
+                                <span class="response-label text-success">Respon Sukses (200 OK)</span>
+                                <pre class="pre-success">{
   "status": true,
   "message": "Pesan dimasukkan ke antrean pengiriman.",
   "queue_id": 1542
 }</pre>
-                    </div>
-                    <div>
-                        <span class="response-label text-error">Respon Error (402 Payment Required)</span>
-                        <pre class="pre-error">{
+                            </div>
+                            <div>
+                                <span class="response-label text-error">Respon Error (402 Payment Required)</span>
+                                <pre class="pre-error">{
   "status": false,
   "message": "Kuota pesan Anda habis. Silakan upgrade."
 }</pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <div class="endpoint" id="msg-kirim-massal">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/kirim-massal</span>
-                <span class="summary">Kirim Pesan Broadcast (Spintax & Delay)</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- MSG KIRIM MASSAL -->
+            <section id="msg-kirim-massal" class="doc-section">
+                <header>
+                    <h1>Kirim Massal (Broadcast)</h1>
+                    <p>Menembakkan ribuan pesan sekaligus ke berbagai nomor dengan menggunakan Antrean (Queue) agar anti-banned.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/kirim-massal</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "delay_ms": 3000,
   "data": [
     { "nomor": "6281xxx", "pesan": "Halo bos" },
     { "nomor": "6282xxx", "pesan": "Halo gan" }
   ]
 }</pre>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div class="endpoint" id="msg-kirim-media">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/kirim-media</span>
-                <span class="summary">Kirim Gambar / Video / Dokumen</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- MSG MEDIA -->
+            <section id="msg-kirim-media" class="doc-section">
+                <header>
+                    <h1>Kirim Media</h1>
+                    <p>Mengirimkan gambar, dokumen PDF, atau video berdasarkan tautan (URL Publik).</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/kirim-media</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "nomor": "628123456789",
   "media_url": "https://domain.com/gambar.jpg",
   "media_type": "image",
   "caption": "Silakan lihat brosur terlampir."
 }</pre>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div class="endpoint" id="msg-kirim-polling">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/kirim-polling</span>
-                <span class="summary">Kirim Polling (Voting) WhatsApp</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- MSG POLLING -->
+            <section id="msg-kirim-polling" class="doc-section">
+                <header>
+                    <h1>Kirim Polling</h1>
+                    <p>Membuat formulir voting langsung di dalam jendela chat pelanggan Anda.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/kirim-polling</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "nomor": "628123456789",
   "name": "Berapa umur Anda?",
   "values": ["18-25", "26-35"],
   "selectableCount": 1
 }</pre>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div class="endpoint" id="msg-kirim-grup">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/kirim-grup</span>
-                <span class="summary">Kirim Pesan ke Grup WhatsApp</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- MSG GRUP -->
+            <section id="msg-kirim-grup" class="doc-section">
+                <header>
+                    <h1>Kirim ke Grup</h1>
+                    <p>Kirim pesan ke dalam Grup WhatsApp. Anda membutuhkan ID Grup untuk melakukan ini.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/kirim-grup</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "group_id": "123456789@g.us",
   "pesan": "Halo member grup!"
 }</pre>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- DEVICE MANAGEMENT -->
-        <h2 class="section-title">📱 Device Management (Sesi WA)</h2>
-
-        <div class="endpoint" id="dev-add">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/device/add</span>
-                <span class="summary">Membuat sesi WhatsApp baru (Pairing Code)</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- DEV ADD -->
+            <section id="dev-add" class="doc-section">
+                <header>
+                    <h1>Add Device</h1>
+                    <p>Menginisiasi permintaan sesi WhatsApp ke server untuk mendapatkan <b>Pairing Code</b>.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/device/add</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "nomor_hp": "6285551234"
 }</pre>
 
-                <div class="code-grid">
-                    <div>
-                        <span class="response-label text-success">Respon Sukses (201 Created)</span>
-                        <pre class="pre-success">{
+                        <div class="code-grid">
+                            <div>
+                                <span class="response-label text-success">Respon Sukses (201 Created)</span>
+                                <pre class="pre-success">{
   "status": true,
   "message": "Sesi berhasil diinisiasi.",
   "pairing_code": "A1B2-C3D4"
 }</pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <div class="endpoint" id="dev-delete">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/device/delete</span>
-                <span class="summary">Logout dan hapus sesi WhatsApp secara paksa</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- DEV DELETE -->
+            <section id="dev-delete" class="doc-section">
+                <header>
+                    <h1>Delete Device</h1>
+                    <p>Keluar (Log-Out) perangkat dari server dan memutus koneksinya.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/device/delete</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "nomor_device": "6285551234"
 }</pre>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- WEBHOOKS & AUTO REPLY -->
-        <h2 class="section-title">🤖 Webhooks & Chatbot (Auto-Reply)</h2>
-
-        <div class="endpoint" id="bot-webhook-set">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/webhook/set</span>
-                <span class="summary">Mendaftarkan URL Webhook untuk menerima Event</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- BOT SET WEBHOOK -->
+            <section id="bot-webhook-set" class="doc-section">
+                <header>
+                    <h1>Set Webhook</h1>
+                    <p>Hubungkan aplikasi pihak ketiga Anda ke server agar menerima setiap notifikasi pesan WhatsApp yang masuk secara Real-Time.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/webhook/set</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "webhook_url": "https://serveranda.com/api/wa-callback"
 }</pre>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div class="endpoint" id="bot-autoreply-add">
-            <div class="endpoint-header">
-                <span class="method post">POST</span>
-                <span class="path">/auto-reply/add</span>
-                <span class="summary">Menambahkan aturan balasan otomatis (Chatbot)</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                <h4>Contoh Request Body</h4>
-                <pre>{
+            <!-- BOT AUTO REPLY ADD -->
+            <section id="bot-autoreply-add" class="doc-section">
+                <header>
+                    <h1>Add Auto-Reply (Chatbot)</h1>
+                    <p>Buat skenario Chatbot langsung di dalam Gateway (Respon cepat tanpa coding).</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/auto-reply/add</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        <h4>Contoh Request Body</h4>
+                        <pre>{
   "nomor_device": "628123456789",
   "keyword": "harga",
   "response": "Harga paket kami mulai dari Rp 50.000,-",
   "match_type": "contains"
 }</pre>
-            </div>
-        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- DATA & INFO -->
-        <h2 class="section-title">📊 Data & Antrean</h2>
-
-        <div class="endpoint" id="data-api-key-info">
-            <div class="endpoint-header">
-                <span class="method get">GET</span>
-                <span class="path">/api-key/info</span>
-                <span class="summary">Cek status paket, sisa limit, dan masa aktif API Key saat ini</span>
-            </div>
-            <div class="endpoint-body">
-                <span class="badge user">Requires x-api-key</span>
-                
-                <div class="code-grid">
-                    <div>
-                        <span class="response-label text-success">Respon Sukses (200 OK)</span>
-                        <pre class="pre-success">{
+            <!-- DATA API KEY INFO -->
+            <section id="data-api-key-info" class="doc-section">
+                <header>
+                    <h1>API Key Info</h1>
+                    <p>Endpoint ini berguna untuk memantau pemakaian (kuota) Anda bulan ini.</p>
+                </header>
+                <div class="endpoint">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/api-key/info</span>
+                    </div>
+                    <div class="endpoint-body">
+                        <span class="badge user">Requires x-api-key</span>
+                        
+                        <div class="code-grid">
+                            <div>
+                                <span class="response-label text-success">Respon Sukses (200 OK)</span>
+                                <pre class="pre-success">{
   "status": true,
   "data": {
     "paket": "Pro",
@@ -511,11 +605,13 @@
     "sisa_kuota": 48480
   }
 }</pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
+        </div>
     </div>
 </div>
 
@@ -525,8 +621,25 @@
         document.getElementById('overlay').classList.toggle('active');
     }
     function closeSidebar() {
-        document.getElementById('sidebar').classList.remove('open');
-        document.getElementById('overlay').classList.remove('active');
+        if(window.innerWidth <= 768) {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+    }
+    function showSection(id, element) {
+        // Hapus kelas active dari semua seksi
+        document.querySelectorAll('.doc-section').forEach(sec => sec.classList.remove('active'));
+        
+        // Tampilkan seksi tujuan
+        document.getElementById(id).classList.add('active');
+        
+        // Update menu terpilih
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-link'));
+        element.classList.add('active-link');
+        
+        // Scroll ke atas
+        document.getElementById('mainContent').scrollTop = 0;
+        window.scrollTo(0, 0);
     }
 </script>
 

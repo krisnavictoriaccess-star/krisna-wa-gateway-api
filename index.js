@@ -25,7 +25,17 @@ const { Server } = require('socket.io');
 
 const app = express();
 const helmet = require('helmet');
-app.use(helmet()); // Poin 1: Helmet
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://cdn.jsdelivr.net"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://cdn.jsdelivr.net"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'", "ws:", "wss:"],
+        },
+    },
+}));
 app.set('trust proxy', 1);
 
 const server = http.createServer(app);

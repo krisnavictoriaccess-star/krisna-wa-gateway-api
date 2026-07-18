@@ -33,8 +33,12 @@
   },
   "tags": [
     {
+      "name": "System",
+      "description": "Endpoint sistem dasar"
+    },
+    {
       "name": "Admin (Master Key)",
-      "description": "Endpoint khusus manajemen API Key (Membutuhkan x-master-key)"
+      "description": "Endpoint khusus manajemen API Key & Sistem (Membutuhkan x-master-key)"
     },
     {
       "name": "Device Management",
@@ -54,7 +58,20 @@
     }
   ],
   "paths": {
-    "/api-key/all": {
+    "/ping": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Cek Status Server",
+        "responses": {
+          "200": {
+            "description": "Server Online"
+          }
+        }
+      }
+    },
+    "/api-key/list": {
       "get": {
         "tags": [
           "Admin (Master Key)"
@@ -243,7 +260,43 @@
         }
       }
     },
-    "/device/create": {
+    "/queue/all": {
+      "get": {
+        "tags": [
+          "Admin (Master Key)"
+        ],
+        "summary": "Lihat Semua Antrean (Global)",
+        "security": [
+          {
+            "MasterKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/api-key/info": {
+      "get": {
+        "tags": [
+          "Device Management"
+        ],
+        "summary": "Cek Status & Kuota API Key",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/device/add": {
       "post": {
         "tags": [
           "Device Management"
@@ -374,7 +427,7 @@
         }
       }
     },
-    "/message/send": {
+    "/kirim-pesan": {
       "post": {
         "tags": [
           "Messaging"
@@ -426,7 +479,7 @@
         }
       }
     },
-    "/message/send-massal": {
+    "/kirim-massal": {
       "post": {
         "tags": [
           "Messaging"
@@ -476,7 +529,7 @@
         }
       }
     },
-    "/message/send-group": {
+    "/kirim-grup": {
       "post": {
         "tags": [
           "Messaging"
@@ -519,7 +572,7 @@
         }
       }
     },
-    "/message/send-media": {
+    "/kirim-media": {
       "post": {
         "tags": [
           "Messaging"
@@ -569,7 +622,7 @@
         }
       }
     },
-    "/message/send-poll": {
+    "/kirim-polling": {
       "post": {
         "tags": [
           "Messaging"
@@ -627,7 +680,7 @@
         }
       }
     },
-    "/message/send-vcard": {
+    "/kirim-vcard": {
       "post": {
         "tags": [
           "Messaging"
@@ -675,7 +728,7 @@
         }
       }
     },
-    "/message/send-location": {
+    "/kirim-lokasi": {
       "post": {
         "tags": [
           "Messaging"
@@ -762,7 +815,35 @@
         }
       }
     },
-    "/autoreply/create": {
+    "/auto-reply/list": {
+      "get": {
+        "tags": [
+          "Webhooks & Chatbot"
+        ],
+        "summary": "Lihat Daftar Auto-Reply",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "nomor_device",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/auto-reply/add": {
       "post": {
         "tags": [
           "Webhooks & Chatbot"
@@ -817,7 +898,7 @@
         }
       }
     },
-    "/autoreply/delete": {
+    "/auto-reply/delete": {
       "post": {
         "tags": [
           "Webhooks & Chatbot"
@@ -852,7 +933,7 @@
         }
       }
     },
-    "/inbox/list": {
+    "/inbox": {
       "get": {
         "tags": [
           "Data & Queue"
@@ -880,12 +961,12 @@
         }
       }
     },
-    "/queue/list": {
+    "/queue/my": {
       "get": {
         "tags": [
           "Data & Queue"
         ],
-        "summary": "Lihat Status Antrean Pesan",
+        "summary": "Lihat Status Antrean Pesan Klien",
         "security": [
           {
             "ApiKeyAuth": []

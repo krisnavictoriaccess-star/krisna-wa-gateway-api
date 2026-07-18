@@ -18,15 +18,21 @@ const swagger = {
     }
   },
   tags: [
-    { name: "Admin (Master Key)", description: "Endpoint khusus manajemen API Key (Membutuhkan x-master-key)" },
+    { name: "System", description: "Endpoint sistem dasar" },
+    { name: "Admin (Master Key)", description: "Endpoint khusus manajemen API Key & Sistem (Membutuhkan x-master-key)" },
     { name: "Device Management", description: "Pengaturan perangkat WhatsApp klien (Membutuhkan x-api-key)" },
     { name: "Messaging", description: "Pengiriman pesan teks, media, polling, dll (Membutuhkan x-api-key)" },
     { name: "Webhooks & Chatbot", description: "Pengaturan Webhook dan Auto-Reply (Membutuhkan x-api-key)" },
     { name: "Data & Queue", description: "Menarik data antrean, pesan masuk, kontak, dan grup (Membutuhkan x-api-key)" }
   ],
   paths: {
+    // SYSTEM
+    "/ping": {
+      get: { tags: ["System"], summary: "Cek Status Server", responses: { "200": { description: "Server Online" } } }
+    },
+
     // ADMIN ROUTES
-    "/api-key/all": {
+    "/api-key/list": {
       get: { tags: ["Admin (Master Key)"], summary: "Daftar Semua API Key", security: [{ MasterKeyAuth: [] }], responses: { "200": { description: "Sukses" } } }
     },
     "/api-key/generate": {
@@ -60,9 +66,17 @@ const swagger = {
     "/device/all": {
       get: { tags: ["Admin (Master Key)"], summary: "Daftar Semua Devices di Server", security: [{ MasterKeyAuth: [] }], responses: { "200": { description: "Sukses" } } }
     },
+    "/queue/all": {
+      get: { tags: ["Admin (Master Key)"], summary: "Lihat Semua Antrean (Global)", security: [{ MasterKeyAuth: [] }], responses: { "200": { description: "Sukses" } } }
+    },
+
+    // API KEY INFO (User)
+    "/api-key/info": {
+      get: { tags: ["Device Management"], summary: "Cek Status & Kuota API Key", security: [{ ApiKeyAuth: [] }], responses: { "200": { description: "Sukses" } } }
+    },
 
     // DEVICE MANAGEMENT
-    "/device/create": {
+    "/device/add": {
       post: {
         tags: ["Device Management"], summary: "Buat Sesi Perangkat Baru (Pairing Code)", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["nomor_hp"], properties: { nomor_hp: { type: "string", example: "62812xxx" } } } } } },
@@ -88,7 +102,7 @@ const swagger = {
     },
 
     // MESSAGING
-    "/message/send": {
+    "/kirim-pesan": {
       post: {
         tags: ["Messaging"], summary: "Kirim Pesan Teks", security: [{ ApiKeyAuth: [] }],
         parameters: [{ name: "sender_id", in: "header", description: "Nomor pengirim (Opsional, gunakan Rotator jika kosong)", required: false, schema: { type: "string" } }],
@@ -96,42 +110,42 @@ const swagger = {
         responses: { "200": { description: "Terkirim atau Masuk Antrean" } }
       }
     },
-    "/message/send-massal": {
+    "/kirim-massal": {
       post: {
         tags: ["Messaging"], summary: "Kirim Pesan Massal (Broadcast / Spintax)", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["data"], properties: { data: { type: "array", items: { type: "object", properties: { nomor: { type: "string" }, pesan: { type: "string" } } } }, delay_ms: { type: "integer", default: 2000 } } } } } },
         responses: { "200": { description: "Broadcast dimasukkan ke antrean" } }
       }
     },
-    "/message/send-group": {
+    "/kirim-grup": {
       post: {
         tags: ["Messaging"], summary: "Kirim Pesan ke Grup", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["group_id", "pesan"], properties: { sender_id: { type: "string" }, group_id: { type: "string", example: "12345678@g.us" }, pesan: { type: "string" } } } } } },
         responses: { "200": { description: "Terkirim" } }
       }
     },
-    "/message/send-media": {
+    "/kirim-media": {
       post: {
         tags: ["Messaging"], summary: "Kirim Gambar / Video / Dokumen", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["nomor", "media_url", "media_type"], properties: { sender_id: { type: "string" }, nomor: { type: "string" }, media_url: { type: "string" }, media_type: { type: "string", example: "image" }, caption: { type: "string" } } } } } },
         responses: { "200": { description: "Terkirim" } }
       }
     },
-    "/message/send-poll": {
+    "/kirim-polling": {
       post: {
         tags: ["Messaging"], summary: "Kirim Polling (Voting)", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["nomor", "name", "values"], properties: { sender_id: { type: "string" }, nomor: { type: "string" }, name: { type: "string", example: "Berapa umur Anda?" }, values: { type: "array", items: { type: "string" }, example: ["18-25", "26-35"] }, selectableCount: { type: "integer", default: 1 } } } } } },
         responses: { "200": { description: "Terkirim" } }
       }
     },
-    "/message/send-vcard": {
+    "/kirim-vcard": {
       post: {
         tags: ["Messaging"], summary: "Kirim Kontak (VCard)", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["nomor", "contact_name", "contact_number"], properties: { sender_id: { type: "string" }, nomor: { type: "string" }, contact_name: { type: "string", example: "John Doe" }, contact_number: { type: "string", example: "62812xxx" } } } } } },
         responses: { "200": { description: "Terkirim" } }
       }
     },
-    "/message/send-location": {
+    "/kirim-lokasi": {
       post: {
         tags: ["Messaging"], summary: "Kirim Lokasi (GPS)", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["nomor", "lat", "long"], properties: { sender_id: { type: "string" }, nomor: { type: "string" }, lat: { type: "number", example: -6.200000 }, long: { type: "number", example: 106.816666 }, name: { type: "string" }, address: { type: "string" } } } } } },
@@ -147,14 +161,21 @@ const swagger = {
         responses: { "200": { description: "Tersimpan" } }
       }
     },
-    "/autoreply/create": {
+    "/auto-reply/list": {
+      get: {
+        tags: ["Webhooks & Chatbot"], summary: "Lihat Daftar Auto-Reply", security: [{ ApiKeyAuth: [] }],
+        parameters: [{ name: "nomor_device", in: "query", required: true, schema: { type: "string" } }],
+        responses: { "200": { description: "Sukses" } }
+      }
+    },
+    "/auto-reply/add": {
       post: {
         tags: ["Webhooks & Chatbot"], summary: "Buat Auto-Reply Baru", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["nomor_device", "keyword", "response"], properties: { nomor_device: { type: "string" }, keyword: { type: "string", example: "ping" }, response: { type: "string", example: "pong!" }, match_type: { type: "string", example: "exact" }, media_url: { type: "string" }, media_type: { type: "string" } } } } } },
         responses: { "201": { description: "Tersimpan" } }
       }
     },
-    "/autoreply/delete": {
+    "/auto-reply/delete": {
       post: {
         tags: ["Webhooks & Chatbot"], summary: "Hapus Auto-Reply", security: [{ ApiKeyAuth: [] }],
         requestBody: { content: { "application/json": { schema: { type: "object", required: ["id_autoreply"], properties: { id_autoreply: { type: "integer" } } } } } },
@@ -163,15 +184,15 @@ const swagger = {
     },
 
     // DATA & QUEUE
-    "/inbox/list": {
+    "/inbox": {
       get: {
         tags: ["Data & Queue"], summary: "Ambil Kotak Masuk", security: [{ ApiKeyAuth: [] }],
         parameters: [{ name: "nomor_device", in: "query", required: true, schema: { type: "string" } }],
         responses: { "200": { description: "Daftar pesan masuk" } }
       }
     },
-    "/queue/list": {
-      get: { tags: ["Data & Queue"], summary: "Lihat Status Antrean Pesan", security: [{ ApiKeyAuth: [] }], responses: { "200": { description: "Status antrean" } } }
+    "/queue/my": {
+      get: { tags: ["Data & Queue"], summary: "Lihat Status Antrean Pesan Klien", security: [{ ApiKeyAuth: [] }], responses: { "200": { description: "Status antrean" } } }
     },
     "/queue/cancel": {
       post: {

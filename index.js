@@ -48,7 +48,7 @@ const apiLimiter = rateLimit({
     windowMs: 1 * 60 * 1000,
     max: 500,
     keyGenerator: (req) => {
-        return req.headers['x-api-key'] || req.query.apikey || req.body.apikey || req.socket.remoteAddress;
+        return req.headers['x-api-key'] || req.query?.apikey || req.body?.apikey || req.socket?.remoteAddress;
     },
     message: { status: false, message: 'Terlalu banyak request. Silakan coba lagi nanti.' }
 });

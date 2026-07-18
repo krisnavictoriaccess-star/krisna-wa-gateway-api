@@ -1,63 +1,79 @@
 const { BufferJSON, initAuthCreds } = require('@whiskeysockets/baileys');
 
+// Global mutex untuk mencegah SQLite P2024 (Connection Pool Timeout)
+let mutex = Promise.resolve();
+const lock = async (fn) => {
+    let next;
+    const current = mutex;
+    mutex = new Promise(resolve => { next = resolve });
+    await current;
+    try { return await fn(); } finally { next(); }
+};
+
 const usePrismaAuthState = async (sessionId, prisma) => {
     const writeData = async (data, key) => {
         const value = JSON.stringify(data, BufferJSON.replacer);
-        try {
-            await prisma.authState.upsert({
-                where: {
-                    nomor_device_key: {
+        return lock(async () => {
+            try {
+                await prisma.authState.upsert({
+                    where: {
+                        nomor_device_key: {
+                            nomor_device: sessionId,
+                            key: key
+                        }
+                    },
+                    update: { value },
+                    create: {
                         nomor_device: sessionId,
-                        key: key
+                        key: key,
+                        value: value
                     }
-                },
-                update: { value },
-                create: {
-                    nomor_device: sessionId,
-                    key: key,
-                    value: value
+                });
+            } catch (error) {
+                if (error.code !== 'P2002') {
+                    console.error('[AUTH STATE ERROR] Write failed:', error.message);
                 }
-            });
-        } catch (error) {
-            if (error.code !== 'P2002') {
-                console.error('[AUTH STATE ERROR] Write failed:', error.message);
             }
-        }
+        });
     };
 
     const readData = async (key) => {
-        try {
-            const data = await prisma.authState.findUnique({
-                where: {
-                    nomor_device_key: {
-                        nomor_device: sessionId,
-                        key: key
+        return lock(async () => {
+            try {
+                const data = await prisma.authState.findUnique({
+                    where: {
+                        nomor_device_key: {
+                            nomor_device: sessionId,
+                            key: key
+                        }
                     }
+                });
+                if (data && data.value) {
+                    return JSON.parse(data.value, BufferJSON.reviver);
                 }
-            });
-            if (data && data.value) {
-                return JSON.parse(data.value, BufferJSON.reviver);
+                return null;
+            } catch (error) {
+                console.error('Error reading auth state from DB', error);
+                return null;
             }
-            return null;
-        } catch (error) {
-            console.error('Error reading auth state from DB', error);
-            return null;
-        }
+        });
     };
 
     const removeData = async (key) => {
-        try {
-            await prisma.authState.delete({
-                where: {
-                    nomor_device_key: {
-                        nomor_device: sessionId,
-                        key: key
+        return lock(async () => {
+            try {
+                await prisma.authState.delete({
+                    where: {
+                        nomor_device_key: {
+                            nomor_device: sessionId,
+                            key: key
+                        }
                     }
-                }
-            });
-        } catch (error) {
-            // Ignore if not found
-        }
+                });
+            } catch (error) {
+                // Ignore if not found
+            }
+        });
     };
 
     const creds = (await readData('creds')) || initAuthCreds();

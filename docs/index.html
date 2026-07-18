@@ -508,16 +508,12 @@
                 <table>
                     <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>
                     <tr><td><code>nomor_device</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Nomor device Anda.</td></tr>
-                    <tr><td><code>reject_call</code></td><td>Boolean</td><td><span class="req-opt opsional">opsional</span></td><td>Tolak telepon otomatis.</td></tr>
-                    <tr><td><code>autoread</code></td><td>Boolean</td><td><span class="req-opt opsional">opsional</span></td><td>Membaca/centang biru otomatis.</td></tr>
-                    <tr><td><code>record_inbox</code></td><td>Boolean</td><td><span class="req-opt opsional">opsional</span></td><td>Simpan riwayat chat ke database.</td></tr>
+                    <tr><td><code>is_autoread</code></td><td>Boolean</td><td><span class="req-opt wajib">wajib</span></td><td>Aktifkan atau matikan fitur membaca/centang biru otomatis (true/false).</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
-  "nomor_device": "628123456789",
-  "reject_call": true,
-  "autoread": false
+  "is_autoread": true
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">
@@ -749,14 +745,18 @@
                     <tr><td><code>keyword</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Kata pemicu.</td></tr>
                     <tr><td><code>response</code></td><td>String</td><td><span class="req-opt wajib">wajib</span></td><td>Balasan yang akan dikirim bot.</td></tr>
                     <tr><td><code>match_type</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>exact (sama persis) / contains (mengandung). Default: exact.</td></tr>
+                    <tr><td><code>media_url</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>Tautan URL publik untuk mengirim gambar/video/dokumen bersamaan dengan respon.</td></tr>
+                    <tr><td><code>media_type</code></td><td>String</td><td><span class="req-opt opsional">opsional</span></td><td>Tipe file media (contoh: image, video, document).</td></tr>
                 </table>
             </div>
             <h4>Contoh Request Body (JSON)</h4>
             <pre>{
   "nomor_device": "628123456789",
-  "keyword": "ping",
-  "response": "pong!",
-  "match_type": "exact"
+  "keyword": "harga",
+  "response": "Berikut adalah daftar harga kami:",
+  "match_type": "exact",
+  "media_url": "https://domain.com/brosur.jpg",
+  "media_type": "image"
 }</pre>
             <h4 style="margin-top: 25px;">Contoh Response</h4>
             <div class="code-grid">

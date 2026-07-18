@@ -4,18 +4,43 @@ const prisma = new PrismaClient();
 const axios = require('axios');
 
 const deviceProcessing = {};
+const pendingIPCTimeouts = {};
+const messageAttempts = {};
+const MAX_RETRIES = 3;
+
+async function handleFailedMessage(id, sender_device, error_message) {
+    let attempts = messageAttempts[id] || 0;
+    attempts++;
+    messageAttempts[id] = attempts;
+
+    if (attempts >= MAX_RETRIES) {
+        await prisma.messageQueue.update({ where: { id }, data: { status: 'failed', error_message: `Gagal permanen setelah ${MAX_RETRIES} percobaan: ${error_message}` } });
+        console.error(`[QUEUE WORKER] Gagal permanen kirim pesan ID ${id} via ${sender_device}: ${error_message}`);
+    } else {
+        const nextRetryDate = new Date();
+        nextRetryDate.setMinutes(nextRetryDate.getMinutes() + attempts);
+        
+        await prisma.messageQueue.update({ where: { id }, data: { status: 'pending', send_at: nextRetryDate, error_message: `Gagal (Retry ${attempts}/${MAX_RETRIES}): ${error_message}` } });
+        console.log(`[QUEUE WORKER] Retry ${attempts}/${MAX_RETRIES} untuk pesan ID ${id}. Ditunda sampai ${nextRetryDate.toISOString()}`);
+    }
+}
+
 
 // Handle responses from parent process
 process.on('message', async (msg) => {
     if (msg.type === 'send_result') {
+        if (pendingIPCTimeouts[msg.id]) {
+            clearTimeout(pendingIPCTimeouts[msg.id]);
+            delete pendingIPCTimeouts[msg.id];
+        }
         try {
             if (msg.status === 'success') {
+                delete messageAttempts[msg.id]; // Hapus cache retry
                 await prisma.messageQueue.update({ where: { id: msg.id }, data: { status: 'sent' } });
                 await prisma.apiKey.update({ where: { key: msg.api_key_id }, data: { terpakai_bulan_ini: { increment: 1 } } });
                 console.log(`[QUEUE WORKER] Sukses kirim pesan ke ${msg.recipient_jid} via ${msg.sender_device}`);
             } else {
-                await prisma.messageQueue.update({ where: { id: msg.id }, data: { status: 'failed', error_message: msg.error } });
-                console.error(`[QUEUE WORKER] Gagal kirim ke ${msg.recipient_jid} via ${msg.sender_device}: ${msg.error}`);
+                await handleFailedMessage(msg.id, msg.sender_device, msg.error);
             }
         } catch(e) {
             console.error('[DATABASE ERROR] Gagal update status queue:', e.message);
@@ -86,6 +111,16 @@ async function processQueue() {
                     payload: payloadObj,
                     api_key_id: pendingMsg.api_key_id
                 });
+                
+                // Fallback Timeout if parent process hangs
+                pendingIPCTimeouts[pendingMsg.id] = setTimeout(async () => {
+                    console.error(`[QUEUE WORKER] Timeout 60s menunggu respon WhatsApp Engine untuk pesan ID ${pendingMsg.id}`);
+                    try {
+                        await handleFailedMessage(pendingMsg.id, pendingMsg.sender_device, 'Timeout: Tidak ada respon dari sistem WhatsApp (60 detik).');
+                    } catch(e) {}
+                    deviceProcessing[pendingMsg.sender_device] = false;
+                    delete pendingIPCTimeouts[pendingMsg.id];
+                }, 60000); // Timeout diubah ke 60 detik (1 Menit)
             }
         }));
     } catch (error) {

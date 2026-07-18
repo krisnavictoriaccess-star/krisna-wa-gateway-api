@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway API Enterprise - Dokumentasi</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #334155;
+            --get: #10b981;
+            --post: #f59e0b;
+            --delete: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        
+        header { text-align: center; margin-bottom: 50px; padding-bottom: 30px; border-bottom: 1px solid var(--border); }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .section-title { font-size: 1.8rem; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); color: #cbd5e1; }
+
+        .endpoint { background-color: var(--bg-card); border-radius: 8px; margin-bottom: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        .endpoint-header { display: flex; align-items: center; padding: 15px 20px; background-color: rgba(0,0,0,0.2); cursor: pointer; }
+        .method { padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; margin-right: 15px; }
+        .method.get { background-color: rgba(16, 185, 129, 0.2); color: var(--get); }
+        .method.post { background-color: rgba(245, 158, 11, 0.2); color: var(--post); }
+        .method.delete { background-color: rgba(239, 68, 68, 0.2); color: var(--delete); }
+        
+        .path { font-family: monospace; font-size: 1.1rem; flex-grow: 1; }
+        .summary { color: var(--text-muted); font-size: 0.95rem; }
+
+        .endpoint-body { padding: 20px; border-top: 1px solid var(--border); }
+        .endpoint-body h4 { margin: 15px 0 10px; color: #e2e8f0; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); }
+        th { background-color: rgba(255,255,255,0.05); color: #cbd5e1; }
+        td { color: var(--text-muted); }
+        td code { background-color: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; color: #fbbf24; font-family: monospace; }
+
+        pre { background-color: #000; padding: 15px; border-radius: 6px; overflow-x: auto; font-family: monospace; color: #a5b4fc; border: 1px solid var(--border); }
+
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
+        .badge.master { background-color: #7c3aed; color: white; }
+        .badge.user { background-color: #2563eb; color: white; }
+
+        .auth-box { background-color: var(--bg-card); padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin-bottom: 30px; }
+        .auth-box code { color: #fbbf24; background: #000; padding: 2px 5px; border-radius: 3px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>WhatsApp Gateway Enterprise</h1>
+        <p>Dokumentasi Resmi API - Anti Blokir & Ringan</p>
+    </header>
+
+    <div class="auth-box">
+        <h3>🔐 Autentikasi (Headers)</h3>
+        <p style="margin-top: 10px; color: var(--text-muted);">Hampir semua endpoint membutuhkan header autentikasi berikut:</p>
+        <ul style="margin-top: 10px; margin-left: 20px; color: var(--text-muted);">
+            <li><code>x-master-key</code> : Digunakan khusus untuk endpoint Admin.</li>
+            <li><code>x-api-key</code> : Digunakan oleh klien/pengguna biasa.</li>
+        </ul>
+    </div>
+
+    <!-- ADMIN SECTION -->
+    <h2 class="section-title">👑 Admin (Master Key)</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="path">/api-key/list</span>
+            <span class="summary">Melihat semua klien terdaftar</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+            <h4>Responses</h4>
+            <pre>{
+  "status": true,
+  "data": [ ... ]
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/api-key/generate</span>
+            <span class="summary">Membuat API Key baru untuk klien</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "paket": "Premium",
+  "label": "Klien VIP",
+  "expiry_days": 30
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/api-key/extend</span>
+            <span class="summary">Menambah masa aktif hari klien</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "target_api_key": "KEY-XXXXX",
+  "tambah_hari": 30
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method delete">POST</span>
+            <span class="path">/api-key/delete</span>
+            <span class="summary">Menghapus total API Key beserta semua sesi perangkat</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge master">Requires x-master-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "target_api_key": "KEY-XXXXX"
+}</pre>
+        </div>
+    </div>
+
+    <!-- DEVICE SECTION -->
+    <h2 class="section-title">📱 Device Management</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/device/add</span>
+            <span class="summary">Membuat sesi WhatsApp baru (Pairing Code)</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "nomor_hp": "62812xxxx"
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/device/delete</span>
+            <span class="summary">Logout dan hapus sesi WhatsApp</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "nomor_device": "62812xxxx"
+}</pre>
+        </div>
+    </div>
+
+    <!-- MESSAGING SECTION -->
+    <h2 class="section-title">✉️ Messaging (Kirim Pesan)</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-pesan</span>
+            <span class="summary">Kirim Pesan Teks (Mendukung Rotator)</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <p style="color: var(--text-muted); margin-bottom: 10px;">Gunakan header opsional <code>sender_id</code> jika ingin memilih pengirim spesifik. Kosongkan untuk Rotator otomatis.</p>
+            <h4>JSON Body</h4>
+            <pre>{
+  "nomor": "62812xxxx",
+  "pesan": "Halo ini pesan dari API!"
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-massal</span>
+            <span class="summary">Kirim Pesan Broadcast (Spintax & Delay)</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "delay_ms": 3000,
+  "data": [
+    { "nomor": "6281xxx", "pesan": "Halo bos" },
+    { "nomor": "6282xxx", "pesan": "Halo gan" }
+  ]
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-media</span>
+            <span class="summary">Kirim Gambar / Video / Dokumen</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "nomor": "62812xxxx",
+  "media_url": "https://example.com/image.jpg",
+  "media_type": "image",
+  "caption": "Keterangan gambar"
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-polling</span>
+            <span class="summary">Kirim Polling (Voting) WhatsApp</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "nomor": "62812xxxx",
+  "name": "Berapa umur Anda?",
+  "values": ["18-25", "26-35"],
+  "selectableCount": 1
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/kirim-grup</span>
+            <span class="summary">Kirim Pesan ke Grup WhatsApp</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "group_id": "123456789@g.us",
+  "pesan": "Halo member grup!"
+}</pre>
+        </div>
+    </div>
+
+    <!-- WEBHOOKS & CHATBOT -->
+    <h2 class="section-title">🤖 Webhooks & Chatbot</h2>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/webhook/set</span>
+            <span class="summary">Atur URL Webhook Menerima Pesan</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "webhook_url": "https://domainanda.com/webhook"
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="path">/auto-reply/add</span>
+            <span class="summary">Buat Balasan Otomatis (Chatbot)</span>
+        </div>
+        <div class="endpoint-body">
+            <span class="badge user">Requires x-api-key</span>
+            <h4>JSON Body</h4>
+            <pre>{
+  "nomor_device": "62812xxxx",
+  "keyword": "ping",
+  "response": "pong!",
+  "match_type": "exact"
+}</pre>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

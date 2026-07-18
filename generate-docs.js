@@ -606,285 +606,201 @@ const endpoints = [
     }
 ];
 
+let sidebarHtml = `
+    <div class="offcanvas-md offcanvas-start bg-dark border-end border-secondary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+      <div class="offcanvas-header border-bottom border-secondary">
+        <h5 class="offcanvas-title" id="sidebarMenuLabel">Navigasi API</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto" style="height: 100vh;">
+        <ul class="nav flex-column mb-auto px-3">
+          <li class="nav-item mb-2">
+            <a class="nav-link text-white fw-bold" href="#top">🌍 Base URL & Auth</a>
+          </li>
+`;
 
-let sidebarHtml = '<div class="sidebar"><h2>Navigasi API</h2>';
-sidebarHtml += '<a href="#top">🌍 Base URL & Auth</a>';
 endpoints.forEach(ep => {
     if (ep.category) {
         let catId = ep.category.replace(/[^a-zA-Z0-9]/g, '');
-        sidebarHtml += '<div class="sidebar-cat"><a href="#' + catId + '" style="padding:0;">' + ep.category + '</a></div>';
+        sidebarHtml += `
+          <li class="nav-item mt-3 mb-1">
+            <a class="nav-link text-info fw-bold py-1" href="#${catId}">${ep.category}</a>
+          </li>`;
     }
+    
     let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
-    sidebarHtml += '<a href="#' + epId + '"><span style="font-weight:bold; color:var(--' + ep.method.toLowerCase() + ')">' + ep.method + '</span> ' + ep.path + '</a>';
+    let badgeColor = ep.method === 'GET' ? 'success' : (ep.method === 'POST' ? 'warning text-dark' : 'danger');
+    sidebarHtml += `
+          <li class="nav-item">
+            <a class="nav-link text-secondary py-1 fs-6" href="#${epId}">
+              <span class="badge bg-${badgeColor} me-1" style="width: 50px;">${ep.method}</span> ${ep.path}
+            </a>
+          </li>`;
 });
-sidebarHtml += '<div class="sidebar-cat"><a href="#websocket" style="padding:0;">⚡ WebSockets</a></div>';
-sidebarHtml += '</div><div class="content-area">';
+
+sidebarHtml += `
+          <li class="nav-item mt-3 mb-4">
+            <a class="nav-link text-info fw-bold py-1" href="#websocket">⚡ WebSockets</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+`;
 
 let html = `<!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krisna WA Gateway - Dokumentasi API Komprehensif</title>
+    <title>Krisna WA Gateway - Dokumentasi API</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --bg-code: #000000;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --border: #334155;
-            --get: #10b981;
-            --post: #f59e0b;
-            --delete: #ef4444;
-            --req: #ef4444;
-            --opt: #10b981;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; font-size: 15px; display: flex; margin: 0; }
-        .sidebar { width: 280px; min-width: 280px; background: var(--bg-card); height: 100vh; position: sticky; top: 0; padding: 30px 20px; overflow-y: auto; border-right: 1px solid var(--border); }
-        .sidebar h2 { color: #60a5fa; font-size: 1.2rem; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .sidebar-cat { color: #cbd5e1; font-weight: bold; margin: 15px 0 5px; font-size: 0.95rem; }
-        .sidebar a { display: block; color: var(--text-muted); text-decoration: none; padding: 6px 10px; font-size: 0.9rem; border-radius: 4px; }
-        .sidebar a:hover { color: var(--text-main); background: rgba(59, 130, 246, 0.2); }
-        .content-area { flex-grow: 1; padding: 40px 20px; min-width: 0; overflow-x: hidden; }
-        @media (max-width: 768px) { body { flex-direction: column; } }
-        .container { max-width: 1000px; margin: 0 auto; }
-
-        header { text-align: center; margin-bottom: 50px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        header p { color: var(--text-muted); font-size: 1.1rem; }
-
-        .base-url-box { background-color: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); padding: 20px; border-radius: 8px; margin-bottom: 40px; text-align: center; }
-        .base-url-box h3 { color: #60a5fa; margin-bottom: 10px; }
-        .base-url-box code { font-size: 1.4rem; color: #fbbf24; background: var(--bg-code); padding: 8px 16px; border-radius: 6px; letter-spacing: 1px; overflow-x: auto; white-space: nowrap; display: block; text-align: left; }
-
-        .auth-box { background-color: var(--bg-card); padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent); margin-bottom: 40px; }
-        .auth-box h3 { color: var(--text-main); margin-bottom: 15px; }
-        
-        .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); }
-        th { background-color: rgba(255,255,255,0.05); color: #cbd5e1; font-weight: bold; }
-        td { color: var(--text-muted); }
-        code { font-family: 'Courier New', Courier, monospace; color: #fbbf24; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; }
-
-        .section-title { font-size: 1.8rem; margin: 50px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); color: #cbd5e1; }
-
-        .endpoint { background-color: var(--bg-card); border-radius: 8px; margin-bottom: 30px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        
-        .endpoint-header { display: flex; align-items: center; padding: 15px 20px; background-color: rgba(0,0,0,0.3); flex-wrap: wrap; }
-        .method { padding: 5px 12px; border-radius: 4px; font-weight: bold; font-size: 0.95rem; margin-right: 15px; letter-spacing: 0.5px; }
-        .method.get { background-color: rgba(16, 185, 129, 0.2); color: var(--get); border: 1px solid var(--get); }
-        .method.post { background-color: rgba(245, 158, 11, 0.2); color: var(--post); border: 1px solid var(--post); }
-        .method.delete { background-color: rgba(239, 68, 68, 0.2); color: var(--delete); border: 1px solid var(--delete); }
-        
-        .path { font-family: monospace; font-size: 1.2rem; flex-grow: 1; font-weight: bold; color: #e2e8f0; }
-        .summary { color: var(--text-muted); font-size: 0.95rem; flex-basis: 100%; margin-top: 10px; }
-
-        .endpoint-body { padding: 25px; border-top: 1px solid var(--border); }
-        
-        .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .badge.master { background-color: rgba(124, 58, 237, 0.2); color: #c4b5fd; border: 1px solid #7c3aed; }
-        .badge.user { background-color: rgba(37, 99, 235, 0.2); color: #93c5fd; border: 1px solid #2563eb; }
-
-        .req-opt { font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
-        .req-opt.wajib { background-color: rgba(239, 68, 68, 0.1); color: var(--req); border: 1px solid var(--req); }
-        .req-opt.opsional { background-color: rgba(16, 185, 129, 0.1); color: var(--opt); border: 1px solid var(--opt); }
-
-        h4 { margin: 25px 0 10px; color: #cbd5e1; font-size: 1.1rem; border-left: 3px solid var(--accent); padding-left: 10px; }
-        
-        .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; min-width: 0; }
-        .code-grid > div { min-width: 0; overflow: hidden; }
-        
-        pre { background-color: var(--bg-code); padding: 15px; border-radius: 6px; overflow-x: auto; font-family: 'Courier New', Courier, monospace; color: #a5b4fc; border: 1px solid var(--border); font-size: 0.9rem; line-height: 1.5; margin-bottom: 10px; max-width: 100%; box-sizing: border-box; }
-        .pre-success { border-color: rgba(16, 185, 129, 0.5); }
-        .pre-error { border-color: rgba(239, 68, 68, 0.5); color: #fca5a5; }
-
-        .response-label { font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; display: block; color: var(--text-muted); }
-        .text-success { color: #34d399; }
-        .text-error { color: #f87171; }
-
-        @media (max-width: 768px) { 
-            .code-grid { grid-template-columns: 1fr; } 
-            .endpoint-header { flex-direction: column; align-items: flex-start; }
-            .path { font-size: 1rem; word-break: break-all; margin-top: 10px; }
-            .summary { margin-top: 5px; }
-        }
-
-        .hamburger { display: none; position: fixed; top: 15px; left: 15px; z-index: 1001; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .hamburger:hover { background: var(--border); }
-        .overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; }
-        
-        @media (max-width: 768px) {
-            .hamburger { display: block; }
-            .sidebar { position: fixed; left: -320px; top: 0; bottom: 0; height: 100vh; z-index: 1000; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.5); width: 280px; }
-            .sidebar.open { left: 0; }
-            .overlay.open { display: block; }
-            .content-area { padding-top: 70px; padding-left: 20px; }
+        body { background-color: #0f172a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        .bg-card { background-color: #1e293b !important; }
+        .bg-code { background-color: #000000 !important; border: 1px solid #334155; }
+        .nav-link:hover { background-color: rgba(255,255,255,0.05); border-radius: 5px; color: #fff !important; }
+        pre { color: #a5b4fc; }
+        @media (min-width: 768px) {
+            .sidebar-col { position: sticky; top: 0; height: 100vh; overflow-y: auto; }
         }
     </style>
 </head>
 <body>
-<button class="hamburger" id="hamburgerBtn">☰</button>
-<div class="overlay" id="overlay"></div>
-${sidebarHtml}
-<div class="container" id="top">
-    <header>
-        <h1>Krisna WA Gateway API</h1>
-        <p>Referensi Lengkap Integrasi Gateway Enterprise</p>
-    </header>
 
-    <div class="base-url-box">
-        <h3>🌍 Base URL</h3>
-        <code>https://api.krisnamarket.my.id</code>
+<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow border-bottom border-secondary" id="top">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-5 text-white fw-bold bg-dark" href="#">Krisna WA Gateway</a>
+  
+  <ul class="navbar-nav flex-row d-md-none">
+    <li class="nav-item text-nowrap">
+      <button class="nav-link px-3 text-white border-0 bg-transparent" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        ☰ Menu
+      </button>
+    </li>
+  </ul>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="sidebar-col col-md-3 col-lg-2 p-0 bg-dark border-end border-secondary">
+        ${sidebarHtml}
     </div>
 
-    <div class="auth-box">
-        <h3>🔐 Autentikasi (Headers)</h3>
-        <p style="margin-bottom: 15px; color: var(--text-muted);">Selalu sertakan kredensial di header HTTP (bukan di URL parameter).</p>
-        <div class="table-wrapper">
-            <table>
-                <tr><th>Header</th><th>Status</th><th>Deskripsi</th></tr>
-                <tr><td><code>x-master-key</code></td><td><span class="req-opt wajib">Wajib (Admin)</span></td><td>Untuk akses endpoint master (manajemen klien).</td></tr>
-                <tr><td><code>x-api-key</code></td><td><span class="req-opt wajib">Wajib (Klien)</span></td><td>Token klien yang didapatkan dari proses Generate.</td></tr>
-                <tr><td><code>sender_id</code></td><td><span class="req-opt opsional">Opsional</span></td><td>Digunakan pada fitur Messaging untuk memilih nomor pengirim spesifik. Kosongkan untuk mode Rotator.</td></tr>
-            </table>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4" style="min-width: 0;">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom border-secondary">
+        <h1 class="h2 fw-bold text-primary">Referensi API Gateway</h1>
+      </div>
+
+      <div class="card bg-card text-white mb-4 border-primary shadow-sm">
+        <div class="card-header bg-primary bg-opacity-25 fw-bold text-info">🌍 Base URL</div>
+        <div class="card-body">
+            <code class="fs-5 bg-code p-2 rounded d-block overflow-x-auto text-warning">https://api.krisnamarket.my.id</code>
         </div>
-    </div>
+      </div>
+
+      <div class="card bg-card text-white mb-5 border-secondary shadow-sm">
+        <div class="card-header bg-secondary bg-opacity-25 fw-bold">🔐 Autentikasi (Headers)</div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">Selalu sertakan kredensial di header HTTP (bukan di URL parameter).</p>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover table-bordered mb-0 align-middle">
+                    <thead>
+                        <tr><th>Header</th><th>Status</th><th>Deskripsi</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>x-master-key</code></td><td><span class="badge bg-danger">Wajib (Admin)</span></td><td>Untuk akses endpoint master (manajemen klien).</td></tr>
+                        <tr><td><code>x-api-key</code></td><td><span class="badge bg-danger">Wajib (Klien)</span></td><td>Token klien yang didapatkan dari proses Generate.</td></tr>
+                        <tr><td><code>sender_id</code></td><td><span class="badge bg-success">Opsional</span></td><td>Digunakan pada fitur Messaging untuk memilih nomor pengirim spesifik. Kosongkan untuk mode Rotator.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
 `;
 
 endpoints.forEach(ep => {
     if (ep.category) {
         let catId = ep.category.replace(/[^a-zA-Z0-9]/g, '');
-        html += `\n    <!-- KATEGORI BARU -->\n    <h2 id="${catId}" class="section-title">${ep.category}</h2>\n`;
+        html += `\n    <h3 id="${catId}" class="mt-5 mb-3 pb-2 border-bottom border-secondary text-info fw-bold" style="scroll-margin-top: 80px;">${ep.category}</h3>\n`;
     }
 
-    const methodClass = ep.method.toLowerCase();
-    
+    const badgeColor = ep.method === 'GET' ? 'success' : (ep.method === 'POST' ? 'warning text-dark' : 'danger');
+    const borderClass = ep.method === 'GET' ? 'border-success' : (ep.method === 'POST' ? 'border-warning' : 'border-danger');
+    const authBadge = ep.badge === 'master' ? '<span class="badge bg-danger">Requires x-master-key</span>' : '<span class="badge bg-primary">Requires x-api-key</span>';
     let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
-    html += `\n    <div class="endpoint" id="${epId}">\n        <div class="endpoint-header">
-            <span class="method ${methodClass}">${ep.method}</span>
-            <span class="path">${ep.path}</span>
-            <span class="summary">${ep.summary}</span>
+
+    html += `
+      <div class="card bg-card mb-4 ${borderClass} shadow-sm" id="${epId}" style="scroll-margin-top: 80px;">
+        <div class="card-header d-flex flex-wrap align-items-center gap-3 bg-dark">
+            <span class="badge bg-${badgeColor} fs-6">${ep.method}</span>
+            <code class="fs-5 text-light fw-bold">${ep.path}</code>
+            <span class="text-secondary ms-auto text-end">${ep.summary}</span>
         </div>
-        <div class="endpoint-body">
-            <span class="badge ${ep.badge}">Requires ${ep.badge === 'master' ? 'x-master-key' : 'x-api-key'}</span>
+        <div class="card-body">
+            <div class="mb-3">${authBadge}</div>
 `;
 
-    // Params table
     if (ep.params && ep.params.length > 0) {
         html += `
-            <h4>Body/Query Parameters</h4>
-            <div class="table-wrapper">
-                <table>
-                    <tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr>`;
+            <h5 class="text-light mt-3 mb-2">Body/Query Parameters</h5>
+            <div class="table-responsive mb-4">
+                <table class="table table-dark table-striped table-bordered align-middle">
+                    <thead><tr><th>Field</th><th>Type</th><th>Status</th><th>Deskripsi</th></tr></thead>
+                    <tbody>`;
         ep.params.forEach(p => {
-            const statClass = p.status.toLowerCase() === 'wajib' ? 'wajib' : 'opsional';
+            const statBadge = p.status.toLowerCase() === 'wajib' ? '<span class="badge bg-danger">wajib</span>' : '<span class="badge bg-success">opsional</span>';
             html += `
-                    <tr><td><code>${p.field}</code></td><td>${p.type}</td><td><span class="req-opt ${statClass}">${p.status}</span></td><td>${p.desc}</td></tr>`;
+                        <tr>
+                            <td class="text-warning"><code>${p.field}</code></td>
+                            <td>${p.type}</td>
+                            <td>${statBadge}</td>
+                            <td class="text-secondary">${p.desc}</td>
+                        </tr>`;
         });
         html += `
+                    </tbody>
                 </table>
             </div>`;
     }
 
-    // Req body
     if (ep.reqBody) {
         html += `
-            <h4>Contoh Request Body (JSON)</h4>
-            <pre>${ep.reqBody}</pre>`;
+            <h5 class="text-light mb-2">Contoh Request Body (JSON)</h5>
+            <pre class="bg-code p-3 rounded mb-4 overflow-x-auto border border-secondary">${ep.reqBody}</pre>`;
     }
 
-    // Responses
     html += `
-            <h4 style="margin-top: 25px;">Contoh Response</h4>
-            <div class="code-grid">
-                <div>
-                    <span class="response-label text-success">Berhasil (200 OK / 201 Created)</span>
-                    <pre class="pre-success">${ep.resSuccess}</pre>
+            <h5 class="text-light mb-2">Contoh Response</h5>
+            <div class="row g-3">
+                <div class="col-lg-6">
+                    <div class="text-success fw-bold mb-1"><small>Berhasil (200 OK / 201 Created)</small></div>
+                    <pre class="bg-code p-3 rounded h-100 overflow-x-auto border border-success border-opacity-50">${ep.resSuccess}</pre>
                 </div>
-                <div>
-                    <span class="response-label text-error">Gagal (4xx / 5xx Error)</span>
-                    <pre class="pre-error">${ep.resError}</pre>
+                <div class="col-lg-6">
+                    <div class="text-danger fw-bold mb-1"><small>Gagal (4xx / 5xx Error)</small></div>
+                    <pre class="bg-code p-3 rounded h-100 overflow-x-auto border border-danger border-opacity-50 text-danger-emphasis">${ep.resError}</pre>
                 </div>
             </div>
         </div>
-    </div>
+      </div>
 `;
 });
 
-// Websocket Section
 html += `
-    <!-- WEBSOCKET -->
-    <h2 id="websocket" class="section-title">⚡ Real-Time Events (WebSocket)</h2>
-
-    <div class="endpoint">
-        <div class="endpoint-header" style="background-color: rgba(59, 130, 246, 0.2);">
-            <span class="method get" style="border-color: #3b82f6; color: #60a5fa;">SOCKET.IO</span>
-            <span class="path">WSS Connection</span>
-            <span class="summary">Dengarkan pembaruan status Pairing Code secara instan.</span>
-        </div>
-        <div class="endpoint-body">
-            <p style="margin-bottom: 20px; color: var(--text-muted);">
-                Saat Anda memanggil <code>/device/add</code>, server akan meminta WhatsApp untuk menghasilkan <b>Pairing Code (8 digit)</b>. Agar antarmuka Anda bisa merespon secara langsung (Real-Time) tanpa perlu memuat ulang (*refresh*), Anda wajib menggunakan <b>Socket.IO Client</b>.
-            </p>
-
-            <h4>Cara Koneksi di Frontend (JavaScript)</h4>
-            <pre>&lt;script src="https://cdn.socket.io/4.7.2/socket.io.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-  const socket = io("https://api.krisnamarket.my.id");
-
-  socket.on("device_status", (data) =&gt; {
-      console.log("Pembaruan Status:", data);
-      
-      if(data.status === "WAITING_PAIRING") {
-          alert("KODE PAIRING ANDA: " + data.code);
-          // Tampilkan data.code ini ke layar besar Anda agar bisa dibaca jelas
-      } else if (data.status === "CONNECTED") {
-          alert("WhatsApp Berhasil Terhubung!");
-      } else if (data.status === "DISCONNECTED") {
-          alert("WhatsApp Terputus / Logout.");
-      }
-  });
-&lt;/script&gt;</pre>
-
-            <h4 style="margin-top: 30px;">Tabel Payload <code>device_status</code></h4>
-            <div class="table-wrapper">
-                <table>
-                    <tr><th>Status</th><th>Deskripsi</th><th>Property Tambahan</th></tr>
-                    <tr><td><code>WAITING_PAIRING</code></td><td>Server telah mengirimkan kode rahasia.</td><td><code>code</code>: Berisi 8 digit kode kombinasi.</td></tr>
-                    <tr><td><code>CONNECTED</code></td><td>WhatsApp berhasil diotorisasi.</td><td>-</td></tr>
-                    <tr><td><code>DISCONNECTED</code></td><td>Sesi terputus (Keluar/Dihapus paksa).</td><td>-</td></tr>
-                </table>
-            </div>
-        </div>
-    </div>
-
+    </main>
+  </div>
 </div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.getElementById('overlay');
-    const sidebarLinks = document.querySelectorAll('.sidebar a');
-
-    function toggleSidebar() {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('open');
-    }
-
-    hamburgerBtn.addEventListener('click', toggleSidebar);
-    overlay.addEventListener('click', toggleSidebar);
-
-    // Close sidebar on mobile when a link is clicked
-    sidebarLinks.forEach(link => {
+    // Close offcanvas on mobile when clicking a link
+    document.querySelectorAll('.sidebar-col .nav-link').forEach(link => {
         link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
-                overlay.classList.remove('open');
+            const offcanvasEl = document.getElementById('sidebarMenu');
+            if (window.innerWidth < 768 && offcanvasEl) {
+                const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                if(offcanvas) offcanvas.hide();
             }
         });
     });
@@ -893,5 +809,6 @@ html += `
 </html>
 `;
 
-fs.writeFileSync(path.join(__dirname, 'docs', 'index.html'), html);
-console.log('Successfully generated complete docs/index.html');
+const fsOut = require('fs');
+fsOut.writeFileSync(require('path').join(__dirname, 'docs', 'index.html'), html);
+console.log('Successfully generated complete docs/index.html with Bootstrap 5');

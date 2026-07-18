@@ -651,19 +651,7 @@ let html = `<!DOCTYPE html>
         .sidebar a { display: block; color: var(--text-muted); text-decoration: none; padding: 6px 10px; font-size: 0.9rem; border-radius: 4px; }
         .sidebar a:hover { color: var(--text-main); background: rgba(59, 130, 246, 0.2); }
         .content-area { flex-grow: 1; padding: 40px 20px; min-width: 0; overflow-x: hidden; }
-        
-        .hamburger { display: none; position: fixed; top: 15px; left: 15px; z-index: 1001; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .hamburger:hover { background: var(--border); }
-        .overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; }
-        
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .hamburger { display: block; }
-            .sidebar { position: fixed; left: -320px; top: 0; bottom: 0; height: 100vh; z-index: 1000; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.5); }
-            .sidebar.open { left: 0; }
-            .overlay.open { display: block; }
-            .content-area { padding-top: 70px; padding-left: 20px; }
-        } .sidebar { width: 100%; height: auto; position: static; } }
+        @media (max-width: 768px) { body { flex-direction: column; } }
         .container { max-width: 1000px; margin: 0 auto; }
 
         header { text-align: center; margin-bottom: 50px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
@@ -726,13 +714,23 @@ let html = `<!DOCTYPE html>
             .path { font-size: 1rem; word-break: break-all; margin-top: 10px; }
             .summary { margin-top: 5px; }
         }
+
+        .hamburger { display: none; position: fixed; top: 15px; left: 15px; z-index: 1001; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .hamburger:hover { background: var(--border); }
+        .overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; }
+        
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .sidebar { position: fixed; left: -320px; top: 0; bottom: 0; height: 100vh; z-index: 1000; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.5); width: 280px; }
+            .sidebar.open { left: 0; }
+            .overlay.open { display: block; }
+            .content-area { padding-top: 70px; padding-left: 20px; }
+        }
     </style>
 </head>
 <body>
-
 <button class="hamburger" id="hamburgerBtn">☰</button>
 <div class="overlay" id="overlay"></div>
-
 ${sidebarHtml}
 <div class="container" id="top">
     <header>
@@ -867,7 +865,6 @@ html += `
     </div>
 
 </div>
-
 <script>
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const sidebar = document.querySelector('.sidebar');

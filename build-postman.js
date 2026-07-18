@@ -83,8 +83,9 @@ endpoints.forEach(ep => {
         method: ep.method,
         header: headers,
         url: {
-            raw: "{{base_url}}" + ep.path,
-            host: ["{{base_url}}"],
+            raw: "https://api.krisnamarket.my.id" + ep.path,
+            protocol: "https",
+            host: ["api", "krisnamarket", "my", "id"],
             path: ep.path.split('/').filter(p => p)
         },
         description: ep.summary

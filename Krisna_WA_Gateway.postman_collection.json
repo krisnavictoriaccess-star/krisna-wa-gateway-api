@@ -37,9 +37,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api-key/list",
+              "raw": "https://api.krisnamarket.my.id/api-key/list",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "api-key",
@@ -67,9 +71,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api-key/generate",
+              "raw": "https://api.krisnamarket.my.id/api-key/generate",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "api-key",
@@ -106,9 +114,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api-key/extend",
+              "raw": "https://api.krisnamarket.my.id/api-key/extend",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "api-key",
@@ -145,9 +157,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api-key/upgrade",
+              "raw": "https://api.krisnamarket.my.id/api-key/upgrade",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "api-key",
@@ -184,9 +200,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api-key/delete",
+              "raw": "https://api.krisnamarket.my.id/api-key/delete",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "api-key",
@@ -218,9 +238,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/device/all",
+              "raw": "https://api.krisnamarket.my.id/device/all",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "device",
@@ -243,9 +267,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/queue/all",
+              "raw": "https://api.krisnamarket.my.id/queue/all",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "queue",
@@ -273,9 +301,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/api-key/info",
+              "raw": "https://api.krisnamarket.my.id/api-key/info",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "api-key",
@@ -308,9 +340,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/device/add",
+              "raw": "https://api.krisnamarket.my.id/device/add",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "device",
@@ -342,9 +378,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/device/list",
+              "raw": "https://api.krisnamarket.my.id/device/list",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "device",
@@ -372,9 +412,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/device/settings",
+              "raw": "https://api.krisnamarket.my.id/device/settings",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "device",
@@ -411,9 +455,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/device/delete",
+              "raw": "https://api.krisnamarket.my.id/device/delete",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "device",
@@ -456,9 +504,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/contact/list",
+              "raw": "https://api.krisnamarket.my.id/contact/list",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "contact",
@@ -487,9 +539,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/group/list",
+              "raw": "https://api.krisnamarket.my.id/group/list",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "group",
@@ -512,9 +568,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/inbox",
+              "raw": "https://api.krisnamarket.my.id/inbox",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "inbox"
@@ -546,9 +606,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/webhook/set",
+              "raw": "https://api.krisnamarket.my.id/webhook/set",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "webhook",
@@ -585,9 +649,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/auto-reply/add",
+              "raw": "https://api.krisnamarket.my.id/auto-reply/add",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "auto-reply",
@@ -625,9 +693,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/auto-reply/list",
+              "raw": "https://api.krisnamarket.my.id/auto-reply/list",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "auto-reply",
@@ -655,9 +727,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/auto-reply/delete",
+              "raw": "https://api.krisnamarket.my.id/auto-reply/delete",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "auto-reply",
@@ -699,9 +775,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/kirim-pesan",
+              "raw": "https://api.krisnamarket.my.id/kirim-pesan",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "kirim-pesan"
@@ -737,9 +817,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/kirim-massal",
+              "raw": "https://api.krisnamarket.my.id/kirim-massal",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "kirim-massal"
@@ -775,9 +859,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/kirim-media",
+              "raw": "https://api.krisnamarket.my.id/kirim-media",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "kirim-media"
@@ -813,9 +901,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/kirim-grup",
+              "raw": "https://api.krisnamarket.my.id/kirim-grup",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "kirim-grup"
@@ -851,9 +943,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/kirim-polling",
+              "raw": "https://api.krisnamarket.my.id/kirim-polling",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "kirim-polling"
@@ -889,9 +985,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/kirim-lokasi",
+              "raw": "https://api.krisnamarket.my.id/kirim-lokasi",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "kirim-lokasi"
@@ -927,9 +1027,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/kirim-vcard",
+              "raw": "https://api.krisnamarket.my.id/kirim-vcard",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "kirim-vcard"
@@ -965,9 +1069,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/queue/my",
+              "raw": "https://api.krisnamarket.my.id/queue/my",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "queue",
@@ -995,9 +1103,13 @@
               }
             ],
             "url": {
-              "raw": "{{base_url}}/queue/cancel",
+              "raw": "https://api.krisnamarket.my.id/queue/cancel",
+              "protocol": "https",
               "host": [
-                "{{base_url}}"
+                "api",
+                "krisnamarket",
+                "my",
+                "id"
               ],
               "path": [
                 "queue",

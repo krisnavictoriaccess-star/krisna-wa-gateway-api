@@ -72,6 +72,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Rute Statis untuk Dokumentasi
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
+app.use('/media', express.static(path.join(__dirname, 'webhook-temp')));
 
 // ==========================================
 //        TERMINAL BEAUTIFIER (LOGGER)
@@ -314,6 +315,10 @@ async function initWhatsAppSession(sessionId) {
             global.io?.emit('device_status', { device: sessionId, status: 'DISCONNECTED' });
 
             if (shouldReconnect) {
+                try {
+                    sock.ev.removeAllListeners();
+                    if (sock.ws) sock.ws.close();
+                } catch(e) {}
                 delete activeSessions[sessionId];
                 const jitter = Math.floor(Math.random() * 6000) + 2000; // Delay acak 2-8 detik
                 setTimeout(() => {
@@ -366,45 +371,52 @@ async function initWhatsAppSession(sessionId) {
                 });
             } catch(e) {}
 
-            let autoReplies = global.autoReplyCache[sessionId] || [];
+            let autoReplies = global.autoReplyCache[sessionId] || { exact: {}, contains: [] };
+            let matchedReply = null;
             
-            for (const reply of autoReplies) {
-                let isMatch = false;
-                if (reply.match_type === 'exact' && textMessage.trim().toLowerCase() === reply.keyword.toLowerCase()) {
-                    isMatch = true;
-                } else if (reply.match_type === 'contains' && textMessage.toLowerCase().includes(reply.keyword.toLowerCase())) {
-                    isMatch = true;
+            const lowerText = textMessage.trim().toLowerCase();
+            
+            // O(1) Exact lookup
+            if (autoReplies.exact[lowerText]) {
+                matchedReply = autoReplies.exact[lowerText];
+            } else {
+                // O(N) Contains lookup
+                for (const reply of autoReplies.contains) {
+                    if (lowerText.includes(reply.keyword.toLowerCase())) {
+                        matchedReply = reply;
+                        break;
+                    }
                 }
+            }
 
-                if (isMatch) {
-                    try {
-                        if (reply.media_type && reply.media_url) {
-                            if (reply.media_type === 'image') {
-                                await sock.sendMessage(senderJid, { image: { url: reply.media_url }, caption: reply.response });
-                            } else if (reply.media_type === 'video') {
-                                await sock.sendMessage(senderJid, { video: { url: reply.media_url }, caption: reply.response });
-                            } else if (reply.media_type === 'document') {
-                                const fileName = reply.media_url.split('/').pop() || 'Document';
-                                await sock.sendMessage(senderJid, { document: { url: reply.media_url }, mimetype: 'application/octet-stream', fileName, caption: reply.response });
-                            } else if (reply.media_type === 'location') {
-                                const [lat, long] = reply.media_url.split(',').map(s => parseFloat(s.trim()));
-                                if (!isNaN(lat) && !isNaN(long)) {
-                                    await sock.sendMessage(senderJid, { location: { degreesLatitude: lat, degreesLongitude: long } });
-                                    if (reply.response) await sock.sendMessage(senderJid, { text: reply.response });
-                                } else {
-                                    await sock.sendMessage(senderJid, { text: reply.response });
-                                }
+            if (matchedReply) {
+                const reply = matchedReply;
+                try {
+                    if (reply.media_type && reply.media_url) {
+                        if (reply.media_type === 'image') {
+                            await sock.sendMessage(senderJid, { image: { url: reply.media_url }, caption: reply.response });
+                        } else if (reply.media_type === 'video') {
+                            await sock.sendMessage(senderJid, { video: { url: reply.media_url }, caption: reply.response });
+                        } else if (reply.media_type === 'document') {
+                            const fileName = reply.media_url.split('/').pop() || 'Document';
+                            await sock.sendMessage(senderJid, { document: { url: reply.media_url }, mimetype: 'application/octet-stream', fileName, caption: reply.response });
+                        } else if (reply.media_type === 'location') {
+                            const [lat, long] = reply.media_url.split(',').map(s => parseFloat(s.trim()));
+                            if (!isNaN(lat) && !isNaN(long)) {
+                                await sock.sendMessage(senderJid, { location: { degreesLatitude: lat, degreesLongitude: long } });
+                                if (reply.response) await sock.sendMessage(senderJid, { text: reply.response });
                             } else {
                                 await sock.sendMessage(senderJid, { text: reply.response });
                             }
                         } else {
                             await sock.sendMessage(senderJid, { text: reply.response });
                         }
-                        console.log(`[🤖 AUTO-REPLY] Membalas ke ${senderJid} untuk keyword: ${reply.keyword}`);
-                    } catch (e) {
-                        console.error(`[AUTO-REPLY ERROR]`, e.message);
+                    } else {
+                        await sock.sendMessage(senderJid, { text: reply.response });
                     }
-                    break; // Hanya balas 1 kata kunci pertama yang cocok
+                    console.log(`[🤖 AUTO-REPLY] Membalas ke ${senderJid} untuk keyword: ${reply.keyword}`);
+                } catch (e) {
+                    console.error(`[AUTO-REPLY ERROR]`, e.message);
                 }
             }
         }
@@ -424,7 +436,18 @@ async function initWhatsAppSession(sessionId) {
                             {},
                             { logger: pino({ level: 'silent' }) }
                         );
-                        base64Media = buffer.toString('base64');
+                        
+                        const ext = msg.message?.imageMessage ? '.jpg' : msg.message?.videoMessage ? '.mp4' : '.bin';
+                        const fileName = crypto.randomUUID() + ext;
+                        const tempPath = path.join(__dirname, 'webhook-temp', fileName);
+                        fs.writeFileSync(tempPath, buffer);
+                        
+                        const baseUrl = process.env.BASE_URL || ('http://localhost:' + process.env.PORT);
+                        msg.media_url = baseUrl + '/media/' + fileName;
+                        
+                        setTimeout(() => {
+                            if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+                        }, 2 * 60 * 60 * 1000);
                     } catch (err) {
                         console.error('[WEBHOOK MEDIA ERROR] Gagal mengunduh media:', err.message);
                     }
@@ -434,7 +457,7 @@ async function initWhatsAppSession(sessionId) {
                     event: 'message.received',
                     device: sessionId,
                     data: msg,
-                    base64_media: base64Media
+                    media_url: msg.media_url
                 }, device.api_key_id);
                 
                 if (webhookResponse && webhookResponse.reply) {
@@ -492,32 +515,18 @@ async function loadSavedSessions() {
             webhook_url: dev.apiKey?.webhook_url,
             api_key_id: dev.api_key_id
         };
-        global.autoReplyCache[dev.nomor_device] = dev.autoReplies || [];
+                const exactMap = {};
+        const containsArr = [];
+        (dev.autoReplies || []).forEach(r => {
+            if (r.match_type === 'exact') exactMap[r.keyword.toLowerCase()] = r;
+            else containsArr.push(r);
+        });
+        global.autoReplyCache[dev.nomor_device] = { exact: exactMap, contains: containsArr };
         initWhatsAppSession(dev.nomor_device);
     }
 }
 
-// --- AUTO DATA PRUNING (CLEANUP) ---
-setInterval(async () => {
-    try {
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-        const resQueue = await prisma.messageQueue.deleteMany({
-            where: { status: { in: ['sent', 'failed'] }, createdAt: { lt: thirtyDaysAgo } }
-        });
-        const resInbox = await prisma.messageInbox.deleteMany({
-            where: { createdAt: { lt: thirtyDaysAgo } }
-        });
-        const resWebhook = await prisma.webhookQueue.deleteMany({
-            where: { status: { in: ['success', 'failed'] }, createdAt: { lt: thirtyDaysAgo } }
-        });
-
-        console.log(`[🧹 CLEANUP] Menghapus data > 30 hari: ${resQueue.count} Queue, ${resInbox.count} Inbox, ${resWebhook.count} Webhook.`);
-    } catch (e) {
-        console.error('[🧹 CLEANUP ERROR] Gagal menghapus data lama:', e.message);
-    }
-}, 24 * 60 * 60 * 1000); // Berjalan setiap 24 jam
 
 // --- MIDDLEWARES ---
 const validateMasterKey = (req, res, next) => {
@@ -962,8 +971,9 @@ app.post('/auto-reply/add', validateApiKey, validateDeviceOwnership, async (req,
         const reply = await prisma.autoReply.create({
             data: { keyword, response, match_type, media_url, media_type, nomor_device: req.cleanSender }
         });
-        if (!global.autoReplyCache[req.cleanSender]) global.autoReplyCache[req.cleanSender] = [];
-        global.autoReplyCache[req.cleanSender].push(reply);
+        if (!global.autoReplyCache[req.cleanSender]) global.autoReplyCache[req.cleanSender] = { exact: {}, contains: [] };
+        if (match_type === 'exact') global.autoReplyCache[req.cleanSender].exact[keyword.toLowerCase()] = reply;
+        else global.autoReplyCache[req.cleanSender].contains.push(reply);
         return res.status(201).json({ status: true, message: 'Auto-reply ditambahkan.', data: reply });
     } catch (error) { console.error('[API ERROR]', error.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
 });
@@ -982,9 +992,15 @@ app.post('/auto-reply/delete', validateApiKey, validateDeviceOwnership, async (r
         const reply = await prisma.autoReply.findFirst({ where: { id: parseInt(id), nomor_device: req.cleanSender } });
         if (!reply) return res.status(404).json({ status: false, message: 'Data tidak ditemukan atau bukan milik device ini.' });
         await prisma.autoReply.delete({ where: { id: parseInt(id) } });
-        if (global.autoReplyCache[req.cleanSender]) {
-            global.autoReplyCache[req.cleanSender] = global.autoReplyCache[req.cleanSender].filter(r => r.id !== parseInt(id));
-        }
+        // Reload cache
+        const updatedReplies = await prisma.autoReply.findMany({ where: { nomor_device: req.cleanSender } });
+        const exactMap = {};
+        const containsArr = [];
+        updatedReplies.forEach(r => {
+            if (r.match_type === 'exact') exactMap[r.keyword.toLowerCase()] = r;
+            else containsArr.push(r);
+        });
+        global.autoReplyCache[req.cleanSender] = { exact: exactMap, contains: containsArr };
         return res.status(200).json({ status: true, message: 'Berhasil dihapus.' });
     } catch (error) { console.error('[API ERROR]', error.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
 });
@@ -1027,6 +1043,9 @@ async function addToQueue(req, res, recipient_jid, payload) {
                 api_key_id: req.apiKeyData.key
             }
         });
+        
+        // FIX: Charge quota upfront
+        await prisma.apiKey.update({ where: { key: req.apiKeyData.key }, data: { terpakai_bulan_ini: { increment: 1 } } });
         
         // Kalkulasi Sisa Kuota
         const user = await prisma.apiKey.findUnique({ where: { key: req.apiKeyData.key } });
@@ -1105,6 +1124,10 @@ app.post('/kirim-massal', validateApiKey, validateDeviceOwnership, checkQuotaMid
         });
         
         await prisma.messageQueue.createMany({ data: queueData });
+        
+        // FIX: Charge quota upfront
+        await prisma.apiKey.update({ where: { key: user.key }, data: { terpakai_bulan_ini: { increment: queueData.length } } });
+        
         return res.status(200).json({ status: true, message: `${pesan_list.length} pesan berhasil diantrekan secara massal.`});
     } catch(err) { console.error('[API ERROR]', err.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
 });
@@ -1200,7 +1223,13 @@ server.listen(PORT, async () => {
             const deleted = await prisma.messageInbox.deleteMany({
                 where: { createdAt: { lt: date30DaysAgo } }
             });
-            if (deleted.count > 0) console.log(`[CLEANUP] Menghapus ${deleted.count} pesan inbox lawas.`);
+            const delQueue = await prisma.messageQueue.deleteMany({
+                where: { status: { in: ['sent', 'failed'] }, createdAt: { lt: date30DaysAgo } }
+            });
+            const delWh = await prisma.webhookQueue.deleteMany({
+                where: { status: { in: ['success', 'failed'] }, createdAt: { lt: date30DaysAgo } }
+            });
+            console.log(`[CLEANUP] Menghapus Inbox(${deleted.count}), Queue(${delQueue.count}), Webhook(${delWh.count}) > 30 hari.`);
 
             // 2. RAM Leak Prevention: Bersihkan cache pesan di memori (Baileys Store)
             for (const session in activeStores) {

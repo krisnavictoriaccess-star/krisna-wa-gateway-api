@@ -11,13 +11,17 @@ const pendingIPCTimeouts = {};
 const messageAttempts = {};
 const MAX_RETRIES = 3;
 
-async function handleFailedMessage(id, sender_device, error_message) {
+async function handleFailedMessage(id, sender_device, error_message, api_key_id = null) {
     let attempts = messageAttempts[id] || 0;
     attempts++;
     messageAttempts[id] = attempts;
 
     if (attempts >= MAX_RETRIES) {
         await prisma.messageQueue.update({ where: { id }, data: { status: 'failed', error_message: `Gagal permanen setelah ${MAX_RETRIES} percobaan: ${error_message}` } });
+        // Refund Kuota (Karena charge sudah dilakukan di awal)
+        if (api_key_id) {
+             await prisma.apiKey.update({ where: { key: api_key_id }, data: { terpakai_bulan_ini: { decrement: 1 } } }).catch(()=>{});
+        }
         console.error(`[QUEUE WORKER] Gagal permanen kirim pesan ID ${id} via ${sender_device}: ${error_message}`);
     } else {
         const nextRetryDate = new Date();
@@ -40,10 +44,9 @@ process.on('message', async (msg) => {
             if (msg.status === 'success') {
                 delete messageAttempts[msg.id]; // Hapus cache retry
                 await prisma.messageQueue.update({ where: { id: msg.id }, data: { status: 'sent' } });
-                await prisma.apiKey.update({ where: { key: msg.api_key_id }, data: { terpakai_bulan_ini: { increment: 1 } } });
                 console.log(`[QUEUE WORKER] Sukses kirim pesan ke ${msg.recipient_jid} via ${msg.sender_device}`);
             } else {
-                await handleFailedMessage(msg.id, msg.sender_device, msg.error);
+                await handleFailedMessage(msg.id, msg.sender_device, msg.error, msg.api_key_id);
             }
         } catch(e) {
             console.error('[DATABASE ERROR] Gagal update status queue:', e.message);
@@ -224,38 +227,7 @@ async function processWebhookQueue() {
     setTimeout(processWebhookQueue, 10000);
 }
 
-// --- AUTO CLEANUP WORKER (14 Days) ---
-async function cleanupOldQueues() {
-    try {
-        const fourteenDaysAgo = new Date();
-        fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
 
-        // Delete from MessageQueue (sent & failed)
-        const deletedMessages = await prisma.messageQueue.deleteMany({
-            where: {
-                createdAt: { lt: fourteenDaysAgo },
-                status: { in: ['sent', 'failed'] }
-            }
-        });
-
-        // Delete from WebhookQueue (success & failed)
-        const deletedWebhooks = await prisma.webhookQueue.deleteMany({
-            where: {
-                createdAt: { lt: fourteenDaysAgo },
-                status: { in: ['success', 'failed'] }
-            }
-        });
-
-        if (deletedMessages.count > 0 || deletedWebhooks.count > 0) {
-            console.log(`[AUTO CLEANUP] Terhapus: ${deletedMessages.count} pesan, ${deletedWebhooks.count} webhook yang lebih dari 14 hari.`);
-        }
-    } catch (e) {
-        console.error('[AUTO CLEANUP ERROR]', e.message);
-    }
-
-    // Jalankan pengecekan ini setiap 12 jam
-    setTimeout(cleanupOldQueues, 12 * 60 * 60 * 1000);
-}
 
 async function startWorker() {
     await prisma.messageQueue.updateMany({
@@ -265,7 +237,7 @@ async function startWorker() {
     console.log('[QUEUE WORKER] Worker process started.');
     processQueue();
     processWebhookQueue();
-    cleanupOldQueues(); // Start the cleanup worker
+
 }
 
 startWorker();

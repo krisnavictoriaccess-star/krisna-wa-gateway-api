@@ -438,6 +438,8 @@ async function initWhatsAppSession(sessionId) {
                         );
                         
                         const ext = msg.message?.imageMessage ? '.jpg' : msg.message?.videoMessage ? '.mp4' : '.bin';
+                        const dirPath = path.join(__dirname, 'webhook-temp');
+                        if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
                         const fileName = crypto.randomUUID() + ext;
                         const tempPath = path.join(__dirname, 'webhook-temp', fileName);
                         fs.writeFileSync(tempPath, buffer);

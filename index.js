@@ -121,32 +121,34 @@ console.error = function(...args) {
 };
 
 // Custom Express Logger untuk Terminal Cantik
+// Custom Express Logger untuk Terminal Cantik
 app.use((req, res, next) => {
     const start = Date.now();
     res.on('finish', () => {
         const duration = Date.now() - start;
-        const lines = [];
+        const time = moment().format('dddd, HH:mm:ss [WIB]');
+        const lines = [`Waktu    : ${time}`];
         lines.push(`Endpoint : ${req.path}`);
         if (req.method === 'POST') {
             if (req.body && req.body.sender) lines.push(`Nomor Bot : ${req.body.sender}`);
             if (req.body && req.body.number) lines.push(`Tujuan : ${req.body.number}`);
             if (req.body && req.body.message) {
                 const msg = req.body.message.length > 50 ? req.body.message.substring(0, 50) + '...' : req.body.message;
-                lines.push(`Pesan : ${msg}`);
+                lines.push(`Pesan    : ${msg}`);
             }
         }
-        lines.push(`Status : ${res.statusCode} ${res.statusMessage || ''} (${duration}ms)`);
+        lines.push(`Status   : ${res.statusCode} ${res.statusMessage || ''} (${duration}ms)`);
         
         const title = req.method;
         const maxLength = Math.max(title.length, ...lines.map(l => l.length));
         const border = '='.repeat(maxLength);
         const separator = '-'.repeat(maxLength);
         
-        console.log('\x1b[36m%s\x1b[0m', '\n' + border);
-        console.log('\x1b[33m%s\x1b[0m', title);
-        console.log('\x1b[36m%s\x1b[0m', separator);
-        for(let l of lines) console.log(l);
-        console.log('\x1b[36m%s\x1b[0m', border);
+        originalLog('\x1b[36m' + border + '\x1b[0m');
+        originalLog('\x1b[33m' + title + '\x1b[0m');
+        originalLog('\x1b[36m' + separator + '\x1b[0m');
+        for(let l of lines) originalLog(l);
+        originalLog('\x1b[36m' + border + '\x1b[0m\n');
     });
     next();
 });
@@ -383,21 +385,23 @@ async function initWhatsAppSession(sessionId) {
         // 1. AUTO-RESPONDER & INBOX LOGIC
         if (textMessage) {
                         const shortMsg = textMessage.length > 50 ? textMessage.substring(0, 50) + '...' : textMessage;
+            const time = moment().format('dddd, HH:mm:ss [WIB]');
             const lines = [
+                `Waktu     : ${time}`,
                 `Nomor Bot : ${sessionId}`,
                 `Isi Pesan : ${shortMsg}`,
-                `Dari : ${senderJid.split('@')[0]}`
+                `Dari      : ${senderJid.split('@')[0]}`
             ];
-            const title = 'Pesan Masuk';
+            const title = 'PESAN MASUK';
             const maxLength = Math.max(title.length, ...lines.map(l => l.length));
             const border = '='.repeat(maxLength);
             const separator = '-'.repeat(maxLength);
 
-            console.log('\x1b[36m%s\x1b[0m', '\n' + border);
-            console.log('\x1b[32m%s\x1b[0m', title);
-            console.log('\x1b[36m%s\x1b[0m', separator);
-            for(let l of lines) console.log(l);
-            console.log('\x1b[36m%s\x1b[0m', border);
+            originalLog('\x1b[36m' + border + '\x1b[0m');
+            originalLog('\x1b[32m' + title + '\x1b[0m');
+            originalLog('\x1b[36m' + separator + '\x1b[0m');
+            for(let l of lines) originalLog(l);
+            originalLog('\x1b[36m' + border + '\x1b[0m\n');
             // Save to Inbox
             try {
                 await prisma.messageInbox.create({

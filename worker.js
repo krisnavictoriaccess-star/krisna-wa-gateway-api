@@ -11,18 +11,24 @@ const pendingIPCTimeouts = {};
 const messageAttempts = {};
 const MAX_RETRIES = 3;
 function logWorkerBox(title, message, isError = false) {
-    const lines = message.split('\n');
+    const moment = require('moment');
+    require('moment/locale/id');
+    moment.locale('id');
+    const time = moment().format('dddd, HH:mm:ss [WIB]');
+    
+    const lines = [`Waktu  : ${time}`, ...message.split('\n')];
     const maxLength = Math.max(title.length, ...lines.map(l => l.length));
     const border = '='.repeat(maxLength);
     const separator = '-'.repeat(maxLength);
-    const color = isError ? '\x1b[31m%s\x1b[0m' : '\x1b[36m%s\x1b[0m';
-    const titleColor = isError ? '\x1b[31m%s\x1b[0m' : '\x1b[32m%s\x1b[0m';
+    const color = isError ? '\x1b[31m' : '\x1b[36m';
+    const titleColor = isError ? '\x1b[31m' : '\x1b[32m';
+    const reset = '\x1b[0m';
 
-    console.log(color, '\n' + border);
-    console.log(titleColor, title);
-    console.log(color, separator);
+    console.log(color + border + reset);
+    console.log(titleColor + title + reset);
+    console.log(color + separator + reset);
     for(let l of lines) console.log(l);
-    console.log(color, border);
+    console.log(color + border + reset + '\n');
 }
 
 

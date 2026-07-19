@@ -296,7 +296,7 @@ const endpoints = [
     },
     {
         method: "GET", path: "/inbox",
-        summary: "Melihat daftar pesan terakhir yang masuk (hanya berfungsi jika record_inbox diaktifkan).",
+        summary: "Melihat semua pesan teks yang masuk ke WhatsApp Anda secara otomatis (seluruh pesan akan tersimpan tanpa syarat).",
         badge: "user",
         params: [],
         reqBody: null,

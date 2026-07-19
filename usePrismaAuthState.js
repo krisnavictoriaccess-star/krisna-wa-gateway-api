@@ -36,6 +36,11 @@ const usePrismaAuthState = async (sessionId, prisma) => {
             for (const executeTask of tasks) {
                 await executeTask();
             }
+            
+            // Log success to terminal so user can monitor database writes
+            if (tasks.length > 0) {
+                console.log(`[DATABASE] Berhasil menyimpan ${tasks.length} pembaruan Auth State (Sesi: ${sessionId})`);
+            }
         } catch(e) {
             console.error('\x1b[31m%s\x1b[0m', '[AUTH STATE ERROR] Flush error: ' + e.message);
         }

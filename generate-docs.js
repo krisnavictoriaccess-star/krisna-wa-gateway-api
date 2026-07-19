@@ -408,6 +408,7 @@ const endpoints = [
         summary: "Mengirim pesan teks ke satu nomor.",
         badge: "user",
         params: [
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
             { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan teks." },
             { field: "media_url", type: "String", status: "opsional", desc: "Tautan/URL gambar jika ingin mengirim pesan gambar." },
@@ -433,6 +434,7 @@ const endpoints = [
         summary: "Mengirim broadcast ke banyak nomor sekaligus menggunakan sistem antrean anti-banned.",
         badge: "user",
         params: [
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "pesan_list", type: "Array", status: "wajib", desc: "Daftar objek tujuan dan pesannya." },
               { field: "send_at", type: "String", status: "opsional", desc: "Jadwal pengiriman pesan. Format: YYYY-MM-DD HH:mm (contoh: 2026-12-31 15:30)." }
           ],
@@ -456,6 +458,7 @@ const endpoints = [
         summary: "Mengirim dokumen, gambar, atau video berdasarkan tautan publik.",
         badge: "user",
         params: [
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan." },
             { field: "url", type: "String", status: "wajib", desc: "Tautan/URL publik file Anda." },
             { field: "tipe", type: "String", status: "wajib", desc: "Tipe file: image, video, document." },
@@ -482,6 +485,7 @@ const endpoints = [
         summary: "Mengirim pesan teks ke dalam Grup WhatsApp.",
         badge: "user",
         params: [
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "group_id", type: "String", status: "wajib", desc: "ID Grup (diperoleh dari endpoint /group/list)." },
             { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan teks." },
               { field: "send_at", type: "String", status: "opsional", desc: "Jadwal pengiriman pesan. Format: YYYY-MM-DD HH:mm (contoh: 2026-12-31 15:30)." }
@@ -504,6 +508,7 @@ const endpoints = [
         summary: "Mengirimkan formulir interaktif (Voting/Polling).",
         badge: "user",
         params: [
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan." },
             { field: "nama_polling", type: "String", status: "wajib", desc: "Judul pertanyaan polling." },
             { field: "opsi", type: "Array", status: "wajib", desc: "Pilihan jawaban (minimal 2)." },
@@ -530,6 +535,7 @@ const endpoints = [
         summary: "Mengirimkan pin koordinat peta (Google Maps).",
         badge: "user",
         params: [
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan." },
             { field: "lat", type: "Number", status: "wajib", desc: "Latitude (Garis Lintang)." },
             { field: "long", type: "Number", status: "wajib", desc: "Longitude (Garis Bujur)." },
@@ -554,6 +560,7 @@ const endpoints = [
         summary: "Mengirimkan kartu kontak.",
         badge: "user",
         params: [
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor penerima pesan." },
             { field: "nama_kontak", type: "String", status: "wajib", desc: "Nama kontak yang akan dibagikan." },
             { field: "nomor_kontak", type: "String", status: "wajib", desc: "Nomor telepon kontak yang akan dibagikan." },

@@ -115,7 +115,9 @@ async function processQueue() {
                     try {
                         const tempExt = payloadObj.image ? '.jpg' : payloadObj.video ? '.mp4' : '.pdf';
                         const tempFileName = crypto.randomUUID() + tempExt;
-                        tempFilePath = path.join(__dirname, 'temp', tempFileName);
+                        const dirPath = path.join(__dirname, 'temp');
+                        if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
+                        tempFilePath = path.join(dirPath, tempFileName);
                         
                         const response = await axios({
                             method: 'GET',

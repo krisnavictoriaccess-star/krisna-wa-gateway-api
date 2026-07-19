@@ -52,6 +52,7 @@ model AutoReply {
   nomor_device     String
   device           Device    @relation(fields: [nomor_device], references: [nomor_device], onDelete: Cascade)
   createdAt        DateTime  @default(now())
+  @@index([nomor_device, createdAt])
 }
 
 model MessageInbox {
@@ -61,6 +62,7 @@ model MessageInbox {
   sender_jid       String
   message          String
   createdAt        DateTime  @default(now())
+  @@index([status, createdAt])
 }
 
 model MessageQueue {
@@ -107,4 +109,5 @@ model WebhookQueue {
   next_retry   DateTime @default(now())
   createdAt    DateTime @default(now())
   apiKey       ApiKey   @relation(fields: [api_key_id], references: [key], onDelete: Cascade)
+  @@index([status, createdAt])
 }

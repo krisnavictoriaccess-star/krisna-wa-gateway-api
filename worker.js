@@ -10,6 +10,21 @@ const deviceProcessing = {};
 const pendingIPCTimeouts = {};
 const messageAttempts = {};
 const MAX_RETRIES = 3;
+function logWorkerBox(title, message, isError = false) {
+    const lines = message.split('\n');
+    const maxLength = Math.max(title.length, ...lines.map(l => l.length));
+    const border = '='.repeat(maxLength);
+    const separator = '-'.repeat(maxLength);
+    const color = isError ? '\x1b[31m%s\x1b[0m' : '\x1b[36m%s\x1b[0m';
+    const titleColor = isError ? '\x1b[31m%s\x1b[0m' : '\x1b[32m%s\x1b[0m';
+
+    console.log(color, '\n' + border);
+    console.log(titleColor, title);
+    console.log(color, separator);
+    for(let l of lines) console.log(l);
+    console.log(color, border);
+}
+
 
 async function handleFailedMessage(id, sender_device, error_message, api_key_id = null) {
     let attempts = messageAttempts[id] || 0;
@@ -22,7 +37,7 @@ async function handleFailedMessage(id, sender_device, error_message, api_key_id 
         if (api_key_id) {
              await prisma.apiKey.update({ where: { key: api_key_id }, data: { terpakai_bulan_ini: { decrement: 1 } } }).catch(()=>{});
         }
-        console.error(`[QUEUE WORKER] Gagal permanen kirim pesan ID ${id} via ${sender_device}: ${error_message}`);
+        logWorkerBox('QUEUE WORKER FAILED', `Pesan ID : ${id}\nDevice : ${sender_device}\nAlasan : ${error_message}`, true);
     } else {
         const nextRetryDate = new Date();
         nextRetryDate.setMinutes(nextRetryDate.getMinutes() + attempts);
@@ -44,7 +59,7 @@ process.on('message', async (msg) => {
             if (msg.status === 'success') {
                 delete messageAttempts[msg.id]; // Hapus cache retry
                 await prisma.messageQueue.update({ where: { id: msg.id }, data: { status: 'sent' } });
-                console.log(`[QUEUE WORKER] Sukses kirim pesan ke ${msg.recipient_jid} via ${msg.sender_device}`);
+                logWorkerBox('QUEUE WORKER SUCCESS', `Pesan ID : ${msg.id}\nTujuan : ${msg.recipient_jid}\nDevice : ${msg.sender_device}`);
             } else {
                 await handleFailedMessage(msg.id, msg.sender_device, msg.error, msg.api_key_id);
             }

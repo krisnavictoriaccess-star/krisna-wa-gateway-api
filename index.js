@@ -125,22 +125,28 @@ app.use((req, res, next) => {
     const start = Date.now();
     res.on('finish', () => {
         const duration = Date.now() - start;
+        const lines = [];
+        lines.push(`Endpoint : ${req.path}`);
         if (req.method === 'POST') {
-            console.log('\x1b[36m%s\x1b[0m', '\n=============================');
-            console.log('\x1b[33m%s\x1b[0m', 'POST');
-            console.log('\x1b[36m%s\x1b[0m', '---------------');
-            console.log(`Endpoint : ${req.path}`);
-            if (req.body && req.body.sender) console.log(`Nomor Bot : ${req.body.sender}`);
-            if (req.body && req.body.number) console.log(`Tujuan : ${req.body.number}`);
+            if (req.body && req.body.sender) lines.push(`Nomor Bot : ${req.body.sender}`);
+            if (req.body && req.body.number) lines.push(`Tujuan : ${req.body.number}`);
             if (req.body && req.body.message) {
                 const msg = req.body.message.length > 50 ? req.body.message.substring(0, 50) + '...' : req.body.message;
-                console.log(`Pesan : ${msg}`);
+                lines.push(`Pesan : ${msg}`);
             }
-            console.log(`Status : ${res.statusCode} ${res.statusMessage || ''} (${duration}ms)`);
-            console.log('\x1b[36m%s\x1b[0m', '=============================');
-        } else {
-            console.log(`[${req.method}] ${req.path} - ${res.statusCode} (${duration}ms)`);
         }
+        lines.push(`Status : ${res.statusCode} ${res.statusMessage || ''} (${duration}ms)`);
+        
+        const title = req.method;
+        const maxLength = Math.max(title.length, ...lines.map(l => l.length));
+        const border = '='.repeat(maxLength);
+        const separator = '-'.repeat(maxLength);
+        
+        console.log('\x1b[36m%s\x1b[0m', '\n' + border);
+        console.log('\x1b[33m%s\x1b[0m', title);
+        console.log('\x1b[36m%s\x1b[0m', separator);
+        for(let l of lines) console.log(l);
+        console.log('\x1b[36m%s\x1b[0m', border);
     });
     next();
 });
@@ -376,14 +382,22 @@ async function initWhatsAppSession(sessionId) {
 
         // 1. AUTO-RESPONDER & INBOX LOGIC
         if (textMessage) {
-            console.log('\x1b[36m%s\x1b[0m', '\n=============================');
-            console.log('\x1b[32m%s\x1b[0m', 'Pesan Masuk');
-            console.log('\x1b[36m%s\x1b[0m', '---------------------');
-            console.log(`Nomor Bot : ${sessionId}`);
-            const shortMsg = textMessage.length > 50 ? textMessage.substring(0, 50) + '...' : textMessage;
-            console.log(`Isi Pesan : ${shortMsg}`);
-            console.log(`Dari : ${senderJid.split('@')[0]}`);
-            console.log('\x1b[36m%s\x1b[0m', '=============================');
+                        const shortMsg = textMessage.length > 50 ? textMessage.substring(0, 50) + '...' : textMessage;
+            const lines = [
+                `Nomor Bot : ${sessionId}`,
+                `Isi Pesan : ${shortMsg}`,
+                `Dari : ${senderJid.split('@')[0]}`
+            ];
+            const title = 'Pesan Masuk';
+            const maxLength = Math.max(title.length, ...lines.map(l => l.length));
+            const border = '='.repeat(maxLength);
+            const separator = '-'.repeat(maxLength);
+
+            console.log('\x1b[36m%s\x1b[0m', '\n' + border);
+            console.log('\x1b[32m%s\x1b[0m', title);
+            console.log('\x1b[36m%s\x1b[0m', separator);
+            for(let l of lines) console.log(l);
+            console.log('\x1b[36m%s\x1b[0m', border);
             // Save to Inbox
             try {
                 await prisma.messageInbox.create({

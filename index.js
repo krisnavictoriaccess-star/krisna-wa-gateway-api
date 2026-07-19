@@ -740,9 +740,9 @@ app.post('/package/edit', validateMasterKey, async (req, res) => {
 app.post('/package/delete', validateMasterKey, async (req, res) => {
     try {
         const { id } = req.body;
-        // Kita gunakan soft-delete (hide) agar tidak merusak relasi api key
-        const deleted = await prisma.package.update({ where: { id: parseInt(id) }, data: { is_public: false } });
-        res.json({ status: true, message: 'Paket berhasil disembunyikan (Soft Delete)', data: deleted });
+        // Hard-delete sesuai instruksi
+        const deleted = await prisma.package.delete({ where: { id: parseInt(id) } });
+        res.json({ status: true, message: 'Paket berhasil dihapus permanen dari database.', data: deleted });
     } catch (e) {
         res.status(500).json({ status: false, message: e.message });
     }

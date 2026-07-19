@@ -160,8 +160,25 @@ function startWorkerProcess() {
             const sock = activeSessions[msg.sender_device];
             if (sock) {
                 try {
+                    // Cek jika ada file fisik media sementara
+                    if (msg.tempFilePath) {
+                        const fs = require('fs');
+                        if (fs.existsSync(msg.tempFilePath)) {
+                            const buffer = fs.readFileSync(msg.tempFilePath);
+                            if (msg.payload.image) msg.payload.image = buffer;
+                            if (msg.payload.video) msg.payload.video = buffer;
+                            if (msg.payload.document) msg.payload.document = buffer;
+                        }
+                    }
+
                     await sock.sendMessage(msg.recipient_jid, msg.payload);
                     worker.send({ type: 'send_result', id: msg.id, status: 'success', sender_device: msg.sender_device, recipient_jid: msg.recipient_jid, api_key_id: msg.api_key_id });
+                    
+                    // Bersihkan file sementara
+                    if (msg.tempFilePath) {
+                        const fs = require('fs');
+                        if (fs.existsSync(msg.tempFilePath)) fs.unlinkSync(msg.tempFilePath);
+                    }
                 } catch (err) {
                     worker.send({ type: 'send_result', id: msg.id, status: 'failed', error: err.message, sender_device: msg.sender_device, recipient_jid: msg.recipient_jid });
                 }
@@ -1174,16 +1191,37 @@ server.listen(PORT, async () => {
     // Resume worker & check connected sessions
     await loadSavedSessions();
     
-    // AUTO CLEANUP INBOX (Hapus pesan yang umurnya > 30 Hari)
+    // AUTO CLEANUP & MAINTENANCE (Jalan setiap 24 Jam)
     setInterval(async () => {
         try {
+            // 1. Hapus pesan inbox lawas
             const date30DaysAgo = new Date();
             date30DaysAgo.setDate(date30DaysAgo.getDate() - 30);
             const deleted = await prisma.messageInbox.deleteMany({
                 where: { createdAt: { lt: date30DaysAgo } }
             });
-            if (deleted.count > 0) console.log(`[🧹 CLEANUP] Menghapus ${deleted.count} pesan inbox lawas.`);
-        } catch(e) {}
+            if (deleted.count > 0) console.log(`[CLEANUP] Menghapus ${deleted.count} pesan inbox lawas.`);
+
+            // 2. RAM Leak Prevention: Bersihkan cache pesan di memori (Baileys Store)
+            for (const session in activeStores) {
+                if (activeStores[session] && activeStores[session].messages) {
+                    activeStores[session].messages = {}; 
+                }
+            }
+
+            // 3. Reset Kuota Bulanan API Key di tanggal 1
+            const today = new Date();
+            if (today.getDate() === 1) {
+                // Gunakan flag memory agar tidak ter-reset berkali-kali di tanggal 1 jika server direstart
+                if (global.lastResetMonth !== today.getMonth()) {
+                    await prisma.apiKey.updateMany({ data: { terpakai_bulan_ini: 0 } });
+                    global.lastResetMonth = today.getMonth();
+                    console.log(`[SYSTEM] Kuota Bulanan semua API Key berhasil di-reset ke 0.`);
+                }
+            }
+        } catch(e) {
+            console.error('[CLEANUP ERROR]', e.message);
+        }
     }, 24 * 60 * 60 * 1000); // Jalan setiap 24 Jam
 });
 

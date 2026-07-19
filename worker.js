@@ -2,6 +2,9 @@ process.env.TZ = 'Asia/Jakarta';
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
 
 const deviceProcessing = {};
 const pendingIPCTimeouts = {};
@@ -102,6 +105,38 @@ async function processQueue() {
                 if (payloadObj.text) payloadObj.text = prosesSpintax(payloadObj.text);
                 if (payloadObj.caption) payloadObj.caption = prosesSpintax(payloadObj.caption);
 
+                let tempFilePath = null;
+                const mediaUrl = payloadObj.image?.url || payloadObj.video?.url || payloadObj.document?.url;
+
+                if (mediaUrl) {
+                    try {
+                        const tempExt = payloadObj.image ? '.jpg' : payloadObj.video ? '.mp4' : '.pdf';
+                        const tempFileName = crypto.randomUUID() + tempExt;
+                        tempFilePath = path.join(__dirname, 'temp', tempFileName);
+                        
+                        const response = await axios({
+                            method: 'GET',
+                            url: mediaUrl,
+                            responseType: 'stream',
+                            timeout: 30000 // 30s timeout for download
+                        });
+                        
+                        const writer = fs.createWriteStream(tempFilePath);
+                        response.data.pipe(writer);
+                        await new Promise((resolve, reject) => {
+                            writer.on('finish', resolve);
+                            writer.on('error', reject);
+                        });
+                        
+                        // Hapus URL dari payload untuk digantikan dengan buffer nanti di index.js
+                        if (payloadObj.image) delete payloadObj.image.url;
+                        if (payloadObj.video) delete payloadObj.video.url;
+                        if (payloadObj.document) delete payloadObj.document.url;
+                    } catch (err) {
+                        throw new Error("Gagal mengunduh media dari URL: " + err.message);
+                    }
+                }
+
                 // Send request to main process
                 process.send({
                     type: 'send_message',
@@ -109,6 +144,7 @@ async function processQueue() {
                     sender_device: pendingMsg.sender_device,
                     recipient_jid: pendingMsg.recipient_jid,
                     payload: payloadObj,
+                    tempFilePath: tempFilePath,
                     api_key_id: pendingMsg.api_key_id
                 });
                 
@@ -140,6 +176,13 @@ async function processWebhookQueue() {
             },
             take: 20 // Process 20 at a time
         });
+        
+        if (pendingWebhooks.length > 0) {
+            await prisma.webhookQueue.updateMany({
+                where: { id: { in: pendingWebhooks.map(w => w.id) } },
+                data: { status: 'processing' }
+            });
+        }
 
         for (const wh of pendingWebhooks) {
             try {

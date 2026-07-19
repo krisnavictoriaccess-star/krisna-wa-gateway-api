@@ -108,16 +108,57 @@ function formatMessage(msgStr) {
 
 console.log = function(...args) {
     const time = moment().format('dddd, HH:mm:ss [WIB]');
-    const msgStr = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
+    const msgStr = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    
+    if (msgStr.includes('======') || msgStr.includes('------')) {
+        originalLog(msgStr);
+        return;
+    }
+    
     const f = formatMessage(msgStr);
-    originalLog(`${COLORS.gray}[${time}]${COLORS.reset} ${f.color}${f.icon} [${f.module}]${COLORS.reset} ${f.text}`);
+    const cleanText = f.text.replace(/\x1b\[[0-9;]*m/g, '').trim();
+    
+    let emoji = '🖥️';
+    if (f.module === 'SYSTEM') emoji = '⚙️';
+    if (f.module === 'SESSION') emoji = '📱';
+    if (f.module === 'WEBHOOK') emoji = '🔗';
+    if (f.module === 'AUTO-REPLY') emoji = '🤖';
+    if (f.module === 'QUEUE') emoji = '⏳';
+    if (f.module === 'CLEANUP') emoji = '🧹';
+    if (f.module === 'DATABASE') emoji = '🗄️';
+
+    const title = `${emoji} [${f.module}] LOG`;
+    const lines = [`Waktu    : ${time}`, `Pesan    : ${cleanText}`];
+    
+    const maxLength = Math.max(title.length, ...lines.map(l => l.length));
+    const border = '='.repeat(maxLength);
+    const separator = '-'.repeat(maxLength);
+    
+    originalLog('\x1b[36m' + border + '\x1b[0m');
+    originalLog(f.color + title + '\x1b[0m');
+    originalLog('\x1b[36m' + separator + '\x1b[0m');
+    for(let l of lines) originalLog(l);
+    originalLog('\x1b[36m' + border + '\x1b[0m\n');
 };
 
 console.error = function(...args) {
     const time = moment().format('dddd, HH:mm:ss [WIB]');
-    const msgStr = args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ');
+    const msgStr = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
     const f = formatMessage(msgStr);
-    originalError(`${COLORS.gray}[${time}]${COLORS.reset} ${COLORS.red}❌ [ERROR]${COLORS.reset} ${f.text}`);
+    const cleanText = f.text.replace(/\x1b\[[0-9;]*m/g, '').trim();
+    
+    const title = `❌ [${f.module}] ERROR`;
+    const lines = [`Waktu    : ${time}`, `Error    : ${cleanText}`];
+    
+    const maxLength = Math.max(title.length, ...lines.map(l => l.length));
+    const border = '='.repeat(maxLength);
+    const separator = '-'.repeat(maxLength);
+    
+    originalError('\x1b[31m' + border + '\x1b[0m');
+    originalError('\x1b[31m' + title + '\x1b[0m');
+    originalError('\x1b[31m' + separator + '\x1b[0m');
+    for(let l of lines) originalError(l);
+    originalError('\x1b[31m' + border + '\x1b[0m\n');
 };
 
 // Custom Express Logger untuk Terminal Cantik
@@ -1241,15 +1282,19 @@ app.post('/kirim-vcard', validateApiKey, validateDeviceOwnership, checkQuotaMidd
 
 // --- EXECUTE ON STARTUP ---
 server.listen(PORT, async () => {
-    console.log('\n\x1b[36m%s\x1b[0m', '██╗  ██╗██████╗ ██╗███████╗███╗   ██╗ █████╗ ');
-    console.log('\x1b[36m%s\x1b[0m', '██║ ██╔╝██╔══██╗██║██╔════╝████╗  ██║██╔══██╗');
-    console.log('\x1b[36m%s\x1b[0m', '█████╔╝ ██████╔╝██║███████╗██╔██╗ ██║███████║');
-    console.log('\x1b[36m%s\x1b[0m', '██╔═██╗ ██╔══██╗██║╚════██║██║╚██╗██║██╔══██║');
-    console.log('\x1b[36m%s\x1b[0m', '██║  ██╗██║  ██║██║███████║██║ ╚████║██║  ██║');
-    console.log('\x1b[36m%s\x1b[0m', '╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝');
-    console.log('\x1b[33m%s\x1b[0m', '===================================================');
-    console.log('\x1b[32m%s\x1b[0m', `🚀 KRISNA GATEWAY (API Server) Berjalan di Port: ${PORT}`);
-    console.log('\x1b[33m%s\x1b[0m', '===================================================\n');
+    // Startup Banner
+    const time = moment().format('dddd, HH:mm:ss [WIB]');
+    const lines = [`Waktu    : ${time}`, `Service  : API Gateway Server`, `Port     : ${PORT}`, `Status   : ONLINE & READY`];
+    const title = '🚀 KRISNA DEVELOPER';
+    const maxLength = Math.max(title.length, ...lines.map(l => l.length));
+    const border = '='.repeat(maxLength);
+    const separator = '-'.repeat(maxLength);
+    
+    originalLog('\x1b[36m' + border + '\x1b[0m');
+    originalLog('\x1b[32m' + title + '\x1b[0m');
+    originalLog('\x1b[36m' + separator + '\x1b[0m');
+    for(let l of lines) originalLog(l);
+    originalLog('\x1b[36m' + border + '\x1b[0m\n');
     
     // Resume worker & check connected sessions
     await loadSavedSessions();

@@ -43,7 +43,7 @@ async function handleFailedMessage(id, sender_device, error_message, api_key_id 
         if (api_key_id) {
              await prisma.apiKey.update({ where: { key: api_key_id }, data: { terpakai_bulan_ini: { decrement: 1 } } }).catch(()=>{});
         }
-        logWorkerBox('[QUEUE WORKER] FAILED', `Pesan ID : ${id}\nDevice : ${sender_device}\nAlasan : ${error_message}`, true);
+        logWorkerBox('❌ [WORKER] FAILED', `Pesan ID : ${id}\nDevice : ${sender_device}\nAlasan : ${error_message}`, true);
     } else {
         const nextRetryDate = new Date();
         nextRetryDate.setMinutes(nextRetryDate.getMinutes() + attempts);
@@ -65,7 +65,7 @@ process.on('message', async (msg) => {
             if (msg.status === 'success') {
                 delete messageAttempts[msg.id]; // Hapus cache retry
                 await prisma.messageQueue.update({ where: { id: msg.id }, data: { status: 'sent' } });
-                logWorkerBox('[QUEUE WORKER] SUCCESS', `Pesan ID : ${msg.id}\nTujuan : ${msg.recipient_jid}\nDevice : ${msg.sender_device}`);
+                logWorkerBox('✅ [WORKER] SUCCESS', `Pesan ID : ${msg.id}\nTujuan : ${msg.recipient_jid}\nDevice : ${msg.sender_device}`);
             } else {
                 await handleFailedMessage(msg.id, msg.sender_device, msg.error, msg.api_key_id);
             }

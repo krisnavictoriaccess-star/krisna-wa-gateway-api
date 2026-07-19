@@ -161,7 +161,7 @@ async function processQueue() {
                     } catch(e) {}
                     deviceProcessing[pendingMsg.sender_device] = false;
                     delete pendingIPCTimeouts[pendingMsg.id];
-                }, 60000); // Timeout diubah ke 60 detik (1 Menit)
+                }, 120000); // Timeout diubah ke 60 detik (1 Menit)
             }
         }));
     } catch (error) {

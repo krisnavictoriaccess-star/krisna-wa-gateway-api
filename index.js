@@ -139,7 +139,7 @@ app.use((req, res, next) => {
         }
         lines.push(`Status   : ${res.statusCode} ${res.statusMessage || ''} (${duration}ms)`);
         
-        const title = req.method;
+        const title = '[SYSTEM] ' + req.method;
         const maxLength = Math.max(title.length, ...lines.map(l => l.length));
         const border = '='.repeat(maxLength);
         const separator = '-'.repeat(maxLength);
@@ -392,7 +392,7 @@ async function initWhatsAppSession(sessionId) {
                 `Isi Pesan : ${shortMsg}`,
                 `Dari      : ${senderJid.split('@')[0]}`
             ];
-            const title = 'PESAN MASUK';
+            const title = '[SYSTEM] PESAN MASUK';
             const maxLength = Math.max(title.length, ...lines.map(l => l.length));
             const border = '='.repeat(maxLength);
             const separator = '-'.repeat(maxLength);

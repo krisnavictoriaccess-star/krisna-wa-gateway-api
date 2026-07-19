@@ -632,7 +632,7 @@ app.post('/api-key/generate', validateMasterKey, async (req, res) => {
         const keyData = await prisma.apiKey.create({
             data: {
                 key: hashedKey, label: label, paket: paket, limit_pesan: config.limit_pesan, max_devices: config.max_devices,
-                terpakai_bulan_ini: 0, last_reset_month: now.toISOString().substring(0, 7), expired_at: expiredAt
+                terpakai_bulan_ini: 0, last_reset_month: '0', expired_at: expiredAt
             }
         });
         return res.status(201).json({ status: true, message: `API Key ${paket} berhasil dibuat.`, plain_key: plainKey, data: keyData });
@@ -1209,14 +1209,30 @@ server.listen(PORT, async () => {
                 }
             }
 
-            // 3. Reset Kuota Bulanan API Key di tanggal 1
-            const today = new Date();
-            if (today.getDate() === 1) {
-                // Gunakan flag memory agar tidak ter-reset berkali-kali di tanggal 1 jika server direstart
-                if (global.lastResetMonth !== today.getMonth()) {
-                    await prisma.apiKey.updateMany({ data: { terpakai_bulan_ini: 0 } });
-                    global.lastResetMonth = today.getMonth();
-                    console.log(`[SYSTEM] Kuota Bulanan semua API Key berhasil di-reset ke 0.`);
+            // 3. Reset Kuota API Key berdasarkan siklus 30 hari dari tanggal pembuatan (Rolling Window)
+            const apiKeys = await prisma.apiKey.findMany();
+            const now = new Date();
+            for (const key of apiKeys) {
+                // Pengecekan aman, gunakan string '0' jika tidak ada
+                if (key.last_reset_month.includes('-')) {
+                     // Jika format lama ("2026-07"), timpa ke format siklus ("0") agar siap rolling
+                     await prisma.apiKey.update({ where: { key: key.key }, data: { last_reset_month: '0' } });
+                     continue;
+                }
+                
+                const diffTime = Math.abs(now - key.createdAt);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                const currentCycle = Math.floor(diffDays / 30);
+                
+                if (key.last_reset_month !== currentCycle.toString()) {
+                    await prisma.apiKey.update({
+                        where: { key: key.key },
+                        data: { 
+                            terpakai_bulan_ini: 0, 
+                            last_reset_month: currentCycle.toString() 
+                        }
+                    });
+                    console.log(`[SYSTEM] Kuota API Key ${key.label} di-reset (Memasuki Siklus 30-Hari ke-${currentCycle}).`);
                 }
             }
         } catch(e) {

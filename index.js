@@ -120,18 +120,30 @@ console.error = function(...args) {
     originalError(`${COLORS.gray}[${time}]${COLORS.reset} ${COLORS.red}❌ [ERROR]${COLORS.reset} ${f.text}`);
 };
 
-// Custom Morgan untuk API Logs
-app.use(morgan((tokens, req, res) => {
-    const time = moment().format('dddd, HH:mm:ss [WIB]');
-    const method = tokens.method(req, res);
-    const url = tokens.url(req, res);
-    const status = tokens.status(req, res);
-    const responseTime = tokens['response-time'](req, res);
-    
-    let statusColor = status >= 500 ? COLORS.red : status >= 400 ? COLORS.yellow : COLORS.green;
-    
-    return `${COLORS.gray}[${time}]${COLORS.reset} ${COLORS.cyan}🌐 [API]${COLORS.reset} ${method} ${url} ${statusColor}${status}${COLORS.reset} - ${responseTime} ms`;
-}));
+// Custom Express Logger untuk Terminal Cantik
+app.use((req, res, next) => {
+    const start = Date.now();
+    res.on('finish', () => {
+        const duration = Date.now() - start;
+        if (req.method === 'POST') {
+            console.log('\x1b[36m%s\x1b[0m', '\n=============================');
+            console.log('\x1b[33m%s\x1b[0m', 'POST');
+            console.log('\x1b[36m%s\x1b[0m', '---------------');
+            console.log(`Endpoint : ${req.path}`);
+            if (req.body && req.body.sender) console.log(`Nomor Bot : ${req.body.sender}`);
+            if (req.body && req.body.number) console.log(`Tujuan : ${req.body.number}`);
+            if (req.body && req.body.message) {
+                const msg = req.body.message.length > 50 ? req.body.message.substring(0, 50) + '...' : req.body.message;
+                console.log(`Pesan : ${msg}`);
+            }
+            console.log(`Status : ${res.statusCode} ${res.statusMessage || ''} (${duration}ms)`);
+            console.log('\x1b[36m%s\x1b[0m', '=============================');
+        } else {
+            console.log(`[${req.method}] ${req.path} - ${res.statusCode} (${duration}ms)`);
+        }
+    });
+    next();
+});
 
 // Middleware tambahan untuk mencegah req.body undefined jika client lupa set Content-Type
 app.use((req, res, next) => {
@@ -364,6 +376,14 @@ async function initWhatsAppSession(sessionId) {
 
         // 1. AUTO-RESPONDER & INBOX LOGIC
         if (textMessage) {
+            console.log('\x1b[36m%s\x1b[0m', '\n=============================');
+            console.log('\x1b[32m%s\x1b[0m', 'Pesan Masuk');
+            console.log('\x1b[36m%s\x1b[0m', '---------------------');
+            console.log(`Nomor Bot : ${sessionId}`);
+            const shortMsg = textMessage.length > 50 ? textMessage.substring(0, 50) + '...' : textMessage;
+            console.log(`Isi Pesan : ${shortMsg}`);
+            console.log(`Dari : ${senderJid.split('@')[0]}`);
+            console.log('\x1b[36m%s\x1b[0m', '=============================');
             // Save to Inbox
             try {
                 await prisma.messageInbox.create({

@@ -6,8 +6,25 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlite" // Or mysql, depends on DATABASE_URL
   url      = env("DATABASE_URL")
+}
+
+model Package {
+  id               Int       @id @default(autoincrement())
+  nama_paket       String    @unique
+  deskripsi        String?
+  harga            String?
+  limit_pesan      Int       @default(1000)
+  limit_device     Int       @default(1)
+  limit_autoreply  Int       @default(5)
+  fitur_broadcast  Boolean   @default(false)
+  fitur_media      Boolean   @default(false)
+  fitur_group      Boolean   @default(false)
+  fitur_webhook    Boolean   @default(false)
+  is_public        Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 model ApiKey {

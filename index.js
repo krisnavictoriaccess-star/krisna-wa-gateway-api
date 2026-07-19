@@ -703,6 +703,51 @@ app.get('/api-key/list', validateMasterKey, async (req, res) => {
     } catch (error) { console.error('[API ERROR]', error.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
 });
 
+
+// ====== MANAJEMEN PAKET (MASTER ONLY) ======
+app.get('/package/list', async (req, res) => {
+    // Bisa diakses tanpa master key jika ingin ditampilkan di web public (tapi filter is_public)
+    const isMaster = req.headers['x-master-key'] === process.env.MASTER_SECRET_KEY;
+    const filter = isMaster ? {} : { where: { is_public: true } };
+    const packages = await prisma.package.findMany(filter);
+    res.json({ status: true, data: packages });
+});
+
+app.post('/package/add', validateMasterKey, async (req, res) => {
+    try {
+        const data = req.body;
+        if (!data.nama_paket) return res.status(400).json({ status: false, message: 'nama_paket wajib diisi.' });
+        
+        const newPkg = await prisma.package.create({ data });
+        res.json({ status: true, message: 'Paket berhasil dibuat', data: newPkg });
+    } catch (e) {
+        res.status(500).json({ status: false, message: e.message });
+    }
+});
+
+app.post('/package/edit', validateMasterKey, async (req, res) => {
+    try {
+        const { id, ...data } = req.body;
+        if (!id) return res.status(400).json({ status: false, message: 'id paket wajib diisi.' });
+        
+        const updated = await prisma.package.update({ where: { id: parseInt(id) }, data });
+        res.json({ status: true, message: 'Paket berhasil diubah', data: updated });
+    } catch (e) {
+        res.status(500).json({ status: false, message: e.message });
+    }
+});
+
+app.post('/package/delete', validateMasterKey, async (req, res) => {
+    try {
+        const { id } = req.body;
+        // Kita gunakan soft-delete (hide) agar tidak merusak relasi api key
+        const deleted = await prisma.package.update({ where: { id: parseInt(id) }, data: { is_public: false } });
+        res.json({ status: true, message: 'Paket berhasil disembunyikan (Soft Delete)', data: deleted });
+    } catch (e) {
+        res.status(500).json({ status: false, message: e.message });
+    }
+});
+
 app.post('/api-key/generate', validateMasterKey, async (req, res) => {
     try {
         const { paket = 'Free', label = 'User', expiry_days } = req.body;
@@ -1160,11 +1205,12 @@ app.post('/kirim-pesan', validateApiKey, validateDeviceOwnership, checkQuotaMidd
 });
 
 app.post('/kirim-massal', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_broadcast) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk fitur Kirim Massal (Broadcast).' });
     const { pesan_list } = req.body; // Array of {nomor, pesan, media_url, media_type}
     if (!pesan_list || !Array.isArray(pesan_list)) return res.status(400).json({ status: false, message: 'Format salah. Butuh array pesan_list.' });
     
     const user = req.apiKeyData;
-    if (user.paket !== 'Premium' && (user.terpakai_bulan_ini + pesan_list.length) > user.limit_pesan) {
+    if (user.limit_pesan !== -1 && (user.terpakai_bulan_ini + pesan_list.length) > user.limit_pesan) {
          return res.status(402).json({ status: false, message: 'Kuota pesan Anda tidak cukup untuk broadcast massal ini.' });
     }
 
@@ -1214,6 +1260,7 @@ app.post('/kirim-massal', validateApiKey, validateDeviceOwnership, checkQuotaMid
 });
 
 app.post('/kirim-grup', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_group) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim pesan ke Grup.' });
     const { group_id, pesan } = req.body; // group_id = misal 123456789@g.us
     if (!group_id || !pesan) return res.status(400).json({ status: false, message: 'Parameter group_id & pesan wajib.' });
     return addToQueue(req, res, group_id, { text: pesan });
@@ -1240,6 +1287,7 @@ app.post('/kirim-polling', validateApiKey, validateDeviceOwnership, checkQuotaMi
 });
 
 app.post('/kirim-media', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_media) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim Media/Gambar.' });
     const { nomor, url, tipe, caption = '' } = req.body; // tipe = image, video, document
     if (!nomor || !url || !tipe) return res.status(400).json({ status: false, message: 'Parameter nomor, url, dan tipe wajib.' });
     

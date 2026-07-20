@@ -259,14 +259,7 @@ startWorkerProcess();
 
 
 // --- DAFTAR LIMIT PAKET & EXPIRATION (SaaS Tiers) ---
-const PAKET_CONFIG = {
-    'Free': { limit_pesan: 1000, max_devices: 1, expiry_days: 3 },
-    'Lite': { limit_pesan: 10000, max_devices: 1, expiry_days: 30 },
-    'Pro': { limit_pesan: 50000, max_devices: 3, expiry_days: 30 },
-    'Premium': { limit_pesan: 500000, max_devices: 10, expiry_days: 30 }
-};
 
-const PAKET_RANK = { 'Free': 1, 'Lite': 2, 'Pro': 3, 'Premium': 4 };
 
 // --- WEBHOOK SENDER ---
 async function sendWebhook(url, payload, api_key_id) {
@@ -751,10 +744,11 @@ app.post('/package/delete', validateMasterKey, async (req, res) => {
 app.post('/api-key/generate', validateMasterKey, async (req, res) => {
     try {
         const { paket = 'Free', label = 'User', expiry_days } = req.body;
-        if (!PAKET_CONFIG[paket]) return res.status(400).json({ status: false, message: 'Paket tidak valid.' });
+        const config = await prisma.package.findUnique({ where: { nama_paket: paket } });
+        if (!config) return res.status(400).json({ status: false, message: 'Paket tidak valid atau tidak ditemukan di database.' });
+        if (!config.is_public) return res.status(400).json({ status: false, message: 'Paket ini tidak tersedia untuk pendaftaran baru.' });
 
-        const config = PAKET_CONFIG[paket];
-        const finalExpiryDays = expiry_days ? parseInt(expiry_days) : config.expiry_days;
+        const finalExpiryDays = expiry_days ? parseInt(expiry_days) : 30; // default 30 days
         const plainKey = 'KEY-' + crypto.randomBytes(16).toString('hex').toUpperCase();
         
         // Poin 4: Hashing API Key
@@ -802,20 +796,15 @@ app.post('/api-key/upgrade', validateMasterKey, async (req, res) => {
     try {
         const { target_api_key, nama_paket } = req.body;
         if (!target_api_key || !nama_paket) return res.status(400).json({ status: false, message: 'Parameter tidak lengkap.' });
-        if (!PAKET_CONFIG[nama_paket]) return res.status(400).json({ status: false, message: 'Nama paket salah!' });
-
+        const config = await prisma.package.findUnique({ where: { nama_paket: nama_paket } });
+        if (!config) return res.status(400).json({ status: false, message: 'Nama paket salah atau tidak ditemukan di database!' });
+        
         const hashedTargetKey = crypto.createHash('sha256').update(target_api_key).digest('hex');
         const currentUser = await prisma.apiKey.findUnique({ where: { key: hashedTargetKey } });
         if (!currentUser) return res.status(404).json({ status: false, message: 'API Key tidak ditemukan.' });
-
-        if (PAKET_RANK[nama_paket] < PAKET_RANK[currentUser.paket]) {
-            return res.status(400).json({ status: false, message: 'Tidak bisa downgrade ke paket yang lebih rendah.' });
-        }
-
-        const config = PAKET_CONFIG[nama_paket];
         const now = new Date();
         const expiredAt = new Date(now);
-        expiredAt.setDate(now.getDate() + config.expiry_days);
+        expiredAt.setDate(now.getDate() + 30); // default 30 days renewal
 
         const updated = await prisma.apiKey.update({
             where: { key: hashedTargetKey },

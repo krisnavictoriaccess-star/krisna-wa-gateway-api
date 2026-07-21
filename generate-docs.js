@@ -32,7 +32,90 @@ const endpoints = [
   "message": "Akses ditolak. Master Key salah atau tidak ditemukan."
 }`
     },
+    
     {
+        method: "GET", path: "/package/list",
+        summary: "Mengambil daftar seluruh paket SASS/harga yang tersedia di database (Dynamic Packages).",
+        badge: "master",
+        params: [],
+        reqBody: "",
+        resSuccess: `{
+  "status": true,
+  "data": [
+    { "id": 1, "nama_paket": "Premium", "limit_pesan": 500000, "is_public": true }
+  ]
+}`,
+        resError: ""
+    },
+    {
+        method: "POST", path: "/package/add",
+        summary: "Menambahkan paket layanan baru ke dalam sistem.",
+        badge: "master",
+        params: [
+            { field: "nama_paket", type: "String", status: "wajib", desc: "Nama paket unik, contoh: Promo Ramadhan." },
+            { field: "limit_pesan", type: "Integer", status: "wajib", desc: "Batas pesan bulanan." },
+            { field: "limit_device", type: "Integer", status: "opsional", desc: "Maksimal device." },
+            { field: "fitur_media", type: "Boolean", status: "opsional", desc: "Izinkan pengiriman media." }
+        ],
+        reqBody: `{
+  "nama_paket": "Promo Spesial",
+  "limit_pesan": 100000,
+  "limit_device": 2,
+  "fitur_media": true
+}`,
+        resSuccess: `{
+  "status": true,
+  "message": "Paket berhasil ditambahkan.",
+  "data": { ... }
+}`,
+        resError: `{
+  "status": false,
+  "message": "Paket dengan nama tersebut sudah ada."
+}`
+    },
+    {
+        method: "POST", path: "/package/edit",
+        summary: "Mengubah spesifikasi paket atau menyembunyikan paket dari publik.",
+        badge: "master",
+        params: [
+            { field: "id", type: "Integer", status: "wajib", desc: "ID paket yang ingin diubah." },
+            { field: "is_public", type: "Boolean", status: "opsional", desc: "Atur false untuk Soft Delete / menyembunyikan." }
+        ],
+        reqBody: `{
+  "id": 1,
+  "limit_pesan": 999999,
+  "is_public": false
+}`,
+        resSuccess: `{
+  "status": true,
+  "message": "Paket berhasil diperbarui.",
+  "data": { ... }
+}`,
+        resError: `{
+  "status": false,
+  "message": "Paket tidak ditemukan."
+}`
+    },
+    {
+        method: "POST", path: "/package/delete",
+        summary: "Menghapus paket secara fisik (Hard Delete) dari database.",
+        badge: "master",
+        params: [
+            { field: "id", type: "Integer", status: "wajib", desc: "ID paket yang ingin dihapus." }
+        ],
+        reqBody: `{
+  "id": 1
+}`,
+        resSuccess: `{
+  "status": true,
+  "message": "Paket berhasil dihapus permanen dari database."
+}`,
+        resError: `{
+  "status": false,
+  "message": "ID Paket tidak valid."
+}`
+    },
+{
         method: "POST", path: "/api-key/generate",
         summary: "Membuat kredensial API Key baru untuk klien.",
         badge: "master",

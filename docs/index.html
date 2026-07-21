@@ -37,6 +37,22 @@
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center">GET</span>
     <span class="truncate">/api-key/list</span>
   </a>
+  <a href="#GETpackagelist" class="block px-2 py-1.5 text-sm text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-lg transition-colors flex items-center gap-2">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center">GET</span>
+    <span class="truncate">/package/list</span>
+  </a>
+  <a href="#POSTpackageadd" class="block px-2 py-1.5 text-sm text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-lg transition-colors flex items-center gap-2">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center">POST</span>
+    <span class="truncate">/package/add</span>
+  </a>
+  <a href="#POSTpackageedit" class="block px-2 py-1.5 text-sm text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-lg transition-colors flex items-center gap-2">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center">POST</span>
+    <span class="truncate">/package/edit</span>
+  </a>
+  <a href="#POSTpackagedelete" class="block px-2 py-1.5 text-sm text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-lg transition-colors flex items-center gap-2">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center">POST</span>
+    <span class="truncate">/package/delete</span>
+  </a>
   <a href="#POSTapikeygenerate" class="block px-2 py-1.5 text-sm text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-lg transition-colors flex items-center gap-2">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center">POST</span>
     <span class="truncate">/api-key/generate</span>
@@ -240,6 +256,265 @@
                  <pre class="font-mono text-sm text-rose-200/90">{
   "status": false,
   "message": "Akses ditolak. Master Key salah atau tidak ditemukan."
+}</pre>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETpackagelist">
+      <!-- Card Header -->
+      <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
+         <div class="flex items-center gap-3">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">GET</span>
+            <code class="text-slate-200 font-mono text-[15px] md:text-lg font-bold">/package/list</code>
+         </div>
+         <span class="text-slate-400 text-sm md:ml-auto md:text-right leading-snug">Mengambil daftar seluruh paket SASS/harga yang tersedia di database (Dynamic Packages).</span>
+      </div>
+      
+      <!-- Card Body -->
+      <div class="p-5 md:p-8">
+         <div class="mb-8 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex-1">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="overflow-x-auto bg-emerald-950/20 p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-emerald-200/90">{
+  "status": true,
+  "data": [
+    { "id": 1, "nama_paket": "Premium", "limit_pesan": 500000, "is_public": true }
+  ]
+}</pre>
+               </div>
+            </div>
+            <div class="flex-1">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="overflow-x-auto bg-rose-950/20 p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-rose-200/90"></pre>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTpackageadd">
+      <!-- Card Header -->
+      <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
+         <div class="flex items-center gap-3">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20">POST</span>
+            <code class="text-slate-200 font-mono text-[15px] md:text-lg font-bold">/package/add</code>
+         </div>
+         <span class="text-slate-400 text-sm md:ml-auto md:text-right leading-snug">Menambahkan paket layanan baru ke dalam sistem.</span>
+      </div>
+      
+      <!-- Card Body -->
+      <div class="p-5 md:p-8">
+         <div class="mb-8 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
+         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+               <thead class="bg-slate-800/80 text-slate-400">
+                 <tr>
+                   <th class="px-5 py-3 font-semibold">Field</th>
+                   <th class="px-5 py-3 font-semibold">Type</th>
+                   <th class="px-5 py-3 font-semibold">Status</th>
+                   <th class="px-5 py-3 font-semibold">Deskripsi</th>
+                 </tr>
+               </thead>
+               <tbody class="divide-y divide-slate-700/50">
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">nama_paket</code></td>
+                    <td class="px-5 py-3 text-slate-300">String</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-5 py-3 text-slate-400">Nama paket unik, contoh: Promo Ramadhan.</td>
+                 </tr>
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">limit_pesan</code></td>
+                    <td class="px-5 py-3 text-slate-300">Integer</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-5 py-3 text-slate-400">Batas pesan bulanan.</td>
+                 </tr>
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">limit_device</code></td>
+                    <td class="px-5 py-3 text-slate-300">Integer</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
+                    <td class="px-5 py-3 text-slate-400">Maksimal device.</td>
+                 </tr>
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">fitur_media</code></td>
+                    <td class="px-5 py-3 text-slate-300">Boolean</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
+                    <td class="px-5 py-3 text-slate-400">Izinkan pengiriman media.</td>
+                 </tr>
+               </tbody>
+            </table>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body (JSON)</h5>
+         <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner">
+           <pre class="font-mono text-sm text-indigo-300">{
+  "nama_paket": "Promo Spesial",
+  "limit_pesan": 100000,
+  "limit_device": 2,
+  "fitur_media": true
+}</pre>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex-1">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="overflow-x-auto bg-emerald-950/20 p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-emerald-200/90">{
+  "status": true,
+  "message": "Paket berhasil ditambahkan.",
+  "data": { ... }
+}</pre>
+               </div>
+            </div>
+            <div class="flex-1">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="overflow-x-auto bg-rose-950/20 p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-rose-200/90">{
+  "status": false,
+  "message": "Paket dengan nama tersebut sudah ada."
+}</pre>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTpackageedit">
+      <!-- Card Header -->
+      <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
+         <div class="flex items-center gap-3">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20">POST</span>
+            <code class="text-slate-200 font-mono text-[15px] md:text-lg font-bold">/package/edit</code>
+         </div>
+         <span class="text-slate-400 text-sm md:ml-auto md:text-right leading-snug">Mengubah spesifikasi paket atau menyembunyikan paket dari publik.</span>
+      </div>
+      
+      <!-- Card Body -->
+      <div class="p-5 md:p-8">
+         <div class="mb-8 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
+         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+               <thead class="bg-slate-800/80 text-slate-400">
+                 <tr>
+                   <th class="px-5 py-3 font-semibold">Field</th>
+                   <th class="px-5 py-3 font-semibold">Type</th>
+                   <th class="px-5 py-3 font-semibold">Status</th>
+                   <th class="px-5 py-3 font-semibold">Deskripsi</th>
+                 </tr>
+               </thead>
+               <tbody class="divide-y divide-slate-700/50">
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">id</code></td>
+                    <td class="px-5 py-3 text-slate-300">Integer</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-5 py-3 text-slate-400">ID paket yang ingin diubah.</td>
+                 </tr>
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">is_public</code></td>
+                    <td class="px-5 py-3 text-slate-300">Boolean</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
+                    <td class="px-5 py-3 text-slate-400">Atur false untuk Soft Delete / menyembunyikan.</td>
+                 </tr>
+               </tbody>
+            </table>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body (JSON)</h5>
+         <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner">
+           <pre class="font-mono text-sm text-indigo-300">{
+  "id": 1,
+  "limit_pesan": 999999,
+  "is_public": false
+}</pre>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex-1">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="overflow-x-auto bg-emerald-950/20 p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-emerald-200/90">{
+  "status": true,
+  "message": "Paket berhasil diperbarui.",
+  "data": { ... }
+}</pre>
+               </div>
+            </div>
+            <div class="flex-1">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="overflow-x-auto bg-rose-950/20 p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-rose-200/90">{
+  "status": false,
+  "message": "Paket tidak ditemukan."
+}</pre>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTpackagedelete">
+      <!-- Card Header -->
+      <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
+         <div class="flex items-center gap-3">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20">POST</span>
+            <code class="text-slate-200 font-mono text-[15px] md:text-lg font-bold">/package/delete</code>
+         </div>
+         <span class="text-slate-400 text-sm md:ml-auto md:text-right leading-snug">Menghapus paket secara fisik (Hard Delete) dari database.</span>
+      </div>
+      
+      <!-- Card Body -->
+      <div class="p-5 md:p-8">
+         <div class="mb-8 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
+         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+               <thead class="bg-slate-800/80 text-slate-400">
+                 <tr>
+                   <th class="px-5 py-3 font-semibold">Field</th>
+                   <th class="px-5 py-3 font-semibold">Type</th>
+                   <th class="px-5 py-3 font-semibold">Status</th>
+                   <th class="px-5 py-3 font-semibold">Deskripsi</th>
+                 </tr>
+               </thead>
+               <tbody class="divide-y divide-slate-700/50">
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">id</code></td>
+                    <td class="px-5 py-3 text-slate-300">Integer</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-5 py-3 text-slate-400">ID paket yang ingin dihapus.</td>
+                 </tr>
+               </tbody>
+            </table>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body (JSON)</h5>
+         <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner">
+           <pre class="font-mono text-sm text-indigo-300">{
+  "id": 1
+}</pre>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-8">
+            <div class="flex-1">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="overflow-x-auto bg-emerald-950/20 p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-emerald-200/90">{
+  "status": true,
+  "message": "Paket berhasil dihapus permanen dari database."
+}</pre>
+               </div>
+            </div>
+            <div class="flex-1">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="overflow-x-auto bg-rose-950/20 p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre class="font-mono text-sm text-rose-200/90">{
+  "status": false,
+  "message": "ID Paket tidak valid."
 }</pre>
                </div>
             </div>

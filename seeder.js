@@ -18,7 +18,7 @@ const defaultPackages = [
     {
         nama_paket: 'Lite',
         deskripsi: 'Paket ringan untuk pemula',
-        harga: 'Rp 50.000',
+        harga: 'Rp 25.000',
         limit_pesan: 5000,
         limit_device: 1,
         limit_autoreply: 20,
@@ -31,7 +31,7 @@ const defaultPackages = [
     {
         nama_paket: 'Pro',
         deskripsi: 'Paket profesional untuk bisnis',
-        harga: 'Rp 150.000',
+        harga: 'Rp 50.000',
         limit_pesan: 50000,
         limit_device: 3,
         limit_autoreply: 100,
@@ -44,7 +44,7 @@ const defaultPackages = [
     {
         nama_paket: 'Premium',
         deskripsi: 'Paket tanpa batas',
-        harga: 'Rp 300.000',
+        harga: 'Rp 100.000',
         limit_pesan: -1,
         limit_device: 10,
         limit_autoreply: -1,
@@ -61,7 +61,16 @@ async function seed() {
     for (const pkg of defaultPackages) {
         await prisma.package.upsert({
             where: { nama_paket: pkg.nama_paket },
-            update: {},
+            update: {
+                harga: pkg.harga,
+                limit_pesan: pkg.limit_pesan,
+                limit_device: pkg.limit_device,
+                limit_autoreply: pkg.limit_autoreply,
+                fitur_broadcast: pkg.fitur_broadcast,
+                fitur_media: pkg.fitur_media,
+                fitur_group: pkg.fitur_group,
+                fitur_webhook: pkg.fitur_webhook
+            },
             create: pkg
         });
         console.log(`Paket [${pkg.nama_paket}] berhasil disuntikkan.`);

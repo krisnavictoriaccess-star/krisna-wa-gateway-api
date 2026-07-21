@@ -7,7 +7,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "https://api.krisnamarket.my.id",
+      "value": "https://api.krisnadev.my.id",
       "type": "string"
     },
     {
@@ -37,7 +37,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/api-key/list",
+              "raw": "https://api.krisnadev.my.id/api-key/list",
               "protocol": "https",
               "host": [
                 "api",
@@ -71,7 +71,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/api-key/generate",
+              "raw": "https://api.krisnadev.my.id/api-key/generate",
               "protocol": "https",
               "host": [
                 "api",
@@ -114,7 +114,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/api-key/extend",
+              "raw": "https://api.krisnadev.my.id/api-key/extend",
               "protocol": "https",
               "host": [
                 "api",
@@ -157,7 +157,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/api-key/upgrade",
+              "raw": "https://api.krisnadev.my.id/api-key/upgrade",
               "protocol": "https",
               "host": [
                 "api",
@@ -200,7 +200,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/api-key/delete",
+              "raw": "https://api.krisnadev.my.id/api-key/delete",
               "protocol": "https",
               "host": [
                 "api",
@@ -238,7 +238,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/device/all",
+              "raw": "https://api.krisnadev.my.id/device/all",
               "protocol": "https",
               "host": [
                 "api",
@@ -267,7 +267,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/queue/all",
+              "raw": "https://api.krisnadev.my.id/queue/all",
               "protocol": "https",
               "host": [
                 "api",
@@ -301,7 +301,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/api-key/info",
+              "raw": "https://api.krisnadev.my.id/api-key/info",
               "protocol": "https",
               "host": [
                 "api",
@@ -340,7 +340,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/device/add",
+              "raw": "https://api.krisnadev.my.id/device/add",
               "protocol": "https",
               "host": [
                 "api",
@@ -378,7 +378,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/device/list",
+              "raw": "https://api.krisnadev.my.id/device/list",
               "protocol": "https",
               "host": [
                 "api",
@@ -418,7 +418,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/device/settings",
+              "raw": "https://api.krisnadev.my.id/device/settings",
               "protocol": "https",
               "host": [
                 "api",
@@ -467,7 +467,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/device/delete",
+              "raw": "https://api.krisnadev.my.id/device/delete",
               "protocol": "https",
               "host": [
                 "api",
@@ -507,7 +507,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/contact/list",
+              "raw": "https://api.krisnadev.my.id/contact/list",
               "protocol": "https",
               "host": [
                 "api",
@@ -542,7 +542,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/group/list",
+              "raw": "https://api.krisnadev.my.id/group/list",
               "protocol": "https",
               "host": [
                 "api",
@@ -571,7 +571,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/inbox",
+              "raw": "https://api.krisnadev.my.id/inbox",
               "protocol": "https",
               "host": [
                 "api",
@@ -609,7 +609,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/webhook/set",
+              "raw": "https://api.krisnadev.my.id/webhook/set",
               "protocol": "https",
               "host": [
                 "api",
@@ -658,7 +658,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/auto-reply/add",
+              "raw": "https://api.krisnadev.my.id/auto-reply/add",
               "protocol": "https",
               "host": [
                 "api",
@@ -702,7 +702,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/auto-reply/list",
+              "raw": "https://api.krisnadev.my.id/auto-reply/list",
               "protocol": "https",
               "host": [
                 "api",
@@ -736,7 +736,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/auto-reply/delete",
+              "raw": "https://api.krisnadev.my.id/auto-reply/delete",
               "protocol": "https",
               "host": [
                 "api",
@@ -784,7 +784,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/kirim-pesan",
+              "raw": "https://api.krisnadev.my.id/kirim-pesan",
               "protocol": "https",
               "host": [
                 "api",
@@ -826,7 +826,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/kirim-massal",
+              "raw": "https://api.krisnadev.my.id/kirim-massal",
               "protocol": "https",
               "host": [
                 "api",
@@ -868,7 +868,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/kirim-media",
+              "raw": "https://api.krisnadev.my.id/kirim-media",
               "protocol": "https",
               "host": [
                 "api",
@@ -910,7 +910,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/kirim-grup",
+              "raw": "https://api.krisnadev.my.id/kirim-grup",
               "protocol": "https",
               "host": [
                 "api",
@@ -952,7 +952,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/kirim-polling",
+              "raw": "https://api.krisnadev.my.id/kirim-polling",
               "protocol": "https",
               "host": [
                 "api",
@@ -994,7 +994,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/kirim-lokasi",
+              "raw": "https://api.krisnadev.my.id/kirim-lokasi",
               "protocol": "https",
               "host": [
                 "api",
@@ -1036,7 +1036,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/kirim-vcard",
+              "raw": "https://api.krisnadev.my.id/kirim-vcard",
               "protocol": "https",
               "host": [
                 "api",
@@ -1078,7 +1078,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/queue/my",
+              "raw": "https://api.krisnadev.my.id/queue/my",
               "protocol": "https",
               "host": [
                 "api",
@@ -1112,7 +1112,7 @@
               }
             ],
             "url": {
-              "raw": "https://api.krisnamarket.my.id/queue/cancel",
+              "raw": "https://api.krisnadev.my.id/queue/cancel",
               "protocol": "https",
               "host": [
                 "api",

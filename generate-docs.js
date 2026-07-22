@@ -724,93 +724,91 @@ const endpoints = [
 }`
     }
 ];
-
-// --- MOBILE NAVBAR GENERATION ---
-let mobileNavHtml = `<nav class="md:hidden sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 overflow-x-auto whitespace-nowrap px-4 py-3 flex gap-3 shadow-lg shadow-black/20 snap-x">
-  <a href="#top" class="snap-start px-4 py-2 rounded-full bg-slate-800 text-slate-200 text-sm font-semibold border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors">Base URL & Auth</a>`;
-
-let addedCategories = new Set();
-endpoints.forEach(ep => {
-    if (ep.category && !addedCategories.has(ep.category)) {
-        let catId = ep.category.replace(/[^a-zA-Z0-9]/g, '');
-        mobileNavHtml += `\n  <a href="#${catId}" class="snap-start px-4 py-2 rounded-full bg-slate-800 text-slate-200 text-sm font-semibold border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors">${ep.category}</a>`;
-        addedCategories.add(ep.category);
-    }
-});
-mobileNavHtml += `\n  <a href="#websocket" class="snap-start px-4 py-2 rounded-full bg-slate-800 text-slate-200 text-sm font-semibold border border-slate-700 hover:bg-slate-700 hover:text-white transition-colors">WebSockets</a>\n</nav>`;
-
-
-// --- DESKTOP SIDEBAR GENERATION ---
-let desktopSidebarHtml = `<aside class="hidden md:block w-64 lg:w-72 shrink-0 h-screen sticky top-0 overflow-y-auto border-r border-slate-800 py-8 px-4 lg:px-6 bg-slate-900/50">
-  <h2 class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 mb-6 px-2">Navigasi API</h2>
-  <a href="#top" class="block px-2 py-1.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors">🌍 Base URL & Auth</a>
-`;
-
-let currentCategory = "";
-endpoints.forEach(ep => {
-    if (ep.category && ep.category !== currentCategory) {
-        let catId = ep.category.replace(/[^a-zA-Z0-9]/g, '');
-        desktopSidebarHtml += `\n  <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">${ep.category}</div>`;
-        currentCategory = ep.category;
-    }
-    
-    let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
-    let badgeColorClass = ep.method === 'GET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
-                          (ep.method === 'POST' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 
-                          'bg-rose-500/10 text-rose-400 border-rose-500/20');
-                          
-    desktopSidebarHtml += `
-  <a href="#${epId}" class="block px-2 py-1.5 text-sm text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 rounded-lg transition-colors flex items-center gap-2">
-    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeColorClass} w-10 text-center">${ep.method}</span>
-    <span class="truncate">${ep.path}</span>
-  </a>`;
-});
-
-desktopSidebarHtml += `
-  <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">Events</div>
-  <button onclick="showTab('websocket')" class="link-websocket tab-link w-full text-left block px-2 py-1.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors">⚡ WebSockets</button>
-</aside>`;
-
-
-// --- MAIN HTML BOILERPLATE ---
+// --- NATIVE JS HTML GENERATION ---
 let html = `<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krisna WA Gateway - Dokumentasi API Komprehensif</title>
+    <title>Krisna WA Gateway - Dokumentasi API</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        html { scroll-behavior: smooth; }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-300 font-sans antialiased selection:bg-blue-500/30">
+<body class="bg-slate-900 text-slate-300 font-sans antialiased overflow-x-hidden">
+<div class="flex flex-col md:flex-row max-w-[1600px] mx-auto min-h-screen relative w-full">
 
-${mobileNavHtml}
+<!-- Mobile Hamburger -->
+<div class="md:hidden flex items-center justify-between p-4 bg-slate-900 border-b border-slate-800">
+    <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-white text-xs">K</div>
+        <div class="font-bold text-slate-200">API Docs</div>
+    </div>
+    <button id="mobileMenuBtn" class="text-slate-300 focus:outline-none p-2 rounded hover:bg-slate-800">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+</div>
 
-<div class="flex max-w-[1600px] mx-auto">
-  ${desktopSidebarHtml}
+<!-- Sidebar -->
+<aside id="sidebar" class="hidden md:flex flex-col w-64 lg:w-72 border-r border-slate-800/80 p-5 h-screen overflow-y-auto shrink-0 bg-slate-900 absolute md:sticky top-0 left-0 z-50 transition-all">
+  <div class="mb-8 px-2 hidden md:flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/30">K</div>
+    <h2 class="text-lg font-bold text-slate-200 tracking-tight">API Docs</h2>
+  </div>
+  
+  <button onclick="switchTab('top')" class="tab-link link-top block w-full text-left px-3 py-2 mb-4 text-sm rounded-lg transition-colors font-semibold text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">🏠 Beranda / Pengantar</button>
+`;
 
-  <main class="flex-1 p-5 md:p-8 lg:p-12 min-w-0">
-    <header class="mb-10 md:mb-16 border-b border-slate-800/80 pb-8">
-      <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 mb-4 tracking-tight">Krisna WA Gateway API</h1>
-      <p class="text-slate-400 text-base md:text-lg">Referensi Lengkap Integrasi Gateway Enterprise</p>
+let currentCategory = "";
+endpoints.forEach(ep => {
+    if (ep.category && ep.category !== currentCategory) {
+        html += `\n  <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">${ep.category}</div>`;
+        currentCategory = ep.category;
+    }
+    let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
+    let badgeColor = ep.method === 'GET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
+                     (ep.method === 'POST' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20');
+                     
+    html += `\n  <button onclick="switchTab('${epId}')" class="tab-link link-${epId} block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeColor} w-10 text-center shrink-0">${ep.method}</span>
+    <span class="truncate">${ep.path}</span>
+  </button>`;
+});
+
+html += `
+  <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">Events</div>
+  <button onclick="switchTab('websocket')" class="tab-link link-websocket block w-full text-left px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50">⚡ WebSockets</button>
+  <div class="h-10 shrink-0"></div>
+</aside>
+<div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"></div>
+
+<main class="flex-1 p-5 md:p-8 lg:p-12 w-full min-w-0 overflow-x-hidden relative">
+    <header class="mb-10 md:mb-12 border-b border-slate-800/80 pb-6 md:pb-8 mt-2 md:mt-0">
+      <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 mb-3 md:mb-4 tracking-tight">Krisna WA Gateway API</h1>
+      <p class="text-slate-400 text-sm md:text-lg">Referensi Lengkap Integrasi Gateway Enterprise</p>
     </header>
 
-    <div id="tab-top" class="tab-content mb-16 scroll-mt-24 md:scroll-mt-8">
-      <div class="bg-blue-900/10 border border-blue-800/40 rounded-2xl p-5 md:p-8 mb-8 shadow-xl shadow-black/20">
+    <!-- Top Tab -->
+    <div id="tab-top" class="tab-content hidden">
+      <div class="bg-blue-900/10 border border-blue-800/40 rounded-2xl p-5 md:p-8 mb-8 shadow-xl shadow-black/20 overflow-hidden">
          <h3 class="text-blue-400 font-bold mb-4 flex items-center gap-2 text-lg">🌍 Base URL</h3>
-         <code class="block overflow-x-auto whitespace-nowrap bg-black/60 p-4 md:p-5 rounded-xl text-amber-400 font-mono text-sm md:text-lg border border-slate-800 shadow-inner">https://api.krisnadev.my.id</code>
+         <div class="relative group">
+             <div class="overflow-x-auto bg-black/60 p-4 md:p-5 rounded-xl border border-slate-800 shadow-inner">
+                 <code id="code-baseurl" class="text-amber-400 font-mono text-sm md:text-lg whitespace-nowrap">https://api.krisnadev.my.id</code>
+             </div>
+             <button onclick="copyToClipboard('code-baseurl')" class="absolute top-1/2 -translate-y-1/2 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+         </div>
       </div>
       
-      <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 md:p-8 shadow-xl shadow-black/20">
+      <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 md:p-8 shadow-xl shadow-black/20 overflow-hidden">
          <h3 class="text-slate-200 font-bold mb-3 flex items-center gap-2 text-lg">🔐 Autentikasi (Headers)</h3>
          <p class="text-slate-400 mb-5 text-sm md:text-base">Selalu sertakan kredensial di header HTTP (bukan di URL parameter).</p>
-         <div class="overflow-x-auto rounded-xl border border-slate-700/60 shadow-inner">
+         <div class="overflow-x-auto rounded-xl border border-slate-700/60 shadow-inner w-full">
             <table class="w-full text-left text-sm whitespace-nowrap">
               <thead class="bg-slate-800 text-slate-300">
                 <tr><th class="px-5 py-3 font-semibold">Header</th><th class="px-5 py-3 font-semibold">Status</th><th class="px-5 py-3 font-semibold">Deskripsi</th></tr>
@@ -819,135 +817,36 @@ ${mobileNavHtml}
                 <tr class="hover:bg-slate-800/50 transition-colors">
                   <td class="px-5 py-4"><code class="text-amber-300 bg-black/50 px-2 py-1 rounded">x-master-key</code></td>
                   <td class="px-5 py-4"><span class="px-2 py-1 rounded text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">Wajib (Admin)</span></td>
-                  <td class="px-5 py-4 text-slate-400">Untuk akses endpoint master (manajemen klien).</td>
+                  <td class="px-5 py-4 text-slate-400">Untuk akses endpoint master.</td>
                 </tr>
                 <tr class="hover:bg-slate-800/50 transition-colors">
                   <td class="px-5 py-4"><code class="text-amber-300 bg-black/50 px-2 py-1 rounded">x-api-key</code></td>
-                  <td class="px-5 py-4"><span class="px-2 py-1 rounded text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">Wajib (Klien)</span></td>
-                  <td class="px-5 py-4 text-slate-400">Token klien yang didapatkan dari proses Generate.</td>
+                  <td class="px-5 py-4"><span class="px-2 py-1 rounded text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">Wajib (Klien)</span></td>
+                  <td class="px-5 py-4 text-slate-400">Token klien yang didapat dari Generate.</td>
                 </tr>
                 <tr class="hover:bg-slate-800/50 transition-colors">
                   <td class="px-5 py-4"><code class="text-amber-300 bg-black/50 px-2 py-1 rounded">sender_id</code></td>
                   <td class="px-5 py-4"><span class="px-2 py-1 rounded text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Opsional</span></td>
-                  <td class="px-5 py-4 text-slate-400">Digunakan pada fitur Messaging untuk memilih nomor pengirim spesifik. Kosongkan untuk mode Rotator.</td>
+                  <td class="px-5 py-4 text-slate-400">Pilih nomor pengirim spesifik. Kosong = Rotator.</td>
                 </tr>
               </tbody>
             </table>
          </div>
       </div>
-    </div>`;
-
-
-// --- API ENDPOINTS LOOP ---
-endpoints.forEach(ep => {
-    if (ep.category) {
-        let catId = ep.category.replace(/[^a-zA-Z0-9]/g, '');
-        // Category headers removed for Tabbed UI
-    }
-
-    const badgeColorClass = ep.method === 'GET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
-                           (ep.method === 'POST' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 
-                           'bg-rose-500/10 text-rose-400 border-rose-500/20');
-                           
-    const authBadge = ep.badge === 'master' ? 
-      '<span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span>' : 
-      '<span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">Requires x-api-key</span>';
-      
-    let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
-
-    html += `
-    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-${epId}">
-      <!-- Card Header -->
-      <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
-         <div class="flex items-center gap-3">
-            <span class="px-3 py-1 rounded-md text-xs font-bold border ${badgeColorClass}">${ep.method}</span>
-            <code class="text-slate-200 font-mono text-[15px] md:text-lg font-bold">${ep.path}</code>
-         </div>
-         <span class="text-slate-400 text-sm md:ml-auto md:text-right leading-snug">${ep.summary}</span>
-      </div>
-      
-      <!-- Card Body -->
+    </div>
+    
+    <!-- WebSocket Tab -->
+    <div id="tab-websocket" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10">
       <div class="p-5 md:p-8">
-         <div class="mb-8 flex flex-wrap gap-2">${authBadge}</div>
-`;
-
-    // Params table
-    if (ep.params && ep.params.length > 0) {
-        html += `
-         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
-         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8">
-            <table class="w-full text-left text-sm whitespace-nowrap">
-               <thead class="bg-slate-800/80 text-slate-400">
-                 <tr>
-                   <th class="px-5 py-3 font-semibold">Field</th>
-                   <th class="px-5 py-3 font-semibold">Type</th>
-                   <th class="px-5 py-3 font-semibold">Status</th>
-                   <th class="px-5 py-3 font-semibold">Deskripsi</th>
-                 </tr>
-               </thead>
-               <tbody class="divide-y divide-slate-700/50">`;
-               
-        ep.params.forEach(p => {
-            const statBadge = p.status.toLowerCase() === 'wajib' ? 
-              '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span>' : 
-              '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span>';
-            html += `
-                 <tr class="hover:bg-slate-800/50 transition-colors">
-                    <td class="px-5 py-3"><code class="text-amber-300 font-mono">${p.field}</code></td>
-                    <td class="px-5 py-3 text-slate-300">${p.type}</td>
-                    <td class="px-5 py-3">${statBadge}</td>
-                    <td class="px-5 py-3 text-slate-400">${p.desc}</td>
-                 </tr>`;
-        });
-        html += `
-               </tbody>
-            </table>
-         </div>`;
-    }
-
-    // Req body
-    if (ep.reqBody) {
-        html += `
-         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body (JSON)</h5>
-         <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner">
-           <pre class="font-mono text-sm text-indigo-300">${ep.reqBody}</pre>
-         </div>`;
-    }
-
-    // Responses
-    html += `
-         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
-         <div class="flex flex-col lg:flex-row gap-8">
-            <div class="flex-1">
-               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
-               <div class="overflow-x-auto bg-emerald-950/20 p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre class="font-mono text-sm text-emerald-200/90">${ep.resSuccess}</pre>
-               </div>
-            </div>
-            <div class="flex-1">
-               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
-               <div class="overflow-x-auto bg-rose-950/20 p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre class="font-mono text-sm text-rose-200/90">${ep.resError}</pre>
-               </div>
-            </div>
-         </div>
-      </div>
-    </div>`;
-});
-
-// Write WebSockets section at the bottom
-html += `
-    <div id="tab-websocket" class="tab-content hidden"><h3 class="text-2xl font-bold text-slate-200 mb-8 pb-3 border-b border-slate-800">WebSockets</h3>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10">
-      <div class="p-5 md:p-8">
-        <p class="text-slate-400 mb-4">API ini menyediakan WebSocket untuk memantau status sesi perangkat (Koneksi WA) secara *real-time*.</p>
-          <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 shadow-inner mb-6">
-             <div class="flex items-center gap-2 mb-3">
-                 <span class="bg-blue-600/30 text-blue-400 px-2 py-1 rounded text-xs font-bold tracking-wider">SOCKET.IO</span>
-                 <code class="text-sm text-slate-300">https://api.krisnadev.my.id</code>
-             </div>
-             <p class="text-xs text-slate-400 mb-3 border-t border-slate-700/50 pt-3">Contoh Implementasi Klien (HTML/JavaScript):</p>
-             <pre class="font-mono text-xs text-slate-300 overflow-x-auto"><code>&lt;!-- Load library Socket.IO Client --&gt;
+        <h3 class="text-2xl font-bold text-slate-200 mb-6 pb-3 border-b border-slate-800">⚡ WebSockets</h3>
+        <p class="text-slate-400 mb-4 text-sm md:text-base">API ini menyediakan WebSocket untuk memantau status sesi perangkat (Koneksi WA) secara *real-time*.</p>
+        <div class="overflow-x-auto bg-black/50 p-5 rounded-xl border border-slate-700/50 shadow-inner mb-6 relative group">
+           <div class="flex flex-wrap items-center gap-2 mb-3">
+               <span class="bg-blue-600/30 text-blue-400 px-2 py-1 rounded text-xs font-bold tracking-wider">SOCKET.IO</span>
+               <code class="text-sm text-slate-300">https://api.krisnadev.my.id</code>
+           </div>
+           <p class="text-xs text-slate-400 mb-3 border-t border-slate-700/50 pt-3">Contoh Implementasi Klien (HTML/JavaScript):</p>
+           <pre id="code-ws" class="font-mono text-xs md:text-sm text-slate-300 overflow-x-auto whitespace-pre"><code>&lt;!-- Load library Socket.IO Client --&gt;
 &lt;script src="https://cdn.socket.io/4.7.5/socket.io.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   // Inisialisasi koneksi Socket.IO
@@ -967,48 +866,170 @@ html += `
     }
   });
 &lt;/script&gt;</code></pre>
-          </div>
-        
-        <h5 class="text-slate-300 font-bold mb-3 uppercase tracking-wider text-sm">Event: device_status</h5>
-        <p class="text-slate-400 text-sm mb-4">Klien dapat mendengarkan (*listen*) event <code>device_status</code>. Berikut adalah contoh payload (*response*) yang akan diterima sesuai dengan kondisi perangkat Anda:</p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-           
-           <div>
-              <div class="text-emerald-400 font-bold mb-2 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil Terhubung (CONNECTED)</small></div>
-              <div class="overflow-x-auto bg-emerald-950/20 p-4 rounded-xl border border-emerald-900/50 shadow-inner">
-                <pre class="font-mono text-xs text-emerald-200/90">{
-  "device": "628123456789",
-  "status": "CONNECTED"
-}</pre>
-              </div>
-           </div>
-           <div>
-              <div class="text-rose-400 font-bold mb-2 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Terputus (DISCONNECTED)</small></div>
-              <div class="overflow-x-auto bg-rose-950/20 p-4 rounded-xl border border-rose-900/50 shadow-inner">
-                <pre class="font-mono text-xs text-rose-200/90">{
-  "device": "628123456789",
-  "status": "DISCONNECTED"
-}</pre>
-              </div>
-           </div>
-           <div>
-              <div class="text-blue-400 font-bold mb-2 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500"></div><small>Menunggu Pairing (WAITING_PAIRING)</small></div>
-              <div class="overflow-x-auto bg-blue-950/20 p-4 rounded-xl border border-blue-900/50 shadow-inner">
-                <pre class="font-mono text-xs text-blue-200/90">{
-  "device": "628123456789",
-  "status": "WAITING_PAIRING",
-  "code": "AB12CD34"
-}</pre>
-              </div>
-           </div>
+           <button onclick="copyToClipboard('code-ws')" class="absolute top-3 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
         </div>
       </div>
     </div>
+`;
+
+endpoints.forEach(ep => {
+    let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
+    let badgeColorClass = ep.method === 'GET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
+                       (ep.method === 'POST' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20');
+    let authBadge = ep.badge === 'master' ? '<span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span>' : '<span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">Requires x-api-key</span>';
+
+    html += `
+    <div id="tab-${epId}" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border ${badgeColorClass} shrink-0">${ep.method}</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">${ep.path}</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">${ep.summary}</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2">${authBadge}</div>
+`;
+
+    if (ep.params && ep.params.length > 0) {
+        html += `
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
+         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8 w-full max-w-full">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+               <thead class="bg-slate-800/80 text-slate-400">
+                 <tr><th class="px-4 py-3 font-semibold">Field</th><th class="px-4 py-3 font-semibold">Type</th><th class="px-4 py-3 font-semibold">Status</th><th class="px-4 py-3 font-semibold">Deskripsi</th></tr>
+               </thead>
+               <tbody class="divide-y divide-slate-700/50">`;
+        ep.params.forEach(p => {
+            let statBadge = p.status.toLowerCase() === 'wajib' ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span>' : '<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span>';
+            html += `
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">${p.field}</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">${p.type}</td>
+                    <td class="px-4 py-3">${statBadge}</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">${p.desc}</td>
+                 </tr>`;
+        });
+        html += `
+               </tbody>
+            </table>
+         </div>`;
+    }
+
+    if (ep.reqBody) {
+        let safeReqBody = ep.reqBody.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        html += `
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
+         <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
+           <pre id="code-req-${epId}" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">${safeReqBody}</pre>
+           <button onclick="copyToClipboard('code-req-${epId}')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+         </div>`;
+    }
+
+    let safeResSuccess = ep.resSuccess.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    let safeResError = ep.resError.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    
+    html += `
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-${epId}" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">${safeResSuccess}</pre>
+                 <button onclick="copyToClipboard('code-res-suc-${epId}')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-${epId}" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">${safeResError}</pre>
+                 <button onclick="copyToClipboard('code-res-err-${epId}')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>`;
+});
+
+html += `
+    <footer class="mt-12 pt-6 border-t border-slate-800/80 text-center text-slate-500 text-sm">
+        &copy; 2026 Krisna WA Gateway.
+    </footer>
   </main>
 </div>
-</body>
-</html>`;
 
+<script>
+// Hamburger Menu Logic
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+function toggleMobileMenu() {
+    sidebar.classList.toggle('hidden');
+    sidebarOverlay.classList.toggle('hidden');
+}
+if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+if(sidebarOverlay) sidebarOverlay.addEventListener('click', toggleMobileMenu);
+
+// Tab Switcher Logic
+function switchTab(tabId) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    
+    // Show target tab
+    const target = document.getElementById('tab-' + tabId);
+    if (target) target.classList.remove('hidden');
+    
+    // Reset all sidebar links
+    document.querySelectorAll('.tab-link').forEach(el => {
+        el.classList.remove('bg-indigo-900/30', 'text-indigo-300', 'border-l-4', 'border-indigo-500', 'pl-1');
+        el.classList.add('text-slate-400');
+    });
+    
+    // Highlight active sidebar links
+    document.querySelectorAll('.link-' + tabId).forEach(activeLink => {
+        activeLink.classList.remove('text-slate-400');
+        activeLink.classList.add('bg-indigo-900/30', 'text-indigo-300', 'border-l-4', 'border-indigo-500', 'pl-1');
+    });
+    
+    // Close mobile menu if open
+    if(window.innerWidth < 768 && !sidebar.classList.contains('hidden')) {
+        toggleMobileMenu();
+    }
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Copy to Clipboard with SweetAlert2
+function copyToClipboard(elementId) {
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        Swal.fire({
+            title: 'Berhasil disalin!',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2500,
+            background: '#1e293b',
+            color: '#f8fafc',
+            iconColor: '#34d399',
+            customClass: { popup: 'border border-slate-700 shadow-xl' }
+        });
+    });
+}
+
+// Init default tab
+document.addEventListener('DOMContentLoaded', () => {
+    switchTab('top');
+});
+</script>
+</body>
+</html>
+\\;
 fs.writeFileSync(path.join(__dirname, 'docs', 'index.html'), html);
-console.log('Successfully generated complete docs/index.html with Tailwind CSS');
+console.log('Successfully generated complete docs/index.html with Native JS Tab UI');`;
+fs.writeFileSync(require("path").join(__dirname, "docs", "index.html"), html);
+console.log("Successfully generated complete docs/index.html with Native JS Tab UI");

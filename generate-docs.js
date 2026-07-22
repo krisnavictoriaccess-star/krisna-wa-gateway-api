@@ -55,7 +55,16 @@ const endpoints = [
             { field: "nama_paket", type: "String", status: "wajib", desc: "Nama paket unik, contoh: Promo Ramadhan." },
             { field: "limit_pesan", type: "Integer", status: "wajib", desc: "Batas pesan bulanan." },
             { field: "limit_device", type: "Integer", status: "opsional", desc: "Maksimal device." },
-            { field: "fitur_media", type: "Boolean", status: "opsional", desc: "Izinkan pengiriman media." }
+            { field: "fitur_broadcast", type: "Boolean", status: "opsional", desc: "Izinkan kirim massal (broadcast)." },
+            { field: "fitur_media", type: "Boolean", status: "opsional", desc: "Izinkan pengiriman media (gambar, video, dokumen)." },
+            { field: "fitur_group", type: "Boolean", status: "opsional", desc: "Izinkan kirim ke grup." },
+            { field: "fitur_webhook", type: "Boolean", status: "opsional", desc: "Izinkan fitur integrasi webhook." },
+            { field: "fitur_vcard", type: "Boolean", status: "opsional", desc: "Izinkan kirim vCard (Kontak)." },
+            { field: "fitur_lokasi", type: "Boolean", status: "opsional", desc: "Izinkan kirim lokasi (Maps)." },
+            { field: "fitur_polling", type: "Boolean", status: "opsional", desc: "Izinkan kirim polling (Voting)." },
+            { field: "fitur_contact_list", type: "Boolean", status: "opsional", desc: "Izinkan melihat daftar kontak HP." },
+            { field: "fitur_group_list", type: "Boolean", status: "opsional", desc: "Izinkan melihat daftar grup WA." },
+            { field: "fitur_inbox", type: "Boolean", status: "opsional", desc: "Izinkan melihat inbox/pesan masuk." }
         ],
         reqBody: `{
   "nama_paket": "Promo Spesial",
@@ -79,7 +88,20 @@ const endpoints = [
         badge: "master",
         params: [
             { field: "id", type: "Integer", status: "wajib", desc: "ID paket yang ingin diubah." },
-            { field: "is_public", type: "Boolean", status: "opsional", desc: "Atur false untuk Soft Delete / menyembunyikan." }
+            { field: "is_public", type: "Boolean", status: "opsional", desc: "Atur false untuk menyembunyikan paket dari publik." },
+            { field: "limit_pesan", type: "Integer", status: "opsional", desc: "Batas pesan bulanan (-1 untuk unlimited)." },
+            { field: "limit_device", type: "Integer", status: "opsional", desc: "Batas maksimal koneksi device." },
+            { field: "limit_autoreply", type: "Integer", status: "opsional", desc: "Batas jumlah auto-reply." },
+            { field: "fitur_broadcast", type: "Boolean", status: "opsional", desc: "Izinkan kirim massal (broadcast)." },
+            { field: "fitur_media", type: "Boolean", status: "opsional", desc: "Izinkan pengiriman media." },
+            { field: "fitur_group", type: "Boolean", status: "opsional", desc: "Izinkan kirim ke grup." },
+            { field: "fitur_webhook", type: "Boolean", status: "opsional", desc: "Izinkan integrasi webhook." },
+            { field: "fitur_vcard", type: "Boolean", status: "opsional", desc: "Izinkan kirim vCard (Kontak)." },
+            { field: "fitur_lokasi", type: "Boolean", status: "opsional", desc: "Izinkan kirim lokasi (Maps)." },
+            { field: "fitur_polling", type: "Boolean", status: "opsional", desc: "Izinkan kirim polling." },
+            { field: "fitur_contact_list", type: "Boolean", status: "opsional", desc: "Izinkan melihat kontak." },
+            { field: "fitur_group_list", type: "Boolean", status: "opsional", desc: "Izinkan melihat grup." },
+            { field: "fitur_inbox", type: "Boolean", status: "opsional", desc: "Izinkan melihat pesan masuk." }
         ],
         reqBody: `{
   "id": 1,

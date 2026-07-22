@@ -623,6 +623,21 @@ const validateApiKey = async (req, res, next) => {
         return res.status(403).json({ status: false, message: 'API Key telah kedaluwarsa. Silakan perpanjang.' });
     }
 
+    const packageData = await prisma.package.findUnique({ where: { nama_paket: keyData.paket } });
+    keyData.packageData = packageData || { 
+        fitur_broadcast: false, 
+        fitur_media: false, 
+        fitur_group: false, 
+        fitur_webhook: false, 
+        limit_autoreply: 0,
+        fitur_vcard: false,
+        fitur_lokasi: false,
+        fitur_polling: false,
+        fitur_contact_list: false,
+        fitur_group_list: false,
+        fitur_inbox: false
+    };
+
     req.apiKeyData = keyData;
     next();
 };
@@ -932,6 +947,7 @@ app.post('/device/delete', validateApiKey, validateDeviceOwnership, async (req, 
 });
 
 app.get('/group/list', validateApiKey, validateDeviceOwnership, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_group_list) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk melihat Daftar Grup.' });
     const sock = activeSessions[req.cleanSender];
     if (!sock) return res.status(404).json({ status: false, message: 'Sesi perangkat tidak aktif' });
     try {
@@ -942,6 +958,7 @@ app.get('/group/list', validateApiKey, validateDeviceOwnership, async (req, res)
 });
 
 app.get('/contact/list', validateApiKey, validateDeviceOwnership, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_contact_list) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk melihat Daftar Kontak.' });
     const store = activeStores[req.cleanSender];
     if (!store) return res.status(404).json({ status: false, message: 'Store kontak untuk perangkat tidak ditemukan atau sesi belum siap.' });
     
@@ -955,6 +972,7 @@ app.get('/contact/list', validateApiKey, validateDeviceOwnership, async (req, re
 });
 
 app.get('/inbox', validateApiKey, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_inbox) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk melihat Inbox.' });
     try {
         const user = req.apiKeyData;
         const limit = parseInt(req.query.limit) || 100;
@@ -1256,6 +1274,7 @@ app.post('/kirim-grup', validateApiKey, validateDeviceOwnership, checkQuotaMiddl
 });
 
 app.post('/kirim-lokasi', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_lokasi) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim Lokasi.' });
     const { nomor, lat, long } = req.body;
     if (!nomor || !lat || !long) return res.status(400).json({ status: false, message: 'Parameter nomor, lat, long wajib.' });
     const jid = `${formatNomorWhatsApp(nomor)}@s.whatsapp.net`;
@@ -1263,6 +1282,7 @@ app.post('/kirim-lokasi', validateApiKey, validateDeviceOwnership, checkQuotaMid
 });
 
 app.post('/kirim-polling', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_polling) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim Polling.' });
     const { nomor, nama_polling, opsi, multiple_choice = false } = req.body;
     if (!nomor || !nama_polling || !opsi || !Array.isArray(opsi)) return res.status(400).json({ status: false, message: 'Parameter tidak valid. Opsi harus berupa array.' });
     const jid = `${formatNomorWhatsApp(nomor)}@s.whatsapp.net`;
@@ -1301,6 +1321,7 @@ app.post('/kirim-media', validateApiKey, validateDeviceOwnership, checkQuotaMidd
 });
 
 app.post('/kirim-vcard', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
+    if (!req.apiKeyData.packageData.fitur_vcard) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim vCard.' });
     const { nomor, nama_kontak, nomor_kontak } = req.body;
     if (!nomor || !nama_kontak || !nomor_kontak) return res.status(400).json({ status: false, message: 'Parameter wajib.' });
     

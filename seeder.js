@@ -13,6 +13,12 @@ const defaultPackages = [
         fitur_media: false,
         fitur_group: false,
         fitur_webhook: false,
+        fitur_vcard: false,
+        fitur_lokasi: false,
+        fitur_polling: false,
+        fitur_contact_list: false,
+        fitur_group_list: false,
+        fitur_inbox: false,
         is_public: true
     },
     {
@@ -26,6 +32,12 @@ const defaultPackages = [
         fitur_media: true,
         fitur_group: true,
         fitur_webhook: true,
+        fitur_vcard: true,
+        fitur_lokasi: true,
+        fitur_polling: true,
+        fitur_contact_list: true,
+        fitur_group_list: true,
+        fitur_inbox: true,
         is_public: true
     },
     {
@@ -39,6 +51,12 @@ const defaultPackages = [
         fitur_media: true,
         fitur_group: true,
         fitur_webhook: true,
+        fitur_vcard: true,
+        fitur_lokasi: true,
+        fitur_polling: true,
+        fitur_contact_list: true,
+        fitur_group_list: true,
+        fitur_inbox: true,
         is_public: true
     },
     {
@@ -52,6 +70,12 @@ const defaultPackages = [
         fitur_media: true,
         fitur_group: true,
         fitur_webhook: true,
+        fitur_vcard: true,
+        fitur_lokasi: true,
+        fitur_polling: true,
+        fitur_contact_list: true,
+        fitur_group_list: true,
+        fitur_inbox: true,
         is_public: true
     }
 ];
@@ -69,7 +93,13 @@ async function seed() {
                 fitur_broadcast: pkg.fitur_broadcast,
                 fitur_media: pkg.fitur_media,
                 fitur_group: pkg.fitur_group,
-                fitur_webhook: pkg.fitur_webhook
+                fitur_webhook: pkg.fitur_webhook,
+                fitur_vcard: pkg.fitur_vcard,
+                fitur_lokasi: pkg.fitur_lokasi,
+                fitur_polling: pkg.fitur_polling,
+                fitur_contact_list: pkg.fitur_contact_list,
+                fitur_group_list: pkg.fitur_group_list,
+                fitur_inbox: pkg.fitur_inbox
             },
             create: pkg
         });

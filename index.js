@@ -802,8 +802,12 @@ app.post('/api-key/extend', validateMasterKey, async (req, res) => {
         const { target_api_key, tambah_hari } = req.body;
         if (!target_api_key || !tambah_hari) return res.status(400).json({ status: false, message: 'Parameter tidak lengkap.' });
         
-        const hashedTargetKey = crypto.createHash('sha256').update(target_api_key).digest('hex');
-        const currentUser = await prisma.apiKey.findUnique({ where: { key: hashedTargetKey } });
+        let targetUserKey = target_api_key;
+        let currentUser = await prisma.apiKey.findUnique({ where: { key: targetUserKey } });
+        if (!currentUser) {
+            targetUserKey = crypto.createHash('sha256').update(target_api_key).digest('hex');
+            currentUser = await prisma.apiKey.findUnique({ where: { key: targetUserKey } });
+        }
         if (!currentUser) return res.status(404).json({ status: false, message: 'API Key tidak ditemukan.' });
 
         const now = new Date();
@@ -813,7 +817,7 @@ app.post('/api-key/extend', validateMasterKey, async (req, res) => {
         currentExpiry.setDate(currentExpiry.getDate() + parseInt(tambah_hari));
         
         const updated = await prisma.apiKey.update({
-            where: { key: hashedTargetKey },
+            where: { key: targetUserKey },
             data: { expired_at: currentExpiry, status: 'active' } // Pastikan status aktif kembali
         });
         
@@ -828,15 +832,19 @@ app.post('/api-key/upgrade', validateMasterKey, async (req, res) => {
         const config = await prisma.package.findUnique({ where: { nama_paket: nama_paket } });
         if (!config) return res.status(400).json({ status: false, message: 'Nama paket salah atau tidak ditemukan di database!' });
         
-        const hashedTargetKey = crypto.createHash('sha256').update(target_api_key).digest('hex');
-        const currentUser = await prisma.apiKey.findUnique({ where: { key: hashedTargetKey } });
+        let targetUserKey = target_api_key;
+        let currentUser = await prisma.apiKey.findUnique({ where: { key: targetUserKey } });
+        if (!currentUser) {
+            targetUserKey = crypto.createHash('sha256').update(target_api_key).digest('hex');
+            currentUser = await prisma.apiKey.findUnique({ where: { key: targetUserKey } });
+        }
         if (!currentUser) return res.status(404).json({ status: false, message: 'API Key tidak ditemukan.' });
         const now = new Date();
         const expiredAt = new Date(now);
         expiredAt.setDate(now.getDate() + 30); // default 30 days renewal
 
         const updated = await prisma.apiKey.update({
-            where: { key: hashedTargetKey },
+            where: { key: targetUserKey },
             data: { paket: nama_paket, limit_pesan: config.limit_pesan, max_devices: config.max_devices, terpakai_bulan_ini: 0, status: 'active', expired_at: expiredAt }
         });
         return res.status(200).json({ status: true, message: `Sukses di-upgrade ke ${nama_paket}`, data: updated });

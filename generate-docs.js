@@ -187,7 +187,7 @@ const endpoints = [
         badge: "master",
         params: [
             { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
-            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain Text) milik klien yang ingin diperpanjang." },
+            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain text) atau Hashed Key (dari list) klien yang ingin diperpanjang." },
             { field: "tambah_hari", type: "Integer", status: "wajib", desc: "Jumlah hari tambahan masa aktif." }
         ],
         reqBody: `{
@@ -207,7 +207,7 @@ const endpoints = [
         badge: "master",
         params: [
             { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
-            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key klien (Plain Text)." },
+            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain text) atau Hashed Key (dari list)." },
             { field: "nama_paket", type: "String", status: "wajib", desc: "Nama paket baru yang ingin diberikan." }
         ],
         reqBody: `{
@@ -227,7 +227,7 @@ const endpoints = [
         badge: "master",
         params: [
             { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
-            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain text) klien yang ingin dihapus." }
+            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain text) atau Hashed Key (dari list) klien yang ingin dihapus." }
         ],
         reqBody: `{
   "target_api_key": "KEY-A1B2C3D4E5F67890"
@@ -1041,3 +1041,4 @@ document.addEventListener('DOMContentLoaded', () => {
 `;
 fs.writeFileSync(require("path").join(__dirname, "docs", "index.html"), html);
 console.log("Successfully generated complete docs/index.html with Native JS Tab UI");
+

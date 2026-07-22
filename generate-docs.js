@@ -1028,8 +1028,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-\\;
-fs.writeFileSync(path.join(__dirname, 'docs', 'index.html'), html);
-console.log('Successfully generated complete docs/index.html with Native JS Tab UI');`;
+`;
 fs.writeFileSync(require("path").join(__dirname, "docs", "index.html"), html);
 console.log("Successfully generated complete docs/index.html with Native JS Tab UI");

@@ -1202,19 +1202,11 @@ async function addToQueue(req, res, recipient_jid, payload) {
 }
 
 app.post('/kirim-pesan', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
-    const { nomor, pesan, media_url, media_type } = req.body;
-    if (!nomor) return res.status(400).json({ status: false, message: 'Parameter nomor wajib.' });
-    const jid = `${formatNomorWhatsApp(nomor)}@s.whatsapp.net`;
+    const { nomor, pesan } = req.body;
+    if (!nomor || !pesan) return res.status(400).json({ status: false, message: 'Parameter nomor dan pesan wajib.' });
     
-    let payload = { text: pesan || '' };
-    if (media_url) {
-        const tipe = media_type || 'image';
-        if (tipe === 'image') payload = { image: { url: media_url }, caption: pesan || '' };
-        else if (tipe === 'video') payload = { video: { url: media_url }, caption: pesan || '' };
-        else if (tipe === 'document') payload = { document: { url: media_url }, mimetype: 'application/pdf', fileName: pesan || 'document.pdf' };
-    } else if (!pesan) {
-        return res.status(400).json({ status: false, message: 'Parameter pesan wajib jika tidak mengirim media.' });
-    }
+    const jid = `${formatNomorWhatsApp(nomor)}@s.whatsapp.net`;
+    const payload = { text: pesan };
     
     return addToQueue(req, res, jid, payload);
 });

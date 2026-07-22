@@ -57,9 +57,26 @@
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/api-key/generate</span>
   </button>
-  <button data-tab="POSTapikeyrevoke" class="tab-link link-POSTapikeyrevoke block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETapikeylist" class="tab-link link-GETapikeylist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
+    <span class="truncate">/api-key/list</span>
+  </button>
+  <button data-tab="POSTapikeyextend" class="tab-link link-POSTapikeyextend block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
-    <span class="truncate">/api-key/revoke</span>
+    <span class="truncate">/api-key/extend</span>
+  </button>
+  <button data-tab="POSTapikeyupgrade" class="tab-link link-POSTapikeyupgrade block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
+    <span class="truncate">/api-key/upgrade</span>
+  </button>
+  <button data-tab="POSTapikeydelete" class="tab-link link-POSTapikeydelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
+    <span class="truncate">/api-key/delete</span>
+  </button>
+  <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">👤 Info Akun</div>
+  <button data-tab="GETapikeyinfo" class="tab-link link-GETapikeyinfo block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
+    <span class="truncate">/api-key/info</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">📱 Manajemen Perangkat (Device)</div>
   <button data-tab="GETdevicelist" class="tab-link link-GETdevicelist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
@@ -665,13 +682,54 @@
          </div>
       </div>
     </div>
-    <div id="tab-POSTapikeyrevoke" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+    <div id="tab-GETapikeylist" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/list</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Melihat daftar semua API Key klien beserta sisa masa aktifnya.</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-GETapikeylist" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "data": [
+    {
+      "key": "hashed_key_xyz",
+      "label": "User Biasa",
+      "package": "Free",
+      "expiredAt": "2026-08-20T00:00:00.000Z"
+    }
+  ]
+}</pre>
+                 <button data-copy="code-res-suc-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-GETapikeylist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Invalid master key" }</pre>
+                 <button data-copy="code-res-err-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div id="tab-POSTapikeyextend" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
             <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/revoke</code>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/extend</code>
          </div>
-         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Memblokir / Mencabut akses API Key klien secara paksa.</span>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Memperpanjang masa aktif API Key yang sudah ada.</span>
       </div>
       
       <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
@@ -685,38 +743,211 @@
                </thead>
                <tbody class="divide-y divide-slate-700/50">
                  <tr class="hover:bg-slate-800/50 transition-colors">
-                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">key</code></td>
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">target_api_key</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">API Key (Plain text) yang ingin dicabut.</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">API Key (Plain Text) milik klien yang ingin diperpanjang.</td>
+                 </tr>
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">tambah_hari</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">Integer</td>
+                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Jumlah hari tambahan masa aktif.</td>
                  </tr>
                </tbody>
             </table>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
          <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
-           <pre id="code-req-POSTapikeyrevoke" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
-  "key": "KEY-A1B2C3D4E5F67890"
+           <pre id="code-req-POSTapikeyextend" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
+  "target_api_key": "KEY-A1B2C3D4E5F67890",
+  "tambah_hari": 30
 }</pre>
-           <button data-copy="code-req-POSTapikeyrevoke" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTapikeyextend" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
             <div class="flex-1 w-full min-w-0">
                <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-POSTapikeyrevoke" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+                 <pre id="code-res-suc-POSTapikeyextend" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
   "status": true,
-  "message": "API Key berhasil dicabut."
+  "message": "Masa aktif API Key berhasil diperpanjang.",
+  "data": { "expiredAt": "2027-08-20T00:00:00.000Z" }
 }</pre>
-                 <button data-copy="code-res-suc-POSTapikeyrevoke" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTapikeyextend" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-POSTapikeyrevoke" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "API Key tidak valid atau sudah dicabut." }</pre>
-                 <button data-copy="code-res-err-POSTapikeyrevoke" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <pre id="code-res-err-POSTapikeyextend" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "API Key tidak valid." }</pre>
+                 <button data-copy="code-res-err-POSTapikeyextend" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div id="tab-POSTapikeyupgrade" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/upgrade</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Menaikkan atau menurunkan jenis paket (Upgrade/Downgrade) pada API Key klien.</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
+         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8 w-full max-w-full">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+               <thead class="bg-slate-800/80 text-slate-400">
+                 <tr><th class="px-4 py-3 font-semibold">Field</th><th class="px-4 py-3 font-semibold">Type</th><th class="px-4 py-3 font-semibold">Status</th><th class="px-4 py-3 font-semibold">Deskripsi</th></tr>
+               </thead>
+               <tbody class="divide-y divide-slate-700/50">
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">target_api_key</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
+                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">API Key klien (Plain Text).</td>
+                 </tr>
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">nama_paket</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
+                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nama paket baru yang ingin diberikan.</td>
+                 </tr>
+               </tbody>
+            </table>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
+         <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
+           <pre id="code-req-POSTapikeyupgrade" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
+  "target_api_key": "KEY-A1B2C3D4E5F67890",
+  "nama_paket": "Premium VIP"
+}</pre>
+           <button data-copy="code-req-POSTapikeyupgrade" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-POSTapikeyupgrade" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "message": "Paket API Key berhasil di-upgrade/downgrade.",
+  "data": { "package": "Premium VIP" }
+}</pre>
+                 <button data-copy="code-res-suc-POSTapikeyupgrade" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-POSTapikeyupgrade" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Paket tidak ditemukan." }</pre>
+                 <button data-copy="code-res-err-POSTapikeyupgrade" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div id="tab-POSTapikeydelete" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/delete</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Menghapus (Mencabut) akses API Key klien secara permanen.</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
+         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8 w-full max-w-full">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+               <thead class="bg-slate-800/80 text-slate-400">
+                 <tr><th class="px-4 py-3 font-semibold">Field</th><th class="px-4 py-3 font-semibold">Type</th><th class="px-4 py-3 font-semibold">Status</th><th class="px-4 py-3 font-semibold">Deskripsi</th></tr>
+               </thead>
+               <tbody class="divide-y divide-slate-700/50">
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">target_api_key</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
+                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">API Key (Plain text) klien yang ingin dihapus.</td>
+                 </tr>
+               </tbody>
+            </table>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
+         <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
+           <pre id="code-req-POSTapikeydelete" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
+  "target_api_key": "KEY-A1B2C3D4E5F67890"
+}</pre>
+           <button data-copy="code-req-POSTapikeydelete" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-POSTapikeydelete" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "message": "API Key berhasil dihapus dari database."
+}</pre>
+                 <button data-copy="code-res-suc-POSTapikeydelete" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-POSTapikeydelete" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "API Key tidak valid atau sudah terhapus." }</pre>
+                 <button data-copy="code-res-err-POSTapikeydelete" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div id="tab-GETapikeyinfo" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/info</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Melihat informasi API Key Anda sendiri (Paket, Kuota, Masa Aktif).</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">Requires x-api-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-GETapikeyinfo" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "data": {
+    "label": "PT. Sukses Makmur",
+    "package": "Premium VIP",
+    "expiredAt": "2026-12-31T23:59:59.000Z",
+    "features": {
+      "limit_device": 5,
+      "limit_pesan": 99999,
+      "fitur_broadcast": true
+    }
+  }
+}</pre>
+                 <button data-copy="code-res-suc-GETapikeyinfo" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-GETapikeyinfo" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "API Key tidak valid atau expired." }</pre>
+                 <button data-copy="code-res-err-GETapikeyinfo" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>

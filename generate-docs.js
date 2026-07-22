@@ -155,25 +155,104 @@ const endpoints = [
         resError: `{ "status": false, "message": "Paket tidak valid atau tidak ditemukan di database." }`
     },
     {
-        method: "POST", path: "/api-key/revoke",
-        summary: "Memblokir / Mencabut akses API Key klien secara paksa.",
+        method: "GET", path: "/api-key/list",
+        summary: "Melihat daftar semua API Key klien beserta sisa masa aktifnya.",
+        badge: "master",
+        params: [],
+        reqBody: "",
+        resSuccess: `{
+  "status": true,
+  "data": [
+    {
+      "key": "hashed_key_xyz",
+      "label": "User Biasa",
+      "package": "Free",
+      "expiredAt": "2026-08-20T00:00:00.000Z"
+    }
+  ]
+}`,
+        resError: `{ "status": false, "message": "Invalid master key" }`
+    },
+    {
+        method: "POST", path: "/api-key/extend",
+        summary: "Memperpanjang masa aktif API Key yang sudah ada.",
         badge: "master",
         params: [
-            { field: "key", type: "String", status: "wajib", desc: "API Key (Plain text) yang ingin dicabut." }
+            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain Text) milik klien yang ingin diperpanjang." },
+            { field: "tambah_hari", type: "Integer", status: "wajib", desc: "Jumlah hari tambahan masa aktif." }
         ],
         reqBody: `{
-  "key": "KEY-A1B2C3D4E5F67890"
+  "target_api_key": "KEY-A1B2C3D4E5F67890",
+  "tambah_hari": 30
 }`,
         resSuccess: `{
   "status": true,
-  "message": "API Key berhasil dicabut."
+  "message": "Masa aktif API Key berhasil diperpanjang.",
+  "data": { "expiredAt": "2027-08-20T00:00:00.000Z" }
 }`,
-        resError: `{ "status": false, "message": "API Key tidak valid atau sudah dicabut." }`
+        resError: `{ "status": false, "message": "API Key tidak valid." }`
+    },
+    {
+        method: "POST", path: "/api-key/upgrade",
+        summary: "Menaikkan atau menurunkan jenis paket (Upgrade/Downgrade) pada API Key klien.",
+        badge: "master",
+        params: [
+            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key klien (Plain Text)." },
+            { field: "nama_paket", type: "String", status: "wajib", desc: "Nama paket baru yang ingin diberikan." }
+        ],
+        reqBody: `{
+  "target_api_key": "KEY-A1B2C3D4E5F67890",
+  "nama_paket": "Premium VIP"
+}`,
+        resSuccess: `{
+  "status": true,
+  "message": "Paket API Key berhasil di-upgrade/downgrade.",
+  "data": { "package": "Premium VIP" }
+}`,
+        resError: `{ "status": false, "message": "Paket tidak ditemukan." }`
+    },
+    {
+        method: "POST", path: "/api-key/delete",
+        summary: "Menghapus (Mencabut) akses API Key klien secara permanen.",
+        badge: "master",
+        params: [
+            { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain text) klien yang ingin dihapus." }
+        ],
+        reqBody: `{
+  "target_api_key": "KEY-A1B2C3D4E5F67890"
+}`,
+        resSuccess: `{
+  "status": true,
+  "message": "API Key berhasil dihapus dari database."
+}`,
+        resError: `{ "status": false, "message": "API Key tidak valid atau sudah terhapus." }`
     },
     
     // ----------------------------------------------------
     // USER ENDPOINTS (x-api-key)
     // ----------------------------------------------------
+    {
+        category: "👤 Info Akun",
+        method: "GET", path: "/api-key/info",
+        summary: "Melihat informasi API Key Anda sendiri (Paket, Kuota, Masa Aktif).",
+        badge: "user",
+        params: [],
+        reqBody: "",
+        resSuccess: `{
+  "status": true,
+  "data": {
+    "label": "PT. Sukses Makmur",
+    "package": "Premium VIP",
+    "expiredAt": "2026-12-31T23:59:59.000Z",
+    "features": {
+      "limit_device": 5,
+      "limit_pesan": 99999,
+      "fitur_broadcast": true
+    }
+  }
+}`,
+        resError: `{ "status": false, "message": "API Key tidak valid atau expired." }`
+    },
     {
         category: "📱 Manajemen Perangkat (Device)",
         method: "GET", path: "/device/list",

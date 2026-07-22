@@ -195,6 +195,21 @@
          </div>
       </div>
       
+      <div class="bg-rose-900/20 border border-rose-800/50 rounded-2xl p-5 md:p-8 mb-8 shadow-xl shadow-black/20 overflow-hidden relative">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-rose-500"></div>
+          <h3 class="text-rose-400 font-bold mb-3 flex items-center gap-2 text-lg">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+              PERINGATAN KEAMANAN: SIMPAN API KEY ANDA!
+          </h3>
+          <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+              Sistem ini menggunakan arsitektur keamanan tingkat perbankan (<strong>One-Way SHA-256 Hash</strong>). 
+              Artinya, saat API Key dibuat, server <strong>TIDAK PERNAH menyimpan API Key asli Anda</strong>. Server hanya menyimpan versi acak (Hashed) yang tidak bisa dikembalikan lagi.
+          </p>
+          <p class="text-slate-300 text-sm md:text-base leading-relaxed mt-3 font-semibold text-rose-300">
+              Oleh karena itu, Anda WAJIB menyimpan API Key (Plain Text) Anda di tempat yang aman setelah di-generate. Jika Anda menghilangkannya, Admin pun tidak akan bisa melihat atau memulihkannya kembali. Anda harus menghapus key lama dan membuat key yang baru.
+          </p>
+      </div>
+
       <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 md:p-8 shadow-xl shadow-black/20 overflow-hidden">
          <h3 class="text-slate-200 font-bold mb-3 flex items-center gap-2 text-lg">🔐 Autentikasi (Headers)</h3>
          <p class="text-slate-400 mb-5 text-sm md:text-base">Selalu sertakan kredensial di header HTTP (bukan di URL parameter).</p>

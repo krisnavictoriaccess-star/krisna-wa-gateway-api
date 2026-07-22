@@ -879,13 +879,7 @@ app.post('/api-key/delete', validateMasterKey, async (req, res) => {
     }
 });
 
-app.post('/webhook/set', validateApiKey, async (req, res) => {
-    try {
-        const { webhook_url } = req.body;
-        const updated = await prisma.apiKey.update({ where: { key: req.apiKeyData.key }, data: { webhook_url: webhook_url || null } });
-        return res.status(200).json({ status: true, message: 'URL Webhook berhasil diperbarui.', data: updated });
-    } catch (error) { console.error('[API ERROR]', error.message); return res.status(500).json({ status: false, message: 'Terjadi kesalahan internal pada server.' }); }
-});
+
 
 // User: Cek status, kuota, paket dan masa aktif API Key saat ini
 app.get('/api-key/info', validateApiKey, async (req, res) => {

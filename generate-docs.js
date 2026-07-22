@@ -129,6 +129,25 @@ const endpoints = [
         resError: `{ "status": false, "message": "Record to delete does not exist." }`
     },
     {
+        method: "GET", path: "/api-key/list",
+        summary: "Melihat daftar semua API Key klien beserta sisa masa aktifnya.",
+        badge: "master",
+        params: [],
+        reqBody: "",
+        resSuccess: `{
+  "status": true,
+  "data": [
+    {
+      "key": "hashed_key_xyz",
+      "label": "User Biasa",
+      "package": "Free",
+      "expiredAt": "2026-08-20T00:00:00.000Z"
+    }
+  ]
+}`,
+        resError: `{ "status": false, "message": "Invalid master key" }`
+    },
+    {
         method: "POST", path: "/api-key/generate",
         summary: "Membuat (Generate) API Key baru untuk user/klien.",
         badge: "master",
@@ -153,25 +172,6 @@ const endpoints = [
   }
 }`,
         resError: `{ "status": false, "message": "Paket tidak valid atau tidak ditemukan di database." }`
-    },
-    {
-        method: "GET", path: "/api-key/list",
-        summary: "Melihat daftar semua API Key klien beserta sisa masa aktifnya.",
-        badge: "master",
-        params: [],
-        reqBody: "",
-        resSuccess: `{
-  "status": true,
-  "data": [
-    {
-      "key": "hashed_key_xyz",
-      "label": "User Biasa",
-      "package": "Free",
-      "expiredAt": "2026-08-20T00:00:00.000Z"
-    }
-  ]
-}`,
-        resError: `{ "status": false, "message": "Invalid master key" }`
     },
     {
         method: "POST", path: "/api-key/extend",
@@ -227,6 +227,39 @@ const endpoints = [
 }`,
         resError: `{ "status": false, "message": "API Key tidak valid atau sudah terhapus." }`
     },
+    {
+        method: "GET", path: "/device/all",
+        summary: "Melihat seluruh status device dari semua klien yang ada di server.",
+        badge: "master",
+        params: [],
+        reqBody: "",
+        resSuccess: `{
+  "status": true,
+  "data": [
+    {
+      "id": 1,
+      "nomor_device": "628123456789",
+      "status": "CONNECTED",
+      "api_key_id": "hashed_key"
+    }
+  ]
+}`,
+        resError: `{ "status": false, "message": "Invalid master key" }`
+    },
+    {
+        method: "GET", path: "/queue/all",
+        summary: "Melihat statistik antrean pengiriman global dari seluruh klien di server.",
+        badge: "master",
+        params: [],
+        reqBody: "",
+        resSuccess: `{
+  "status": true,
+  "pending": 50,
+  "success": 2500,
+  "failed": 25
+}`,
+        resError: `{ "status": false, "message": "Gagal memuat antrean global." }`
+    },
     
     // ----------------------------------------------------
     // USER ENDPOINTS (x-api-key)
@@ -264,74 +297,86 @@ const endpoints = [
   "status": true,
   "data": [
     {
-      "nomor": "628123456789",
+      "nomor_device": "628123456789",
       "status": "CONNECTED",
       "webhook_url": "https://domain.com/webhook",
-      "autoreply_active": true
+      "is_autoread": true
     }
   ]
 }`,
         resError: `{ "status": false, "message": "Invalid API Key" }`
     },
     {
-        method: "POST", path: "/device/connect",
-        summary: "Meminta Pairing Code untuk menghubungkan nomor WhatsApp baru.",
+        method: "POST", path: "/device/add",
+        summary: "Mendaftarkan nomor perangkat baru ke sistem untuk siap di-scan (Pairing).",
         badge: "user",
         params: [
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor WhatsApp yang akan dihubungkan (format: 628xxx)." }
+            { field: "nomor_device", type: "String", status: "wajib", desc: "Nomor WhatsApp yang akan dihubungkan (format: 628xxx)." }
         ],
         reqBody: `{
-  "nomor": "628123456789"
+  "nomor_device": "628123456789"
 }`,
         resSuccess: `{
   "status": true,
-  "message": "Menunggu koneksi dari perangkat.",
-  "code": "X7K9Y2M4"
+  "message": "Perangkat berhasil ditambahkan. Silakan hubungkan menggunakan WebSockets."
 }`,
         resError: `{ "status": false, "message": "Batas device tercapai. Upgrade paket Anda." }`
     },
     {
-        method: "POST", path: "/device/disconnect",
-        summary: "Memutuskan koneksi dan menghapus sesi WhatsApp.",
+        method: "POST", path: "/device/delete",
+        summary: "Memutuskan koneksi, melogout perangkat, dan menghapusnya dari database.",
         badge: "user",
         params: [
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor WhatsApp yang akan diputus." }
+            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat yang ingin dihapus, diletakkan di HTTP Header." }
+        ],
+        reqBody: "",
+        resSuccess: `{
+  "status": true,
+  "message": "Device 628123456789 berhasil dihapus dan dilogout."
+}`,
+        resError: `{ "status": false, "message": "Device tidak ditemukan atau bukan milik Anda." }`
+    },
+    {
+        method: "POST", path: "/device/settings",
+        summary: "Mengubah pengaturan spesifik perangkat (seperti Auto-Read).",
+        badge: "user",
+        params: [
+            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat, di HTTP Header." },
+            { field: "is_autoread", type: "Boolean", status: "wajib", desc: "true = Nyalakan centang biru otomatis untuk pesan masuk. false = Matikan." }
         ],
         reqBody: `{
-  "nomor": "628123456789"
+  "is_autoread": true
 }`,
         resSuccess: `{
   "status": true,
-  "message": "Device 628123456789 berhasil diputuskan dan dihapus."
+  "message": "Pengaturan perangkat berhasil diperbarui."
 }`,
-        resError: `{ "status": false, "message": "Device tidak ditemukan." }`
+        resError: `{ "status": false, "message": "is_autoread harus boolean (true/false)." }`
     },
     {
-        method: "POST", path: "/device/webhook",
-        summary: "Mengatur atau menghapus Webhook URL untuk perangkat spesifik.",
+        method: "POST", path: "/webhook/set",
+        summary: "Mengatur atau menghapus Webhook URL untuk akun Anda.",
         badge: "user",
         params: [
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor perangkat Anda." },
-            { field: "webhook_url", type: "String", status: "opsional", desc: "URL Webhook. Kosongkan body ini jika ingin menghapus webhook." }
+            { field: "webhook_url", type: "String", status: "opsional", desc: "URL Webhook tujuan. Kosongkan parameter ini di body untuk menonaktifkan Webhook." }
         ],
         reqBody: `{
-  "nomor": "628123456789",
   "webhook_url": "https://domainanda.com/api/wa-webhook"
 }`,
         resSuccess: `{
   "status": true,
-  "message": "Webhook berhasil diatur."
+  "message": "Webhook berhasil diperbarui."
 }`,
-        resError: `{ "status": false, "message": "Paket Anda tidak memiliki izin untuk menggunakan Webhook." }`
+        resError: `{ "status": false, "message": "Gagal memperbarui webhook." }`
     },
 
     {
         category: "💬 Messaging (Pengiriman)",
         method: "POST", path: "/kirim-pesan",
-        summary: "Mengirim pesan teks ke satu nomor.",
+        summary: "Mengirim pesan teks murni ke satu nomor.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim di HTTP Header. Kosongkan untuk mode Rotator." },
+            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
             { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
             { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan teks." }
         ],
@@ -462,7 +507,7 @@ const endpoints = [
             { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim." },
             { field: "targets", type: "Array of String", status: "wajib", desc: "Daftar nomor tujuan." },
             { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan. Mendukung tag {nama} jika list ditarik dari contact list." },
-            { field: "delay_ms", type: "Integer", status: "opsional", desc: "Jeda per pengiriman dalam milidetik. Sangat direkomendasikan untuk menghindari pemblokiran. Default: 5000 (5 detik)." }
+            { field: "delay_ms", type: "Integer", status: "opsional", desc: "Jeda per pengiriman dalam milidetik. Default: 5000." }
         ],
         reqBody: `{
   "targets": ["628111111111", "628222222222"],
@@ -506,7 +551,7 @@ const endpoints = [
             { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat Anda." },
             { field: "keyword", type: "String", status: "wajib", desc: "Kata kunci pemicu balasan." },
             { field: "response", type: "String", status: "wajib", desc: "Teks balasan otomatis." },
-            { field: "is_exact", type: "Boolean", status: "opsional", desc: "true = Harus persis sama (PING == PING). false = Cukup mengandung kata (PING == halo PING pagi). Default: true." }
+            { field: "is_exact", type: "Boolean", status: "opsional", desc: "true = Harus persis sama. false = Mengandung kata. Default: true." }
         ],
         reqBody: `{
   "keyword": "harga",
@@ -536,27 +581,10 @@ const endpoints = [
 }`,
         resError: `{ "status": false, "message": "Auto-reply tidak ditemukan." }`
     },
-    {
-        method: "POST", path: "/auto-reply/toggle",
-        summary: "Menyalakan/mematikan fitur Auto-Reply secara global untuk device.",
-        badge: "user",
-        params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat." },
-            { field: "active", type: "Boolean", status: "wajib", desc: "true = Nyala. false = Mati." }
-        ],
-        reqBody: `{
-  "active": false
-}`,
-        resSuccess: `{
-  "status": true,
-  "message": "Status auto-reply diperbarui."
-}`,
-        resError: `{ "status": false, "message": "Device tidak ditemukan." }`
-    },
 
     {
         category: "📇 Ekstraksi Data (Tarik Data)",
-        method: "GET", path: "/contacts",
+        method: "GET", path: "/contact/list",
         summary: "Tarik daftar kontak yang tersimpan di HP/Device.",
         badge: "user",
         params: [
@@ -572,7 +600,7 @@ const endpoints = [
         resError: `{ "status": false, "message": "Paket tidak mendukung tarik kontak." }`
     },
     {
-        method: "GET", path: "/groups",
+        method: "GET", path: "/group/list",
         summary: "Tarik daftar Grup di mana Device bergabung.",
         badge: "user",
         params: [
@@ -593,7 +621,7 @@ const endpoints = [
         badge: "user",
         params: [
             { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat." },
-            { field: "limit", type: "Integer", status: "opsional", desc: "Jumlah pesan yang ingin diambil (URL Query '?limit=50'). Default 50." }
+            { field: "limit", type: "Integer", status: "opsional", desc: "Jumlah pesan (URL Query). Default 50." }
         ],
         reqBody: "",
         resSuccess: `{
@@ -611,7 +639,7 @@ const endpoints = [
         summary: "Melihat statistik antrean pengiriman pesan Anda saat ini.",
         badge: "user",
         params: [
-            { field: "device", type: "String", status: "opsional", desc: "URL Query '?device=628xxx' untuk filter antrean device tertentu." }
+            { field: "device", type: "String", status: "opsional", desc: "URL Query untuk filter antrean device tertentu." }
         ],
         reqBody: "",
         resSuccess: `{

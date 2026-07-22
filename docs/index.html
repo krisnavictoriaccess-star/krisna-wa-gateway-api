@@ -53,13 +53,13 @@
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/package/delete</span>
   </button>
-  <button data-tab="POSTapikeygenerate" class="tab-link link-POSTapikeygenerate block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
-    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
-    <span class="truncate">/api-key/generate</span>
-  </button>
   <button data-tab="GETapikeylist" class="tab-link link-GETapikeylist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/api-key/list</span>
+  </button>
+  <button data-tab="POSTapikeygenerate" class="tab-link link-POSTapikeygenerate block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
+    <span class="truncate">/api-key/generate</span>
   </button>
   <button data-tab="POSTapikeyextend" class="tab-link link-POSTapikeyextend block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
@@ -73,6 +73,14 @@
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/api-key/delete</span>
   </button>
+  <button data-tab="GETdeviceall" class="tab-link link-GETdeviceall block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
+    <span class="truncate">/device/all</span>
+  </button>
+  <button data-tab="GETqueueall" class="tab-link link-GETqueueall block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
+    <span class="truncate">/queue/all</span>
+  </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">👤 Info Akun</div>
   <button data-tab="GETapikeyinfo" class="tab-link link-GETapikeyinfo block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
@@ -83,17 +91,21 @@
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/device/list</span>
   </button>
-  <button data-tab="POSTdeviceconnect" class="tab-link link-POSTdeviceconnect block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTdeviceadd" class="tab-link link-POSTdeviceadd block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
-    <span class="truncate">/device/connect</span>
+    <span class="truncate">/device/add</span>
   </button>
-  <button data-tab="POSTdevicedisconnect" class="tab-link link-POSTdevicedisconnect block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTdevicedelete" class="tab-link link-POSTdevicedelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
-    <span class="truncate">/device/disconnect</span>
+    <span class="truncate">/device/delete</span>
   </button>
-  <button data-tab="POSTdevicewebhook" class="tab-link link-POSTdevicewebhook block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTdevicesettings" class="tab-link link-POSTdevicesettings block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
-    <span class="truncate">/device/webhook</span>
+    <span class="truncate">/device/settings</span>
+  </button>
+  <button data-tab="POSTwebhookset" class="tab-link link-POSTwebhookset block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
+    <span class="truncate">/webhook/set</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">💬 Messaging (Pengiriman)</div>
   <button data-tab="POSTkirimpesan" class="tab-link link-POSTkirimpesan block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
@@ -137,18 +149,14 @@
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/auto-reply/delete</span>
   </button>
-  <button data-tab="POSTautoreplytoggle" class="tab-link link-POSTautoreplytoggle block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
-    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
-    <span class="truncate">/auto-reply/toggle</span>
-  </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">📇 Ekstraksi Data (Tarik Data)</div>
-  <button data-tab="GETcontacts" class="tab-link link-GETcontacts block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETcontactlist" class="tab-link link-GETcontactlist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
-    <span class="truncate">/contacts</span>
+    <span class="truncate">/contact/list</span>
   </button>
-  <button data-tab="GETgroups" class="tab-link link-GETgroups block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETgrouplist" class="tab-link link-GETgrouplist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
-    <span class="truncate">/groups</span>
+    <span class="truncate">/group/list</span>
   </button>
   <button data-tab="GETinbox" class="tab-link link-GETinbox block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
@@ -605,6 +613,47 @@
          </div>
       </div>
     </div>
+    <div id="tab-GETapikeylist" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/list</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Melihat daftar semua API Key klien beserta sisa masa aktifnya.</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-GETapikeylist" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "data": [
+    {
+      "key": "hashed_key_xyz",
+      "label": "User Biasa",
+      "package": "Free",
+      "expiredAt": "2026-08-20T00:00:00.000Z"
+    }
+  ]
+}</pre>
+                 <button data-copy="code-res-suc-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-GETapikeylist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Invalid master key" }</pre>
+                 <button data-copy="code-res-err-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
     <div id="tab-POSTapikeygenerate" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
@@ -677,47 +726,6 @@
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-POSTapikeygenerate" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Paket tidak valid atau tidak ditemukan di database." }</pre>
                  <button data-copy="code-res-err-POSTapikeygenerate" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
-               </div>
-            </div>
-         </div>
-      </div>
-    </div>
-    <div id="tab-GETapikeylist" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
-      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
-         <div class="flex items-center gap-3 min-w-0">
-            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/api-key/list</code>
-         </div>
-         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Melihat daftar semua API Key klien beserta sisa masa aktifnya.</span>
-      </div>
-      
-      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
-         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
-
-         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
-         <div class="flex flex-col lg:flex-row gap-6 w-full">
-            <div class="flex-1 w-full min-w-0">
-               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
-               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-GETapikeylist" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
-  "status": true,
-  "data": [
-    {
-      "key": "hashed_key_xyz",
-      "label": "User Biasa",
-      "package": "Free",
-      "expiredAt": "2026-08-20T00:00:00.000Z"
-    }
-  ]
-}</pre>
-                 <button data-copy="code-res-suc-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
-               </div>
-            </div>
-            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
-               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
-               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-GETapikeylist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Invalid master key" }</pre>
-                 <button data-copy="code-res-err-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -910,6 +918,83 @@
          </div>
       </div>
     </div>
+    <div id="tab-GETdeviceall" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/device/all</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Melihat seluruh status device dari semua klien yang ada di server.</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-GETdeviceall" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "data": [
+    {
+      "id": 1,
+      "nomor_device": "628123456789",
+      "status": "CONNECTED",
+      "api_key_id": "hashed_key"
+    }
+  ]
+}</pre>
+                 <button data-copy="code-res-suc-GETdeviceall" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-GETdeviceall" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Invalid master key" }</pre>
+                 <button data-copy="code-res-err-GETdeviceall" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div id="tab-GETqueueall" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/queue/all</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Melihat statistik antrean pengiriman global dari seluruh klien di server.</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">Requires x-master-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-GETqueueall" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "pending": 50,
+  "success": 2500,
+  "failed": 25
+}</pre>
+                 <button data-copy="code-res-suc-GETqueueall" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-GETqueueall" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Gagal memuat antrean global." }</pre>
+                 <button data-copy="code-res-err-GETqueueall" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
     <div id="tab-GETapikeyinfo" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
@@ -974,10 +1059,10 @@
   "status": true,
   "data": [
     {
-      "nomor": "628123456789",
+      "nomor_device": "628123456789",
       "status": "CONNECTED",
       "webhook_url": "https://domain.com/webhook",
-      "autoreply_active": true
+      "is_autoread": true
     }
   ]
 }</pre>
@@ -994,13 +1079,13 @@
          </div>
       </div>
     </div>
-    <div id="tab-POSTdeviceconnect" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+    <div id="tab-POSTdeviceadd" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
             <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/device/connect</code>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/device/add</code>
          </div>
-         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Meminta Pairing Code untuk menghubungkan nomor WhatsApp baru.</span>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Mendaftarkan nomor perangkat baru ke sistem untuk siap di-scan (Pairing).</span>
       </div>
       
       <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
@@ -1014,7 +1099,7 @@
                </thead>
                <tbody class="divide-y divide-slate-700/50">
                  <tr class="hover:bg-slate-800/50 transition-colors">
-                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">nomor</code></td>
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">nomor_device</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
                     <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor WhatsApp yang akan dihubungkan (format: 628xxx).</td>
@@ -1024,41 +1109,40 @@
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
          <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
-           <pre id="code-req-POSTdeviceconnect" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
-  "nomor": "628123456789"
+           <pre id="code-req-POSTdeviceadd" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
+  "nomor_device": "628123456789"
 }</pre>
-           <button data-copy="code-req-POSTdeviceconnect" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTdeviceadd" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
             <div class="flex-1 w-full min-w-0">
                <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-POSTdeviceconnect" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+                 <pre id="code-res-suc-POSTdeviceadd" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
   "status": true,
-  "message": "Menunggu koneksi dari perangkat.",
-  "code": "X7K9Y2M4"
+  "message": "Perangkat berhasil ditambahkan. Silakan hubungkan menggunakan WebSockets."
 }</pre>
-                 <button data-copy="code-res-suc-POSTdeviceconnect" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTdeviceadd" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-POSTdeviceconnect" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Batas device tercapai. Upgrade paket Anda." }</pre>
-                 <button data-copy="code-res-err-POSTdeviceconnect" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <pre id="code-res-err-POSTdeviceadd" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Batas device tercapai. Upgrade paket Anda." }</pre>
+                 <button data-copy="code-res-err-POSTdeviceadd" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
       </div>
     </div>
-    <div id="tab-POSTdevicedisconnect" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+    <div id="tab-POSTdevicedelete" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
             <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/device/disconnect</code>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/device/delete</code>
          </div>
-         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Memutuskan koneksi dan menghapus sesi WhatsApp.</span>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Memutuskan koneksi, melogout perangkat, dan menghapusnya dari database.</span>
       </div>
       
       <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
@@ -1072,50 +1156,106 @@
                </thead>
                <tbody class="divide-y divide-slate-700/50">
                  <tr class="hover:bg-slate-800/50 transition-colors">
-                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">nomor</code></td>
-                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">sender_id</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String (Header)</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor WhatsApp yang akan diputus.</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor perangkat yang ingin dihapus, diletakkan di HTTP Header.</td>
+                 </tr>
+               </tbody>
+            </table>
+         </div>
+         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
+         <div class="flex flex-col lg:flex-row gap-6 w-full">
+            <div class="flex-1 w-full min-w-0">
+               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
+               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
+                 <pre id="code-res-suc-POSTdevicedelete" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+  "status": true,
+  "message": "Device 628123456789 berhasil dihapus dan dilogout."
+}</pre>
+                 <button data-copy="code-res-suc-POSTdevicedelete" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
+               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
+               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
+                 <pre id="code-res-err-POSTdevicedelete" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Device tidak ditemukan atau bukan milik Anda." }</pre>
+                 <button data-copy="code-res-err-POSTdevicedelete" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div id="tab-POSTdevicesettings" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
+         <div class="flex items-center gap-3 min-w-0">
+            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/device/settings</code>
+         </div>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Mengubah pengaturan spesifik perangkat (seperti Auto-Read).</span>
+      </div>
+      
+      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
+         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">Requires x-api-key</span></div>
+
+         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
+         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8 w-full max-w-full">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+               <thead class="bg-slate-800/80 text-slate-400">
+                 <tr><th class="px-4 py-3 font-semibold">Field</th><th class="px-4 py-3 font-semibold">Type</th><th class="px-4 py-3 font-semibold">Status</th><th class="px-4 py-3 font-semibold">Deskripsi</th></tr>
+               </thead>
+               <tbody class="divide-y divide-slate-700/50">
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">sender_id</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String (Header)</td>
+                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor perangkat, di HTTP Header.</td>
+                 </tr>
+                 <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">is_autoread</code></td>
+                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">Boolean</td>
+                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">true = Nyalakan centang biru otomatis untuk pesan masuk. false = Matikan.</td>
                  </tr>
                </tbody>
             </table>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
          <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
-           <pre id="code-req-POSTdevicedisconnect" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
-  "nomor": "628123456789"
+           <pre id="code-req-POSTdevicesettings" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
+  "is_autoread": true
 }</pre>
-           <button data-copy="code-req-POSTdevicedisconnect" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTdevicesettings" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
             <div class="flex-1 w-full min-w-0">
                <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-POSTdevicedisconnect" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+                 <pre id="code-res-suc-POSTdevicesettings" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
   "status": true,
-  "message": "Device 628123456789 berhasil diputuskan dan dihapus."
+  "message": "Pengaturan perangkat berhasil diperbarui."
 }</pre>
-                 <button data-copy="code-res-suc-POSTdevicedisconnect" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTdevicesettings" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-POSTdevicedisconnect" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Device tidak ditemukan." }</pre>
-                 <button data-copy="code-res-err-POSTdevicedisconnect" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <pre id="code-res-err-POSTdevicesettings" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "is_autoread harus boolean (true/false)." }</pre>
+                 <button data-copy="code-res-err-POSTdevicesettings" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
       </div>
     </div>
-    <div id="tab-POSTdevicewebhook" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+    <div id="tab-POSTwebhookset" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
             <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/device/webhook</code>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/webhook/set</code>
          </div>
-         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Mengatur atau menghapus Webhook URL untuk perangkat spesifik.</span>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Mengatur atau menghapus Webhook URL untuk akun Anda.</span>
       </div>
       
       <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
@@ -1128,46 +1268,39 @@
                  <tr><th class="px-4 py-3 font-semibold">Field</th><th class="px-4 py-3 font-semibold">Type</th><th class="px-4 py-3 font-semibold">Status</th><th class="px-4 py-3 font-semibold">Deskripsi</th></tr>
                </thead>
                <tbody class="divide-y divide-slate-700/50">
-                 <tr class="hover:bg-slate-800/50 transition-colors">
-                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">nomor</code></td>
-                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
-                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor perangkat Anda.</td>
-                 </tr>
                  <tr class="hover:bg-slate-800/50 transition-colors">
                     <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">webhook_url</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">URL Webhook. Kosongkan body ini jika ingin menghapus webhook.</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">URL Webhook tujuan. Kosongkan parameter ini di body untuk menonaktifkan Webhook.</td>
                  </tr>
                </tbody>
             </table>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
          <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
-           <pre id="code-req-POSTdevicewebhook" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
-  "nomor": "628123456789",
+           <pre id="code-req-POSTwebhookset" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "webhook_url": "https://domainanda.com/api/wa-webhook"
 }</pre>
-           <button data-copy="code-req-POSTdevicewebhook" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTwebhookset" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
             <div class="flex-1 w-full min-w-0">
                <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-POSTdevicewebhook" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+                 <pre id="code-res-suc-POSTwebhookset" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
   "status": true,
-  "message": "Webhook berhasil diatur."
+  "message": "Webhook berhasil diperbarui."
 }</pre>
-                 <button data-copy="code-res-suc-POSTdevicewebhook" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTwebhookset" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-POSTdevicewebhook" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Paket Anda tidak memiliki izin untuk menggunakan Webhook." }</pre>
-                 <button data-copy="code-res-err-POSTdevicewebhook" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <pre id="code-res-err-POSTwebhookset" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Gagal memperbarui webhook." }</pre>
+                 <button data-copy="code-res-err-POSTwebhookset" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1179,7 +1312,7 @@
             <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
             <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/kirim-pesan</code>
          </div>
-         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Mengirim pesan teks ke satu nomor.</span>
+         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Mengirim pesan teks murni ke satu nomor.</span>
       </div>
       
       <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
@@ -1196,7 +1329,7 @@
                     <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">sender_id</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String (Header)</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor pengirim di HTTP Header. Kosongkan untuk mode Rotator.</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis.</td>
                  </tr>
                  <tr class="hover:bg-slate-800/50 transition-colors">
                     <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">nomor</code></td>
@@ -1678,7 +1811,7 @@
                     <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">delay_ms</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">Integer</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Jeda per pengiriman dalam milidetik. Sangat direkomendasikan untuk menghindari pemblokiran. Default: 5000 (5 detik).</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Jeda per pengiriman dalam milidetik. Default: 5000.</td>
                  </tr>
                </tbody>
             </table>
@@ -1812,7 +1945,7 @@
                     <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">is_exact</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">Boolean</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">true = Harus persis sama (PING == PING). false = Cukup mengandung kata (PING == halo PING pagi). Default: true.</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">true = Harus persis sama. false = Mengandung kata. Default: true.</td>
                  </tr>
                </tbody>
             </table>
@@ -1912,74 +2045,11 @@
          </div>
       </div>
     </div>
-    <div id="tab-POSTautoreplytoggle" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
-      <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
-         <div class="flex items-center gap-3 min-w-0">
-            <span class="px-3 py-1 rounded-md text-xs font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 shrink-0">POST</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/auto-reply/toggle</code>
-         </div>
-         <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Menyalakan/mematikan fitur Auto-Reply secara global untuk device.</span>
-      </div>
-      
-      <div class="p-4 md:p-8 w-full max-w-full overflow-hidden">
-         <div class="mb-6 flex flex-wrap gap-2"><span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">Requires x-api-key</span></div>
-
-         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Parameters</h5>
-         <div class="overflow-x-auto rounded-xl border border-slate-700/50 shadow-inner mb-8 w-full max-w-full">
-            <table class="w-full text-left text-sm whitespace-nowrap">
-               <thead class="bg-slate-800/80 text-slate-400">
-                 <tr><th class="px-4 py-3 font-semibold">Field</th><th class="px-4 py-3 font-semibold">Type</th><th class="px-4 py-3 font-semibold">Status</th><th class="px-4 py-3 font-semibold">Deskripsi</th></tr>
-               </thead>
-               <tbody class="divide-y divide-slate-700/50">
-                 <tr class="hover:bg-slate-800/50 transition-colors">
-                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">sender_id</code></td>
-                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String (Header)</td>
-                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Nomor perangkat.</td>
-                 </tr>
-                 <tr class="hover:bg-slate-800/50 transition-colors">
-                    <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">active</code></td>
-                    <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">Boolean</td>
-                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/20">wajib</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">true = Nyala. false = Mati.</td>
-                 </tr>
-               </tbody>
-            </table>
-         </div>
-         <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
-         <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
-           <pre id="code-req-POSTautoreplytoggle" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
-  "active": false
-}</pre>
-           <button data-copy="code-req-POSTautoreplytoggle" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
-         </div>
-         <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
-         <div class="flex flex-col lg:flex-row gap-6 w-full">
-            <div class="flex-1 w-full min-w-0">
-               <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
-               <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-POSTautoreplytoggle" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
-  "status": true,
-  "message": "Status auto-reply diperbarui."
-}</pre>
-                 <button data-copy="code-res-suc-POSTautoreplytoggle" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
-               </div>
-            </div>
-            <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
-               <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
-               <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-POSTautoreplytoggle" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Device tidak ditemukan." }</pre>
-                 <button data-copy="code-res-err-POSTautoreplytoggle" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
-               </div>
-            </div>
-         </div>
-      </div>
-    </div>
-    <div id="tab-GETcontacts" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+    <div id="tab-GETcontactlist" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
             <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/contacts</code>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/contact/list</code>
          </div>
          <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Tarik daftar kontak yang tersimpan di HP/Device.</span>
       </div>
@@ -2008,30 +2078,30 @@
             <div class="flex-1 w-full min-w-0">
                <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-GETcontacts" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+                 <pre id="code-res-suc-GETcontactlist" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
   "status": true,
   "data": [
     { "id": "6281234@s.whatsapp.net", "name": "Budi Santoso", "number": "6281234" }
   ]
 }</pre>
-                 <button data-copy="code-res-suc-GETcontacts" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETcontactlist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-GETcontacts" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Paket tidak mendukung tarik kontak." }</pre>
-                 <button data-copy="code-res-err-GETcontacts" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <pre id="code-res-err-GETcontactlist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Paket tidak mendukung tarik kontak." }</pre>
+                 <button data-copy="code-res-err-GETcontactlist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
       </div>
     </div>
-    <div id="tab-GETgroups" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
+    <div id="tab-GETgrouplist" class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 w-full max-w-full">
       <div class="px-4 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5 w-full">
          <div class="flex items-center gap-3 min-w-0">
             <span class="px-3 py-1 rounded-md text-xs font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shrink-0">GET</span>
-            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/groups</code>
+            <code class="text-slate-200 font-mono text-sm md:text-lg font-bold truncate">/group/list</code>
          </div>
          <span class="text-slate-400 text-xs md:text-sm md:ml-auto md:text-right leading-snug">Tarik daftar Grup di mana Device bergabung.</span>
       </div>
@@ -2060,20 +2130,20 @@
             <div class="flex-1 w-full min-w-0">
                <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
-                 <pre id="code-res-suc-GETgroups" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
+                 <pre id="code-res-suc-GETgrouplist" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">{
   "status": true,
   "data": [
     { "id": "123456@g.us", "subject": "Grup Alumni HMI", "participantsCount": 42 }
   ]
 }</pre>
-                 <button data-copy="code-res-suc-GETgroups" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETgrouplist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
-                 <pre id="code-res-err-GETgroups" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Paket tidak mendukung tarik grup." }</pre>
-                 <button data-copy="code-res-err-GETgroups" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <pre id="code-res-err-GETgrouplist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Paket tidak mendukung tarik grup." }</pre>
+                 <button data-copy="code-res-err-GETgrouplist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2108,7 +2178,7 @@
                     <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">limit</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">Integer</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Jumlah pesan yang ingin diambil (URL Query '?limit=50'). Default 50.</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">Jumlah pesan (URL Query). Default 50.</td>
                  </tr>
                </tbody>
             </table>
@@ -2160,7 +2230,7 @@
                     <td class="px-4 py-3"><code class="text-amber-300 font-mono text-xs md:text-sm">device</code></td>
                     <td class="px-4 py-3 text-slate-300 text-xs md:text-sm">String</td>
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">opsional</span></td>
-                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">URL Query '?device=628xxx' untuk filter antrean device tertentu.</td>
+                    <td class="px-4 py-3 text-slate-400 text-xs md:text-sm break-words whitespace-normal min-w-[200px]">URL Query untuk filter antrean device tertentu.</td>
                  </tr>
                </tbody>
             </table>

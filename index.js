@@ -963,7 +963,7 @@ app.post('/device/delete', validateApiKey, validateDeviceOwnership, async (req, 
 });
 
 app.get('/group/list', validateApiKey, validateDeviceOwnership, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_group_list) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk melihat Daftar Grup.' });
+    if (!req.apiKeyData.packageData.fitur_group_list) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Ekstraksi Daftar Grup tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const sock = activeSessions[req.cleanSender];
     if (!sock) return res.status(404).json({ status: false, message: 'Sesi perangkat tidak aktif' });
     try {
@@ -974,7 +974,7 @@ app.get('/group/list', validateApiKey, validateDeviceOwnership, async (req, res)
 });
 
 app.get('/contact/list', validateApiKey, validateDeviceOwnership, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_contact_list) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk melihat Daftar Kontak.' });
+    if (!req.apiKeyData.packageData.fitur_contact_list) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Ekstraksi Daftar Kontak tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const store = activeStores[req.cleanSender];
     if (!store) return res.status(404).json({ status: false, message: 'Store kontak untuk perangkat tidak ditemukan atau sesi belum siap.' });
     
@@ -988,7 +988,7 @@ app.get('/contact/list', validateApiKey, validateDeviceOwnership, async (req, re
 });
 
 app.get('/inbox', validateApiKey, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_inbox) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk melihat Inbox.' });
+    if (!req.apiKeyData.packageData.fitur_inbox) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Riwayat Pesan Masuk (Inbox) tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     try {
         const user = req.apiKeyData;
         const limit = parseInt(req.query.limit) || 100;
@@ -1220,7 +1220,7 @@ app.post('/kirim-pesan', validateApiKey, validateDeviceOwnership, checkQuotaMidd
 });
 
 app.post('/kirim-massal', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_broadcast) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk fitur Kirim Massal (Broadcast).' });
+    if (!req.apiKeyData.packageData.fitur_broadcast) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Kirim Pesan Massal (Broadcast) tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const { pesan_list } = req.body; // Array of {nomor, pesan, media_url, media_type}
     if (!pesan_list || !Array.isArray(pesan_list)) return res.status(400).json({ status: false, message: 'Format salah. Butuh array pesan_list.' });
     
@@ -1281,14 +1281,14 @@ app.post('/kirim-massal', validateApiKey, validateDeviceOwnership, checkQuotaMid
 });
 
 app.post('/kirim-grup', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_group) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim pesan ke Grup.' });
+    if (!req.apiKeyData.packageData.fitur_group) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Pengiriman ke Grup tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const { group_id, pesan } = req.body; // group_id = misal 123456789@g.us
     if (!group_id || !pesan) return res.status(400).json({ status: false, message: 'Parameter group_id & pesan wajib.' });
     return addToQueue(req, res, group_id, { text: pesan });
 });
 
 app.post('/kirim-lokasi', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_lokasi) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim Lokasi.' });
+    if (!req.apiKeyData.packageData.fitur_lokasi) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Pengiriman Koordinat (Lokasi) tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const { nomor, lat, long } = req.body;
     if (!nomor || !lat || !long) return res.status(400).json({ status: false, message: 'Parameter nomor, lat, long wajib.' });
     const jid = `${formatNomorWhatsApp(nomor)}@s.whatsapp.net`;
@@ -1296,7 +1296,7 @@ app.post('/kirim-lokasi', validateApiKey, validateDeviceOwnership, checkQuotaMid
 });
 
 app.post('/kirim-polling', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_polling) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim Polling.' });
+    if (!req.apiKeyData.packageData.fitur_polling) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Pembuatan Polling Interaktif tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const { nomor, nama_polling, opsi, multiple_choice = false } = req.body;
     if (!nomor || !nama_polling || !opsi || !Array.isArray(opsi)) return res.status(400).json({ status: false, message: 'Parameter tidak valid. Opsi harus berupa array.' });
     const jid = `${formatNomorWhatsApp(nomor)}@s.whatsapp.net`;
@@ -1310,7 +1310,7 @@ app.post('/kirim-polling', validateApiKey, validateDeviceOwnership, checkQuotaMi
 });
 
 app.post('/kirim-media', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_media) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim Media/Gambar.' });
+    if (!req.apiKeyData.packageData.fitur_media) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Pengiriman Media/File tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const { nomor, url, tipe, caption = '' } = req.body; // tipe = image, video, document
     if (!nomor || !url || !tipe) return res.status(400).json({ status: false, message: 'Parameter nomor, url, dan tipe wajib.' });
     
@@ -1335,7 +1335,7 @@ app.post('/kirim-media', validateApiKey, validateDeviceOwnership, checkQuotaMidd
 });
 
 app.post('/kirim-vcard', validateApiKey, validateDeviceOwnership, checkQuotaMiddleware, async (req, res) => {
-    if (!req.apiKeyData.packageData.fitur_vcard) return res.status(403).json({ status: false, message: 'Akses ditolak. Paket Anda tidak memiliki izin untuk mengirim vCard.' });
+    if (!req.apiKeyData.packageData.fitur_vcard) return res.status(403).json({ status: false, message: `Fitur Premium: Akses ditolak. Fitur Pengiriman Kontak (vCard) tidak tersedia pada paket ${req.apiKeyData.paket} Anda. Silakan hubungi admin untuk melakukan upgrade.` });
     const { nomor, nama_kontak, nomor_kontak } = req.body;
     if (!nomor || !nama_kontak || !nomor_kontak) return res.status(400).json({ status: false, message: 'Parameter wajib.' });
     

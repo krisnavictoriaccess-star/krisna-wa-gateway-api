@@ -540,7 +540,7 @@ const endpoints = [
         badge: "user",
         params: [
             { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor device/pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
-            { field: "pesan_list", type: "Array", status: "wajib", desc: "Daftar objek tujuan dan pesannya." },
+            { field: "pesan_list", type: "Array", status: "wajib", desc: "Daftar objek tujuan dan pesannya. Anda bisa menyisipkan properti media_url (opsional) di setiap objek jika paket Anda mendukung fitur_media." },
               { field: "send_at", type: "String", status: "opsional", desc: "Jadwal pengiriman pesan. Format: YYYY-MM-DD HH:mm (contoh: 2026-12-31 15:30)." }
           ],
         reqBody: `{

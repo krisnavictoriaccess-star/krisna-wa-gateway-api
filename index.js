@@ -1230,6 +1230,12 @@ app.post('/kirim-massal', validateApiKey, validateDeviceOwnership, checkQuotaMid
     const { pesan_list } = req.body; // Array of {nomor, pesan, media_url, media_type}
     if (!pesan_list || !Array.isArray(pesan_list)) return res.status(400).json({ status: false, message: 'Format salah. Butuh array pesan_list.' });
     
+    // Security Guard: Check fitur_media if any item contains media_url
+    const containsMedia = pesan_list.some(item => item.media_url);
+    if (containsMedia && !req.apiKeyData.packageData.fitur_media) {
+        return res.status(403).json({ status: false, message: 'Akses ditolak. Terdapat antrean media_url, namun Paket Anda tidak memiliki izin untuk mengirim Media.' });
+    }
+    
     const user = req.apiKeyData;
     if (user.limit_pesan !== -1 && (user.terpakai_bulan_ini + pesan_list.length) > user.limit_pesan) {
          return res.status(402).json({ status: false, message: 'Kuota pesan Anda tidak cukup untuk broadcast massal ini.' });

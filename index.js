@@ -328,6 +328,8 @@ async function initWhatsAppSession(sessionId) {
                     update: { name: contact.name, notify: contact.notify, verifiedName: contact.verifiedName },
                     create: { nomor_device: sessionId, contact_id: contact.id, name: contact.name, notify: contact.notify, verifiedName: contact.verifiedName }
                 })));
+                // Berikan napas pada Event Loop Node.js (50ms) agar HTTP Server (seperti halaman docs) tidak lemot/hang
+                await new Promise(resolve => setTimeout(resolve, 50));
             }
         } catch(e) {}
     };

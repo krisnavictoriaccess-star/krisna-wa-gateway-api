@@ -321,14 +321,26 @@ async function initWhatsAppSession(sessionId) {
 
     const processContacts = async (contacts) => {
         try {
-            for (let i = 0; i < contacts.length; i += 50) {
-                const chunk = contacts.slice(i, i + 50);
-                await Promise.all(chunk.map(contact => prisma.contactStore.upsert({
-                    where: { nomor_device_contact_id: { nomor_device: sessionId, contact_id: contact.id } },
-                    update: { name: contact.name, notify: contact.notify, verifiedName: contact.verifiedName },
-                    create: { nomor_device: sessionId, contact_id: contact.id, name: contact.name, notify: contact.notify, verifiedName: contact.verifiedName }
-                })));
-                // Berikan napas pada Event Loop Node.js (50ms) agar HTTP Server (seperti halaman docs) tidak lemot/hang
+            const validContacts = contacts.filter(c => c.id && c.id !== 'status@broadcast');
+            if (validContacts.length === 0) return;
+            
+            // Chunking into 500 contacts per batch (1 query instead of 500 queries)
+            for (let i = 0; i < validContacts.length; i += 500) {
+                const chunk = validContacts.slice(i, i + 500).map(c => ({
+                    nomor_device: sessionId,
+                    contact_id: c.id,
+                    name: c.name || null,
+                    notify: c.notify || null,
+                    verifiedName: c.verifiedName || null
+                }));
+                
+                // Gunakan Bulk Insert (jauh lebih ringan dari upsert satu-satu)
+                await prisma.contactStore.createMany({
+                    data: chunk,
+                    skipDuplicates: true // Jika kontak sudah ada, lewati (tanpa error)
+                });
+                
+                // Jeda 50ms per batch 500 kontak
                 await new Promise(resolve => setTimeout(resolve, 50));
             }
         } catch(e) {}

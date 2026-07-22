@@ -168,7 +168,7 @@
     <span class="truncate">/queue/cancel</span>
   </a>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">Events</div>
-  <a href="#websocket" class="block px-2 py-1.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors">⚡ WebSockets</a>
+  <button onclick="showTab('websocket')" class="link-websocket tab-link w-full text-left block px-2 py-1.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors">⚡ WebSockets</button>
 </aside>
 
   <main class="flex-1 p-5 md:p-8 lg:p-12 min-w-0">
@@ -177,7 +177,7 @@
       <p class="text-slate-400 text-base md:text-lg">Referensi Lengkap Integrasi Gateway Enterprise</p>
     </header>
 
-    <section id="top" class="mb-16 scroll-mt-24 md:scroll-mt-8">
+    <div id="tab-top" class="tab-content mb-16 scroll-mt-24 md:scroll-mt-8">
       <div class="bg-blue-900/10 border border-blue-800/40 rounded-2xl p-5 md:p-8 mb-8 shadow-xl shadow-black/20">
          <h3 class="text-blue-400 font-bold mb-4 flex items-center gap-2 text-lg">🌍 Base URL</h3>
          <code class="block overflow-x-auto whitespace-nowrap bg-black/60 p-4 md:p-5 rounded-xl text-amber-400 font-mono text-sm md:text-lg border border-slate-800 shadow-inner">https://api.krisnadev.my.id</code>
@@ -211,10 +211,8 @@
             </table>
          </div>
       </div>
-    </section>
-    <h3 id="AdminMasterManajemenAPIKey" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">👑 Admin / Master (Manajemen API Key)</h3>
-
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETapikeylist">
+    </div>
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETapikeylist">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -262,7 +260,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETpackagelist">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETpackagelist">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -298,7 +296,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTpackageadd">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTpackageadd">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -438,7 +436,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTpackageedit">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTpackageedit">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -589,7 +587,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTpackagedelete">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTpackagedelete">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -653,7 +651,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTapikeygenerate">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTapikeygenerate">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -733,7 +731,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTapikeyextend">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTapikeyextend">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -804,7 +802,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTapikeyupgrade">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTapikeyupgrade">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -875,7 +873,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTapikeydelete">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTapikeydelete">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -939,7 +937,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETdeviceall">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETdeviceall">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -977,7 +975,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETqueueall">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETqueueall">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1012,9 +1010,7 @@
          </div>
       </div>
     </div>
-    <h3 id="InformasiKlienAPIKey" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">👤 Informasi Klien (API Key)</h3>
-
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETapikeyinfo">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETapikeyinfo">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1058,9 +1054,7 @@
          </div>
       </div>
     </div>
-    <h3 id="DeviceManagementSesiWA" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">📱 Device Management (Sesi WA)</h3>
-
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTdeviceadd">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTdeviceadd">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1126,7 +1120,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETdevicelist">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETdevicelist">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1162,7 +1156,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTdevicesettings">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTdevicesettings">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1232,7 +1226,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTdevicedelete">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTdevicedelete">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1290,9 +1284,7 @@
          </div>
       </div>
     </div>
-    <h3 id="KontakData" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">📇 Kontak & Data</h3>
-
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETcontactlist">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETcontactlist">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1352,7 +1344,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETgrouplist">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETgrouplist">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1412,7 +1404,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETinbox">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETinbox">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1451,9 +1443,7 @@
          </div>
       </div>
     </div>
-    <h3 id="WebhooksAutoReply" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">🤖 Webhooks & Auto-Reply</h3>
-
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTwebhookset">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTwebhookset">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1517,7 +1507,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTautoreplyadd">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTautoreplyadd">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1615,7 +1605,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETautoreplylist">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETautoreplylist">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1672,7 +1662,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTautoreplydelete">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTautoreplydelete">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1736,9 +1726,7 @@
          </div>
       </div>
     </div>
-    <h3 id="MessagingPengiriman" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">✉️ Messaging (Pengiriman)</h3>
-
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTkirimpesan">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTkirimpesan">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1834,7 +1822,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTkirimmassal">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTkirimmassal">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -1913,7 +1901,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTkirimmedia">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTkirimmedia">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -2010,7 +1998,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTkirimgrup">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTkirimgrup">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -2093,7 +2081,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTkirimpolling">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTkirimpolling">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -2190,7 +2178,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTkirimlokasi">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTkirimlokasi">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -2280,7 +2268,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTkirimvcard">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTkirimvcard">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -2370,9 +2358,7 @@
          </div>
       </div>
     </div>
-    <h3 id="ManajemenAntreanQueue" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">⏳ Manajemen Antrean (Queue)</h3>
-
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="GETqueuemy">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-GETqueuemy">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -2408,7 +2394,7 @@
          </div>
       </div>
     </div>
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="POSTqueuecancel">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-POSTqueuecancel">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -2472,7 +2458,7 @@
          </div>
       </div>
     </div>
-    <h3 id="websocket" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">WebSockets</h3>
+    <div id="tab-websocket" class="tab-content hidden"><h3 class="text-2xl font-bold text-slate-200 mb-8 pb-3 border-b border-slate-800">WebSockets</h3>
     <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10">
       <div class="p-5 md:p-8">
         <p class="text-slate-400 mb-4">API ini menyediakan WebSocket untuk memantau status sesi perangkat (Koneksi WA) secara *real-time*.</p>

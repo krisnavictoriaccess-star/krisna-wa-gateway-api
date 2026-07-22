@@ -768,7 +768,7 @@ endpoints.forEach(ep => {
 
 desktopSidebarHtml += `
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">Events</div>
-  <a href="#websocket" class="block px-2 py-1.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors">⚡ WebSockets</a>
+  <button onclick="showTab('websocket')" class="link-websocket tab-link w-full text-left block px-2 py-1.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors">⚡ WebSockets</button>
 </aside>`;
 
 
@@ -801,7 +801,7 @@ ${mobileNavHtml}
       <p class="text-slate-400 text-base md:text-lg">Referensi Lengkap Integrasi Gateway Enterprise</p>
     </header>
 
-    <section id="top" class="mb-16 scroll-mt-24 md:scroll-mt-8">
+    <div id="tab-top" class="tab-content mb-16 scroll-mt-24 md:scroll-mt-8">
       <div class="bg-blue-900/10 border border-blue-800/40 rounded-2xl p-5 md:p-8 mb-8 shadow-xl shadow-black/20">
          <h3 class="text-blue-400 font-bold mb-4 flex items-center gap-2 text-lg">🌍 Base URL</h3>
          <code class="block overflow-x-auto whitespace-nowrap bg-black/60 p-4 md:p-5 rounded-xl text-amber-400 font-mono text-sm md:text-lg border border-slate-800 shadow-inner">https://api.krisnadev.my.id</code>
@@ -835,14 +835,14 @@ ${mobileNavHtml}
             </table>
          </div>
       </div>
-    </section>`;
+    </div>`;
 
 
 // --- API ENDPOINTS LOOP ---
 endpoints.forEach(ep => {
     if (ep.category) {
         let catId = ep.category.replace(/[^a-zA-Z0-9]/g, '');
-        html += `\n    <h3 id="${catId}" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">${ep.category}</h3>\n`;
+        // Category headers removed for Tabbed UI
     }
 
     const badgeColorClass = ep.method === 'GET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
@@ -856,7 +856,7 @@ endpoints.forEach(ep => {
     let epId = (ep.method + '-' + ep.path).replace(/[^a-zA-Z0-9]/g, '');
 
     html += `
-    <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="${epId}">
+    <div class="tab-content hidden bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10 scroll-mt-24 md:scroll-mt-8 group hover:border-slate-600/60 transition-colors" id="tab-${epId}">
       <!-- Card Header -->
       <div class="px-5 md:px-8 py-4 border-b border-slate-700/50 bg-slate-800/80 flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
          <div class="flex items-center gap-3">
@@ -937,7 +937,7 @@ endpoints.forEach(ep => {
 
 // Write WebSockets section at the bottom
 html += `
-    <h3 id="websocket" class="text-2xl font-bold text-slate-200 mt-20 mb-8 pb-3 border-b border-slate-800 scroll-mt-24 md:scroll-mt-8">WebSockets</h3>
+    <div id="tab-websocket" class="tab-content hidden"><h3 class="text-2xl font-bold text-slate-200 mb-8 pb-3 border-b border-slate-800">WebSockets</h3>
     <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden mb-10 shadow-xl shadow-black/10">
       <div class="p-5 md:p-8">
         <p class="text-slate-400 mb-4">API ini menyediakan WebSocket untuk memantau status sesi perangkat (Koneksi WA) secara *real-time*.</p>

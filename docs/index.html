@@ -34,145 +34,145 @@
     <h2 class="text-lg font-bold text-slate-200 tracking-tight">API Docs</h2>
   </div>
   
-  <button onclick="switchTab('top')" class="tab-link link-top block w-full text-left px-3 py-2 mb-4 text-sm rounded-lg transition-colors font-semibold text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">🏠 Beranda / Pengantar</button>
+  <button data-tab="top" class="tab-link link-top block w-full text-left px-3 py-2 mb-4 text-sm rounded-lg transition-colors font-semibold text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">🏠 Beranda / Pengantar</button>
 
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">👑 Admin / Master (Manajemen API Key)</div>
-  <button onclick="switchTab('GETapikeylist')" class="tab-link link-GETapikeylist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETapikeylist" class="tab-link link-GETapikeylist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/api-key/list</span>
   </button>
-  <button onclick="switchTab('GETpackagelist')" class="tab-link link-GETpackagelist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETpackagelist" class="tab-link link-GETpackagelist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/package/list</span>
   </button>
-  <button onclick="switchTab('POSTpackageadd')" class="tab-link link-POSTpackageadd block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTpackageadd" class="tab-link link-POSTpackageadd block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/package/add</span>
   </button>
-  <button onclick="switchTab('POSTpackageedit')" class="tab-link link-POSTpackageedit block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTpackageedit" class="tab-link link-POSTpackageedit block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/package/edit</span>
   </button>
-  <button onclick="switchTab('POSTpackagedelete')" class="tab-link link-POSTpackagedelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTpackagedelete" class="tab-link link-POSTpackagedelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/package/delete</span>
   </button>
-  <button onclick="switchTab('POSTapikeygenerate')" class="tab-link link-POSTapikeygenerate block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTapikeygenerate" class="tab-link link-POSTapikeygenerate block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/api-key/generate</span>
   </button>
-  <button onclick="switchTab('POSTapikeyextend')" class="tab-link link-POSTapikeyextend block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTapikeyextend" class="tab-link link-POSTapikeyextend block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/api-key/extend</span>
   </button>
-  <button onclick="switchTab('POSTapikeyupgrade')" class="tab-link link-POSTapikeyupgrade block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTapikeyupgrade" class="tab-link link-POSTapikeyupgrade block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/api-key/upgrade</span>
   </button>
-  <button onclick="switchTab('POSTapikeydelete')" class="tab-link link-POSTapikeydelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTapikeydelete" class="tab-link link-POSTapikeydelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/api-key/delete</span>
   </button>
-  <button onclick="switchTab('GETdeviceall')" class="tab-link link-GETdeviceall block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETdeviceall" class="tab-link link-GETdeviceall block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/device/all</span>
   </button>
-  <button onclick="switchTab('GETqueueall')" class="tab-link link-GETqueueall block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETqueueall" class="tab-link link-GETqueueall block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/queue/all</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">👤 Informasi Klien (API Key)</div>
-  <button onclick="switchTab('GETapikeyinfo')" class="tab-link link-GETapikeyinfo block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETapikeyinfo" class="tab-link link-GETapikeyinfo block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/api-key/info</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">📱 Device Management (Sesi WA)</div>
-  <button onclick="switchTab('POSTdeviceadd')" class="tab-link link-POSTdeviceadd block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTdeviceadd" class="tab-link link-POSTdeviceadd block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/device/add</span>
   </button>
-  <button onclick="switchTab('GETdevicelist')" class="tab-link link-GETdevicelist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETdevicelist" class="tab-link link-GETdevicelist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/device/list</span>
   </button>
-  <button onclick="switchTab('POSTdevicesettings')" class="tab-link link-POSTdevicesettings block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTdevicesettings" class="tab-link link-POSTdevicesettings block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/device/settings</span>
   </button>
-  <button onclick="switchTab('POSTdevicedelete')" class="tab-link link-POSTdevicedelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTdevicedelete" class="tab-link link-POSTdevicedelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/device/delete</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">📇 Kontak & Data</div>
-  <button onclick="switchTab('GETcontactlist')" class="tab-link link-GETcontactlist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETcontactlist" class="tab-link link-GETcontactlist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/contact/list</span>
   </button>
-  <button onclick="switchTab('GETgrouplist')" class="tab-link link-GETgrouplist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETgrouplist" class="tab-link link-GETgrouplist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/group/list</span>
   </button>
-  <button onclick="switchTab('GETinbox')" class="tab-link link-GETinbox block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETinbox" class="tab-link link-GETinbox block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/inbox</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">🤖 Webhooks & Auto-Reply</div>
-  <button onclick="switchTab('POSTwebhookset')" class="tab-link link-POSTwebhookset block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTwebhookset" class="tab-link link-POSTwebhookset block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/webhook/set</span>
   </button>
-  <button onclick="switchTab('POSTautoreplyadd')" class="tab-link link-POSTautoreplyadd block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTautoreplyadd" class="tab-link link-POSTautoreplyadd block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/auto-reply/add</span>
   </button>
-  <button onclick="switchTab('GETautoreplylist')" class="tab-link link-GETautoreplylist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETautoreplylist" class="tab-link link-GETautoreplylist block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/auto-reply/list</span>
   </button>
-  <button onclick="switchTab('POSTautoreplydelete')" class="tab-link link-POSTautoreplydelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTautoreplydelete" class="tab-link link-POSTautoreplydelete block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/auto-reply/delete</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">✉️ Messaging (Pengiriman)</div>
-  <button onclick="switchTab('POSTkirimpesan')" class="tab-link link-POSTkirimpesan block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTkirimpesan" class="tab-link link-POSTkirimpesan block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/kirim-pesan</span>
   </button>
-  <button onclick="switchTab('POSTkirimmassal')" class="tab-link link-POSTkirimmassal block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTkirimmassal" class="tab-link link-POSTkirimmassal block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/kirim-massal</span>
   </button>
-  <button onclick="switchTab('POSTkirimmedia')" class="tab-link link-POSTkirimmedia block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTkirimmedia" class="tab-link link-POSTkirimmedia block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/kirim-media</span>
   </button>
-  <button onclick="switchTab('POSTkirimgrup')" class="tab-link link-POSTkirimgrup block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTkirimgrup" class="tab-link link-POSTkirimgrup block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/kirim-grup</span>
   </button>
-  <button onclick="switchTab('POSTkirimpolling')" class="tab-link link-POSTkirimpolling block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTkirimpolling" class="tab-link link-POSTkirimpolling block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/kirim-polling</span>
   </button>
-  <button onclick="switchTab('POSTkirimlokasi')" class="tab-link link-POSTkirimlokasi block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTkirimlokasi" class="tab-link link-POSTkirimlokasi block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/kirim-lokasi</span>
   </button>
-  <button onclick="switchTab('POSTkirimvcard')" class="tab-link link-POSTkirimvcard block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTkirimvcard" class="tab-link link-POSTkirimvcard block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/kirim-vcard</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">⏳ Manajemen Antrean (Queue)</div>
-  <button onclick="switchTab('GETqueuemy')" class="tab-link link-GETqueuemy block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="GETqueuemy" class="tab-link link-GETqueuemy block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-emerald-500/10 text-emerald-400 border-emerald-500/20 w-10 text-center shrink-0">GET</span>
     <span class="truncate">/queue/my</span>
   </button>
-  <button onclick="switchTab('POSTqueuecancel')" class="tab-link link-POSTqueuecancel block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+  <button data-tab="POSTqueuecancel" class="tab-link link-POSTqueuecancel block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20 w-10 text-center shrink-0">POST</span>
     <span class="truncate">/queue/cancel</span>
   </button>
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">Events</div>
-  <button onclick="switchTab('websocket')" class="tab-link link-websocket block w-full text-left px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50">⚡ WebSockets</button>
+  <button data-tab="websocket" class="tab-link link-websocket block w-full text-left px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50">⚡ WebSockets</button>
   <div class="h-10 shrink-0"></div>
 </aside>
 <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"></div>
@@ -191,7 +191,7 @@
              <div class="overflow-x-auto bg-black/60 p-4 md:p-5 rounded-xl border border-slate-800 shadow-inner">
                  <code id="code-baseurl" class="text-amber-400 font-mono text-sm md:text-lg whitespace-nowrap">https://api.krisnadev.my.id</code>
              </div>
-             <button onclick="copyToClipboard('code-baseurl')" class="absolute top-1/2 -translate-y-1/2 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+             <button data-copy="code-baseurl" class="copy-btn absolute top-1/2 -translate-y-1/2 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
       </div>
       
@@ -256,7 +256,7 @@
     }
   });
 &lt;/script&gt;</code></pre>
-           <button onclick="copyToClipboard('code-ws')" class="absolute top-3 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-ws" class="copy-btn absolute top-3 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
         </div>
       </div>
     </div>
@@ -293,7 +293,7 @@
     }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETapikeylist')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -303,7 +303,7 @@
   "status": false,
   "message": "Akses ditolak. Master Key salah atau tidak ditemukan."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETapikeylist')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETapikeylist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -332,14 +332,14 @@
     { "id": 1, "nama_paket": "Premium", "limit_pesan": 500000, "is_public": true }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETpackagelist')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETpackagelist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-GETpackagelist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre"></pre>
-                 <button onclick="copyToClipboard('code-res-err-GETpackagelist')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETpackagelist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -453,7 +453,7 @@
   "limit_device": 2,
   "fitur_media": true
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTpackageadd')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTpackageadd" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -465,7 +465,7 @@
   "message": "Paket berhasil ditambahkan.",
   "data": { ... }
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTpackageadd')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTpackageadd" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -475,7 +475,7 @@
   "status": false,
   "message": "Paket dengan nama tersebut sudah ada."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTpackageadd')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTpackageadd" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -600,7 +600,7 @@
   "limit_pesan": 999999,
   "is_public": false
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTpackageedit')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTpackageedit" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -612,7 +612,7 @@
   "message": "Paket berhasil diperbarui.",
   "data": { ... }
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTpackageedit')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTpackageedit" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -622,7 +622,7 @@
   "status": false,
   "message": "Paket tidak ditemukan."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTpackageedit')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTpackageedit" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -661,7 +661,7 @@
            <pre id="code-req-POSTpackagedelete" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "id": 1
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTpackagedelete')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTpackagedelete" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -672,7 +672,7 @@
   "status": true,
   "message": "Paket berhasil dihapus permanen dari database."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTpackagedelete')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTpackagedelete" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -682,7 +682,7 @@
   "status": false,
   "message": "ID Paket tidak valid."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTpackagedelete')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTpackagedelete" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -735,7 +735,7 @@
   "label": "Klien VIP",
   "expiry_days": 365
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTapikeygenerate')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTapikeygenerate" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -748,7 +748,7 @@
   "plain_key": "KEY-XXXXYYYYZZZZ",
   "data": { ... }
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTapikeygenerate')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTapikeygenerate" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -758,7 +758,7 @@
   "status": false,
   "message": "Paket tidak valid."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTapikeygenerate')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTapikeygenerate" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -804,7 +804,7 @@
   "target_api_key": "KEY-XXXXYYYYZZZZ",
   "tambah_hari": 30
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTapikeyextend')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTapikeyextend" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -815,7 +815,7 @@
   "status": true,
   "message": "Masa aktif berhasil diperpanjang."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTapikeyextend')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTapikeyextend" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -825,7 +825,7 @@
   "status": false,
   "message": "API Key tidak ditemukan."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTapikeyextend')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTapikeyextend" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -871,7 +871,7 @@
   "target_api_key": "KEY-XXXXYYYYZZZZ",
   "nama_paket": "Premium"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTapikeyupgrade')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTapikeyupgrade" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -882,7 +882,7 @@
   "status": true,
   "message": "Paket API Key berhasil di-upgrade ke Premium."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTapikeyupgrade')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTapikeyupgrade" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -892,7 +892,7 @@
   "status": false,
   "message": "Gagal melakukan upgrade. Paket tidak valid."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTapikeyupgrade')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTapikeyupgrade" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -931,7 +931,7 @@
            <pre id="code-req-POSTapikeydelete" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "target_api_key": "KEY-XXXXYYYYZZZZ"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTapikeydelete')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTapikeydelete" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -942,7 +942,7 @@
   "status": true,
   "message": "API Key berhasil dihapus permanen."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTapikeydelete')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTapikeydelete" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -952,7 +952,7 @@
   "status": false,
   "message": "API Key tidak ditemukan di database."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTapikeydelete')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTapikeydelete" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -983,14 +983,14 @@
     { "device": "628222", "status": "DISCONNECTED" }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETdeviceall')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETdeviceall" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-GETdeviceall" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Unauthorized" }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETdeviceall')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETdeviceall" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1018,14 +1018,14 @@
   "global_queue_count": 154,
   "queues": [ ... ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETqueueall')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETqueueall" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-GETqueueall" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Unauthorized" }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETqueueall')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETqueueall" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1059,7 +1059,7 @@
     "expired_at": "2026-08-15T12:00:00Z"
   }
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETapikeyinfo')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETapikeyinfo" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1069,7 +1069,7 @@
   "status": false,
   "message": "API Key tidak valid atau sudah kadaluarsa."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETapikeyinfo')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETapikeyinfo" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1108,7 +1108,7 @@
            <pre id="code-req-POSTdeviceadd" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "nomor_device": "628123456789"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTdeviceadd')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTdeviceadd" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1121,7 +1121,7 @@
   "pairing_code": "V5Y2A9XR",
   "device_status": "WAITING_PAIRING"
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTdeviceadd')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTdeviceadd" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1131,7 +1131,7 @@
   "status": false,
   "message": "Nomor HP tidak valid."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTdeviceadd')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTdeviceadd" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1160,14 +1160,14 @@
     { "device": "628123456789", "status": "CONNECTED" }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETdevicelist')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETdevicelist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-GETdevicelist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "API Key tidak valid." }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETdevicelist')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETdevicelist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1212,7 +1212,7 @@
            <pre id="code-req-POSTdevicesettings" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "is_autoread": true
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTdevicesettings')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTdevicesettings" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1223,7 +1223,7 @@
   "status": true,
   "message": "Pengaturan perangkat berhasil diperbarui."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTdevicesettings')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTdevicesettings" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1233,7 +1233,7 @@
   "status": false,
   "message": "Device tidak ditemukan atau Anda tidak memiliki akses."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTdevicesettings')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTdevicesettings" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1276,7 +1276,7 @@
   "status": true,
   "message": "Sesi WhatsApp berhasil dihapus dan dilogout."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTdevicedelete')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTdevicedelete" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1286,7 +1286,7 @@
   "status": false,
   "message": "Gagal menghapus sesi."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTdevicedelete')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTdevicedelete" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1331,7 +1331,7 @@
     { "id": "628111@s.whatsapp.net", "name": "Budi Santoso", "notify": "Budi" }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETcontactlist')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETcontactlist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1341,7 +1341,7 @@
   "status": false,
   "message": "Device tidak terhubung."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETcontactlist')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETcontactlist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1386,7 +1386,7 @@
     { "id": "1234567890@g.us", "subject": "Grup Keluarga Besar" }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETgrouplist')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETgrouplist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1396,7 +1396,7 @@
   "status": false,
   "message": "Device tidak terhubung."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETgrouplist')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETgrouplist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1425,7 +1425,7 @@
     { "from": "628111@s.whatsapp.net", "message": "Halo, barang ready?", "timestamp": 1718000000 }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETinbox')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETinbox" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1435,7 +1435,7 @@
   "status": false,
   "message": "Gagal mengambil inbox."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETinbox')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETinbox" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1474,7 +1474,7 @@
            <pre id="code-req-POSTwebhookset" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "webhook_url": "https://server-anda.com/api/wa-callback"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTwebhookset')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTwebhookset" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1485,7 +1485,7 @@
   "status": true,
   "message": "Webhook URL berhasil disimpan."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTwebhookset')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTwebhookset" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1495,7 +1495,7 @@
   "status": false,
   "message": "URL tidak valid."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTwebhookset')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTwebhookset" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1568,7 +1568,7 @@
   "media_url": "https://domain.com/brosur.jpg",
   "media_type": "image"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTautoreplyadd')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTautoreplyadd" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1579,7 +1579,7 @@
   "status": true,
   "message": "Auto-Reply berhasil ditambahkan."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTautoreplyadd')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTautoreplyadd" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1589,7 +1589,7 @@
   "status": false,
   "message": "Keyword atau response tidak boleh kosong."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTautoreplyadd')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTautoreplyadd" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1634,14 +1634,14 @@
     { "keyword": "ping", "response": "pong!", "match_type": "exact" }
   ]
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETautoreplylist')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETautoreplylist" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-GETautoreplylist" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Gagal mengambil data." }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETautoreplylist')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETautoreplylist" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1680,7 +1680,7 @@
            <pre id="code-req-POSTautoreplydelete" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "id": 12
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTautoreplydelete')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTautoreplydelete" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1691,7 +1691,7 @@
   "status": true,
   "message": "Auto-Reply berhasil dihapus."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTautoreplydelete')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTautoreplydelete" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1701,7 +1701,7 @@
   "status": false,
   "message": "Auto-Reply tidak ditemukan."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTautoreplydelete')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTautoreplydelete" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1771,7 +1771,7 @@
   "nomor": "628123456789",
   "pesan": "Halo bosku!"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTkirimpesan')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTkirimpesan" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1783,7 +1783,7 @@
   "message": "Pesan berhasil dimasukkan ke antrean pengiriman.",
   "queue_id": 150
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTkirimpesan')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTkirimpesan" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1793,7 +1793,7 @@
   "status": false,
   "message": "Kuota pesan Anda habis."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTkirimpesan')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTkirimpesan" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1847,7 +1847,7 @@
     { "nomor": "628222", "pesan": "Pesan 2" }
   ]
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTkirimmassal')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTkirimmassal" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1858,7 +1858,7 @@
   "status": true,
   "message": "2 pesan berhasil dimasukkan ke antrean massal."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTkirimmassal')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTkirimmassal" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1868,7 +1868,7 @@
   "status": false,
   "message": "Format data tidak valid, harus berupa array."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTkirimmassal')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTkirimmassal" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1940,7 +1940,7 @@
   "tipe": "document",
   "caption": "Ini brosur bulan ini."
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTkirimmedia')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTkirimmedia" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -1951,7 +1951,7 @@
   "status": true,
   "message": "Pesan media berhasil masuk antrean."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTkirimmedia')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTkirimmedia" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -1961,7 +1961,7 @@
   "status": false,
   "message": "Media URL tidak dapat diakses."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTkirimmedia')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTkirimmedia" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2019,7 +2019,7 @@
   "group_id": "1234567890-123456@g.us",
   "pesan": "Halo member grup!"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTkirimgrup')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTkirimgrup" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -2030,7 +2030,7 @@
   "status": true,
   "message": "Pesan berhasil masuk antrean grup."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTkirimgrup')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTkirimgrup" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -2040,7 +2040,7 @@
   "status": false,
   "message": "Group ID tidak valid."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTkirimgrup')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTkirimgrup" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2112,7 +2112,7 @@
   "opsi": ["18-25", "26-35", "35+"],
   "multiple_choice": false
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTkirimpolling')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTkirimpolling" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -2123,7 +2123,7 @@
   "status": true,
   "message": "Polling berhasil dikirim."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTkirimpolling')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTkirimpolling" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -2133,7 +2133,7 @@
   "status": false,
   "message": "Values polling minimal harus berisi 2 opsi."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTkirimpolling')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTkirimpolling" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2198,7 +2198,7 @@
   "lat": -6.200000,
   "long": 106.816666
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTkirimlokasi')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTkirimlokasi" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -2209,7 +2209,7 @@
   "status": true,
   "message": "Pesan lokasi berhasil dikirim."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTkirimlokasi')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTkirimlokasi" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -2219,7 +2219,7 @@
   "status": false,
   "message": "Latitude dan Longitude wajib diisi dengan angka."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTkirimlokasi')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTkirimlokasi" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2284,7 +2284,7 @@
   "nama_kontak": "CS Support",
   "nomor_kontak": "+628111222333"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTkirimvcard')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTkirimvcard" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -2295,7 +2295,7 @@
   "status": true,
   "message": "Kontak VCard berhasil dikirim."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTkirimvcard')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTkirimvcard" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -2305,7 +2305,7 @@
   "status": false,
   "message": "Parameter kontak tidak lengkap."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTkirimvcard')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTkirimvcard" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2334,14 +2334,14 @@
   "success": 250,
   "failed": 2
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-GETqueuemy')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-GETqueuemy" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-GETqueuemy" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">{ "status": false, "message": "Gagal memuat antrean." }</pre>
-                 <button onclick="copyToClipboard('code-res-err-GETqueuemy')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-GETqueuemy" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2380,7 +2380,7 @@
            <pre id="code-req-POSTqueuecancel" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">{
   "device": "628123456789"
 }</pre>
-           <button onclick="copyToClipboard('code-req-POSTqueuecancel')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-POSTqueuecancel" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
          <h5 class="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Contoh Response</h5>
          <div class="flex flex-col lg:flex-row gap-6 w-full">
@@ -2391,7 +2391,7 @@
   "status": true,
   "message": "Antrean berhasil dibatalkan."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-suc-POSTqueuecancel')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-POSTqueuecancel" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
@@ -2401,7 +2401,7 @@
   "status": false,
   "message": "Queue ID tidak ditemukan atau sudah diproses."
 }</pre>
-                 <button onclick="copyToClipboard('code-res-err-POSTqueuecancel')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-POSTqueuecancel" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -2474,6 +2474,22 @@ function copyToClipboard(elementId) {
         });
     });
 }
+
+
+// CSP-compliant event listeners
+document.querySelectorAll('.tab-link').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        if(tabId) switchTab(tabId);
+    });
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const copyId = this.getAttribute('data-copy');
+        if(copyId) copyToClipboard(copyId);
+    });
+});
 
 // Init default tab
 document.addEventListener('DOMContentLoaded', () => {

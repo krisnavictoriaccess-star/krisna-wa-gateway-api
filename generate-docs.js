@@ -761,7 +761,7 @@ let html = `<!DOCTYPE html>
     <h2 class="text-lg font-bold text-slate-200 tracking-tight">API Docs</h2>
   </div>
   
-  <button onclick="switchTab('top')" class="tab-link link-top block w-full text-left px-3 py-2 mb-4 text-sm rounded-lg transition-colors font-semibold text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">🏠 Beranda / Pengantar</button>
+  <button data-tab="top" class="tab-link link-top block w-full text-left px-3 py-2 mb-4 text-sm rounded-lg transition-colors font-semibold text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">🏠 Beranda / Pengantar</button>
 `;
 
 let currentCategory = "";
@@ -774,7 +774,7 @@ endpoints.forEach(ep => {
     let badgeColor = ep.method === 'GET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 
                      (ep.method === 'POST' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20');
                      
-    html += `\n  <button onclick="switchTab('${epId}')" class="tab-link link-${epId} block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+    html += `\n  <button data-tab="${epId}" class="tab-link link-${epId} block w-full text-left px-2 py-1.5 text-sm rounded-lg transition-colors flex items-center gap-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
     <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeColor} w-10 text-center shrink-0">${ep.method}</span>
     <span class="truncate">${ep.path}</span>
   </button>`;
@@ -782,7 +782,7 @@ endpoints.forEach(ep => {
 
 html += `
   <div class="mt-8 mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">Events</div>
-  <button onclick="switchTab('websocket')" class="tab-link link-websocket block w-full text-left px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50">⚡ WebSockets</button>
+  <button data-tab="websocket" class="tab-link link-websocket block w-full text-left px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-slate-400 hover:text-white hover:bg-slate-800/50">⚡ WebSockets</button>
   <div class="h-10 shrink-0"></div>
 </aside>
 <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"></div>
@@ -801,7 +801,7 @@ html += `
              <div class="overflow-x-auto bg-black/60 p-4 md:p-5 rounded-xl border border-slate-800 shadow-inner">
                  <code id="code-baseurl" class="text-amber-400 font-mono text-sm md:text-lg whitespace-nowrap">https://api.krisnadev.my.id</code>
              </div>
-             <button onclick="copyToClipboard('code-baseurl')" class="absolute top-1/2 -translate-y-1/2 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+             <button data-copy="code-baseurl" class="copy-btn absolute top-1/2 -translate-y-1/2 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>
       </div>
       
@@ -866,7 +866,7 @@ html += `
     }
   });
 &lt;/script&gt;</code></pre>
-           <button onclick="copyToClipboard('code-ws')" class="absolute top-3 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-ws" class="copy-btn absolute top-3 right-3 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
         </div>
       </div>
     </div>
@@ -923,7 +923,7 @@ endpoints.forEach(ep => {
          <h5 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Contoh Request Body</h5>
          <div class="relative group overflow-x-auto bg-black/50 p-4 md:p-5 rounded-xl border border-slate-700/50 mb-8 shadow-inner w-full">
            <pre id="code-req-${epId}" class="font-mono text-xs md:text-sm text-indigo-300 whitespace-pre">${safeReqBody}</pre>
-           <button onclick="copyToClipboard('code-req-${epId}')" class="absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+           <button data-copy="code-req-${epId}" class="copy-btn absolute top-2 right-2 bg-slate-700 hover:bg-indigo-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
          </div>`;
     }
 
@@ -937,14 +937,14 @@ endpoints.forEach(ep => {
                <div class="text-emerald-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><small>Berhasil (200 / 201)</small></div>
                <div class="relative group overflow-x-auto bg-emerald-950/20 p-4 md:p-5 rounded-xl border border-emerald-900/50 h-full shadow-inner">
                  <pre id="code-res-suc-${epId}" class="font-mono text-xs md:text-sm text-emerald-200/90 whitespace-pre">${safeResSuccess}</pre>
-                 <button onclick="copyToClipboard('code-res-suc-${epId}')" class="absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-suc-${epId}" class="copy-btn absolute top-2 right-2 bg-emerald-800 hover:bg-emerald-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
             <div class="flex-1 w-full min-w-0 mt-4 lg:mt-0">
                <div class="text-rose-400 font-bold mb-3 flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500"></div><small>Gagal (4xx / 5xx)</small></div>
                <div class="relative group overflow-x-auto bg-rose-950/20 p-4 md:p-5 rounded-xl border border-rose-900/50 h-full shadow-inner">
                  <pre id="code-res-err-${epId}" class="font-mono text-xs md:text-sm text-rose-200/90 whitespace-pre">${safeResError}</pre>
-                 <button onclick="copyToClipboard('code-res-err-${epId}')" class="absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
+                 <button data-copy="code-res-err-${epId}" class="copy-btn absolute top-2 right-2 bg-rose-800 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Copy</button>
                </div>
             </div>
          </div>
@@ -1020,6 +1020,22 @@ function copyToClipboard(elementId) {
         });
     });
 }
+
+
+// CSP-compliant event listeners
+document.querySelectorAll('.tab-link').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        if(tabId) switchTab(tabId);
+    });
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const copyId = this.getAttribute('data-copy');
+        if(copyId) copyToClipboard(copyId);
+    });
+});
 
 // Init default tab
 document.addEventListener('DOMContentLoaded', () => {

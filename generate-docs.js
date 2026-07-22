@@ -10,7 +10,9 @@ const endpoints = [
         method: "GET", path: "/package/list",
         summary: "Melihat daftar semua paket langganan yang tersedia di database.",
         badge: "master",
-        params: [],
+        params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." }
+        ],
         reqBody: "",
         resSuccess: `{
   "status": true,
@@ -46,6 +48,7 @@ const endpoints = [
         summary: "Menambahkan paket layanan baru ke dalam sistem.",
         badge: "master",
         params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
             { field: "nama_paket", type: "String", status: "wajib", desc: "Nama unik untuk paket (contoh: 'Premium', 'VIP')." },
             { field: "deskripsi", type: "String", status: "opsional", desc: "Deskripsi fitur paket." },
             { field: "harga", type: "String", status: "opsional", desc: "Harga paket (contoh: '50000')." },
@@ -95,6 +98,7 @@ const endpoints = [
         summary: "Mengubah spesifikasi dan fitur dari paket yang sudah ada.",
         badge: "master",
         params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
             { field: "id", type: "Integer", status: "wajib", desc: "ID paket yang ingin diubah." },
             { field: "...", type: "Campuran", status: "opsional", desc: "Kirimkan HANYA field yang ingin diubah (contoh: harga, is_public, dll)." }
         ],
@@ -116,6 +120,7 @@ const endpoints = [
         summary: "Menghapus paket secara permanen dari database.",
         badge: "master",
         params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
             { field: "id", type: "Integer", status: "wajib", desc: "ID paket yang ingin dihapus." }
         ],
         reqBody: `{
@@ -132,7 +137,9 @@ const endpoints = [
         method: "GET", path: "/api-key/list",
         summary: "Melihat daftar semua API Key klien beserta sisa masa aktifnya.",
         badge: "master",
-        params: [],
+        params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." }
+        ],
         reqBody: "",
         resSuccess: `{
   "status": true,
@@ -152,6 +159,7 @@ const endpoints = [
         summary: "Membuat (Generate) API Key baru untuk user/klien.",
         badge: "master",
         params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
             { field: "paket", type: "String", status: "opsional", desc: "Nama paket yang diberikan ke user. Default: 'Free'." },
             { field: "label", type: "String", status: "opsional", desc: "Nama/Keterangan pemilik API Key. Default: 'User'." },
             { field: "expiry_days", type: "Integer", status: "opsional", desc: "Masa aktif API Key dalam hitungan hari. Default: 30." }
@@ -178,6 +186,7 @@ const endpoints = [
         summary: "Memperpanjang masa aktif API Key yang sudah ada.",
         badge: "master",
         params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
             { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain Text) milik klien yang ingin diperpanjang." },
             { field: "tambah_hari", type: "Integer", status: "wajib", desc: "Jumlah hari tambahan masa aktif." }
         ],
@@ -197,6 +206,7 @@ const endpoints = [
         summary: "Menaikkan atau menurunkan jenis paket (Upgrade/Downgrade) pada API Key klien.",
         badge: "master",
         params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
             { field: "target_api_key", type: "String", status: "wajib", desc: "API Key klien (Plain Text)." },
             { field: "nama_paket", type: "String", status: "wajib", desc: "Nama paket baru yang ingin diberikan." }
         ],
@@ -216,6 +226,7 @@ const endpoints = [
         summary: "Menghapus (Mencabut) akses API Key klien secara permanen.",
         badge: "master",
         params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." },
             { field: "target_api_key", type: "String", status: "wajib", desc: "API Key (Plain text) klien yang ingin dihapus." }
         ],
         reqBody: `{
@@ -231,7 +242,9 @@ const endpoints = [
         method: "GET", path: "/device/all",
         summary: "Melihat seluruh status device dari semua klien yang ada di server.",
         badge: "master",
-        params: [],
+        params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." }
+        ],
         reqBody: "",
         resSuccess: `{
   "status": true,
@@ -250,7 +263,9 @@ const endpoints = [
         method: "GET", path: "/queue/all",
         summary: "Melihat statistik antrean pengiriman global dari seluruh klien di server.",
         badge: "master",
-        params: [],
+        params: [
+            { field: "x-master-key", type: "String (Header)", status: "wajib", desc: "Kunci rahasia master server." }
+        ],
         reqBody: "",
         resSuccess: `{
   "status": true,
@@ -269,7 +284,9 @@ const endpoints = [
         method: "GET", path: "/api-key/info",
         summary: "Melihat informasi API Key Anda sendiri (Paket, Kuota, Masa Aktif).",
         badge: "user",
-        params: [],
+        params: [
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." }
+        ],
         reqBody: "",
         resSuccess: `{
   "status": true,
@@ -291,7 +308,9 @@ const endpoints = [
         method: "GET", path: "/device/list",
         summary: "Mendapatkan daftar nomor WhatsApp yang terhubung ke API Key Anda.",
         badge: "user",
-        params: [],
+        params: [
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." }
+        ],
         reqBody: "",
         resSuccess: `{
   "status": true,
@@ -311,7 +330,8 @@ const endpoints = [
         summary: "Mendaftarkan nomor perangkat baru ke sistem untuk siap di-scan (Pairing).",
         badge: "user",
         params: [
-            { field: "nomor_device", type: "String", status: "wajib", desc: "Nomor WhatsApp yang akan dihubungkan (format: 628xxx)." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "nomor_device", type: "String (Body JSON)", status: "wajib", desc: "Nomor WhatsApp yang akan dihubungkan (format: 628xxx)." }
         ],
         reqBody: `{
   "nomor_device": "628123456789"
@@ -327,9 +347,12 @@ const endpoints = [
         summary: "Memutuskan koneksi, melogout perangkat, dan menghapusnya dari database.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat yang ingin dihapus, diletakkan di HTTP Header." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "wajib", desc: "Nomor perangkat yang ingin dihapus." }
         ],
-        reqBody: "",
+        reqBody: `{
+  "sender_id": "628123456789"
+}`,
         resSuccess: `{
   "status": true,
   "message": "Device 628123456789 berhasil dihapus dan dilogout."
@@ -341,10 +364,12 @@ const endpoints = [
         summary: "Mengubah pengaturan spesifik perangkat (seperti Auto-Read).",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat, di HTTP Header." },
-            { field: "is_autoread", type: "Boolean", status: "wajib", desc: "true = Nyalakan centang biru otomatis untuk pesan masuk. false = Matikan." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "wajib", desc: "Nomor perangkat." },
+            { field: "is_autoread", type: "Boolean (Body JSON)", status: "wajib", desc: "true = Nyalakan centang biru otomatis untuk pesan masuk. false = Matikan." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "is_autoread": true
 }`,
         resSuccess: `{
@@ -358,7 +383,8 @@ const endpoints = [
         summary: "Mengatur atau menghapus Webhook URL untuk akun Anda.",
         badge: "user",
         params: [
-            { field: "webhook_url", type: "String", status: "opsional", desc: "URL Webhook tujuan. Kosongkan parameter ini di body untuk menonaktifkan Webhook." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "webhook_url", type: "String (Body JSON)", status: "opsional", desc: "URL Webhook tujuan. Kosongkan parameter ini di body untuk menonaktifkan Webhook." }
         ],
         reqBody: `{
   "webhook_url": "https://domainanda.com/api/wa-webhook"
@@ -376,11 +402,13 @@ const endpoints = [
         summary: "Mengirim pesan teks murni ke satu nomor.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim di HTTP Header. Kosongkan untuk mode Rotator otomatis." },
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
-            { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan teks." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "opsional", desc: "Nomor pengirim. Kosongkan untuk mode Rotator otomatis." },
+            { field: "nomor", type: "String (Body JSON)", status: "wajib", desc: "Nomor tujuan (628xxx)." },
+            { field: "pesan", type: "String (Body JSON)", status: "wajib", desc: "Isi pesan teks." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "nomor": "628999999999",
   "pesan": "Halo bosku, invoice bulan ini sudah terbit!"
 }`,
@@ -396,13 +424,15 @@ const endpoints = [
         summary: "Mengirim gambar, video, atau dokumen PDF.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim di HTTP Header. Kosongkan untuk Rotator." },
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
-            { field: "url", type: "String", status: "wajib", desc: "Tautan/URL langsung ke file media (maks 15MB)." },
-            { field: "tipe", type: "String", status: "wajib", desc: "Tipe media: 'image', 'video', atau 'document'." },
-            { field: "caption", type: "String", status: "opsional", desc: "Keterangan teks di bawah media. (Untuk document, ini menjadi nama file pdf)." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "opsional", desc: "Nomor pengirim. Kosongkan untuk Rotator." },
+            { field: "nomor", type: "String (Body JSON)", status: "wajib", desc: "Nomor tujuan (628xxx)." },
+            { field: "url", type: "String (Body JSON)", status: "wajib", desc: "Tautan/URL langsung ke file media (maks 15MB)." },
+            { field: "tipe", type: "String (Body JSON)", status: "wajib", desc: "Tipe media: 'image', 'video', atau 'document'." },
+            { field: "caption", type: "String (Body JSON)", status: "opsional", desc: "Keterangan teks di bawah media. (Untuk document, ini menjadi nama file pdf)." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "nomor": "628999999999",
   "url": "https://domain.com/brosur.jpg",
   "tipe": "image",
@@ -420,11 +450,13 @@ const endpoints = [
         summary: "Mengirim pesan teks ke Grup WhatsApp.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Wajib diisi karena pengirim harus menjadi anggota grup." },
-            { field: "group_id", type: "String", status: "wajib", desc: "ID Grup (Berakhiran @g.us)." },
-            { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan teks." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "wajib", desc: "Wajib diisi karena pengirim harus menjadi anggota grup." },
+            { field: "group_id", type: "String (Body JSON)", status: "wajib", desc: "ID Grup (Berakhiran @g.us)." },
+            { field: "pesan", type: "String (Body JSON)", status: "wajib", desc: "Isi pesan teks." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "group_id": "120363045678901234@g.us",
   "pesan": "Selamat pagi rekan-rekan semua!"
 }`,
@@ -439,13 +471,15 @@ const endpoints = [
         summary: "Mengirim Polling (Vote) interaktif.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim." },
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
-            { field: "name", type: "String", status: "wajib", desc: "Pertanyaan polling." },
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "opsional", desc: "Nomor pengirim." },
+            { field: "nomor", type: "String (Body JSON)", status: "wajib", desc: "Nomor tujuan (628xxx)." },
+            { field: "name", type: "String (Body JSON)", status: "wajib", desc: "Pertanyaan polling." },
             { field: "values", type: "Array of String", status: "wajib", desc: "Pilihan jawaban (minimal 2, maksimal 12)." },
-            { field: "selectableCount", type: "Integer", status: "opsional", desc: "Berapa banyak pilihan yang bisa dipilih user. Default: 1." }
+            { field: "selectableCount", type: "Integer (Body JSON)", status: "opsional", desc: "Berapa banyak pilihan yang bisa dipilih user. Default: 1." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "nomor": "628999999999",
   "name": "Kapan jadwal meeting selanjutnya?",
   "values": ["Senin Pagi", "Selasa Siang", "Jumat Sore"],
@@ -462,12 +496,14 @@ const endpoints = [
         summary: "Mengirim titik koordinat (Location).",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim." },
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
-            { field: "latitude", type: "Float", status: "wajib", desc: "Garis lintang." },
-            { field: "longitude", type: "Float", status: "wajib", desc: "Garis bujur." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "opsional", desc: "Nomor pengirim." },
+            { field: "nomor", type: "String (Body JSON)", status: "wajib", desc: "Nomor tujuan (628xxx)." },
+            { field: "latitude", type: "Float (Body JSON)", status: "wajib", desc: "Garis lintang." },
+            { field: "longitude", type: "Float (Body JSON)", status: "wajib", desc: "Garis bujur." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "nomor": "628999999999",
   "latitude": -6.200000,
   "longitude": 106.816666
@@ -483,12 +519,14 @@ const endpoints = [
         summary: "Mengirim kartu kontak (vCard).",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim." },
-            { field: "nomor", type: "String", status: "wajib", desc: "Nomor tujuan (628xxx)." },
-            { field: "contact_name", type: "String", status: "wajib", desc: "Nama kontak yang akan dikirim." },
-            { field: "contact_phone", type: "String", status: "wajib", desc: "Nomor telepon kontak yang akan dikirim." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "opsional", desc: "Nomor pengirim." },
+            { field: "nomor", type: "String (Body JSON)", status: "wajib", desc: "Nomor tujuan (628xxx)." },
+            { field: "contact_name", type: "String (Body JSON)", status: "wajib", desc: "Nama kontak yang akan dikirim." },
+            { field: "contact_phone", type: "String (Body JSON)", status: "wajib", desc: "Nomor telepon kontak yang akan dikirim." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "nomor": "628999999999",
   "contact_name": "CS Support Kami",
   "contact_phone": "+628123456789"
@@ -504,12 +542,14 @@ const endpoints = [
         summary: "Mengirim pesan teks secara massal (Broadcast).",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "opsional", desc: "Nomor pengirim." },
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "opsional", desc: "Nomor pengirim." },
             { field: "targets", type: "Array of String", status: "wajib", desc: "Daftar nomor tujuan." },
-            { field: "pesan", type: "String", status: "wajib", desc: "Isi pesan. Mendukung tag {nama} jika list ditarik dari contact list." },
-            { field: "delay_ms", type: "Integer", status: "opsional", desc: "Jeda per pengiriman dalam milidetik. Default: 5000." }
+            { field: "pesan", type: "String (Body JSON)", status: "wajib", desc: "Isi pesan. Mendukung tag {nama} jika list ditarik dari contact list." },
+            { field: "delay_ms", type: "Integer (Body JSON)", status: "opsional", desc: "Jeda per pengiriman dalam milidetik. Default: 5000." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "targets": ["628111111111", "628222222222"],
   "pesan": "Info penting: Sistem maintenance malam ini.",
   "delay_ms": 7000
@@ -527,7 +567,8 @@ const endpoints = [
         summary: "Melihat daftar Auto-Reply yang Anda buat.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Wajib untuk mengetahui data device mana yang ingin dilihat." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Query)", status: "wajib", desc: "Wajib disematkan di URL parameter (?sender_id=xxx) untuk filter." }
         ],
         reqBody: "",
         resSuccess: `{
@@ -541,19 +582,21 @@ const endpoints = [
     }
   ]
 }`,
-        resError: `{ "status": false, "message": "Header sender_id wajib diisi." }`
+        resError: `{ "status": false, "message": "sender_id wajib diisi." }`
     },
     {
         method: "POST", path: "/auto-reply/add",
         summary: "Menambahkan aturan Auto-Reply baru.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat Anda." },
-            { field: "keyword", type: "String", status: "wajib", desc: "Kata kunci pemicu balasan." },
-            { field: "response", type: "String", status: "wajib", desc: "Teks balasan otomatis." },
-            { field: "is_exact", type: "Boolean", status: "opsional", desc: "true = Harus persis sama. false = Mengandung kata. Default: true." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "wajib", desc: "Nomor perangkat Anda." },
+            { field: "keyword", type: "String (Body JSON)", status: "wajib", desc: "Kata kunci pemicu balasan." },
+            { field: "response", type: "String (Body JSON)", status: "wajib", desc: "Teks balasan otomatis." },
+            { field: "is_exact", type: "Boolean (Body JSON)", status: "opsional", desc: "true = Harus persis sama. false = Mengandung kata. Default: true." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "keyword": "harga",
   "response": "Berikut adalah daftar harga kami:\n1. Paket A: Rp100.000",
   "is_exact": false
@@ -569,10 +612,12 @@ const endpoints = [
         summary: "Menghapus aturan Auto-Reply.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat Anda." },
-            { field: "id", type: "Integer", status: "wajib", desc: "ID dari auto-reply yang ingin dihapus." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Body JSON)", status: "wajib", desc: "Nomor perangkat Anda." },
+            { field: "id", type: "Integer (Body JSON)", status: "wajib", desc: "ID dari auto-reply yang ingin dihapus." }
         ],
         reqBody: `{
+  "sender_id": "628123456789",
   "id": 1
 }`,
         resSuccess: `{
@@ -588,7 +633,8 @@ const endpoints = [
         summary: "Tarik daftar kontak yang tersimpan di HP/Device.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Query)", status: "wajib", desc: "URL Parameter (?sender_id=xxx)." }
         ],
         reqBody: "",
         resSuccess: `{
@@ -604,7 +650,8 @@ const endpoints = [
         summary: "Tarik daftar Grup di mana Device bergabung.",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Query)", status: "wajib", desc: "URL Parameter (?sender_id=xxx)." }
         ],
         reqBody: "",
         resSuccess: `{
@@ -620,8 +667,9 @@ const endpoints = [
         summary: "Melihat riwayat pesan masuk ke Device (jika fitur_inbox aktif).",
         badge: "user",
         params: [
-            { field: "sender_id", type: "String (Header)", status: "wajib", desc: "Nomor perangkat." },
-            { field: "limit", type: "Integer", status: "opsional", desc: "Jumlah pesan (URL Query). Default 50." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "sender_id", type: "String (Query)", status: "opsional", desc: "Jika diisi, difilter per device. Jika kosong, menarik semua." },
+            { field: "limit", type: "Integer (Query)", status: "opsional", desc: "URL Query ?limit=50. Default 50." }
         ],
         reqBody: "",
         resSuccess: `{
@@ -639,7 +687,8 @@ const endpoints = [
         summary: "Melihat statistik antrean pengiriman pesan Anda saat ini.",
         badge: "user",
         params: [
-            { field: "device", type: "String", status: "opsional", desc: "URL Query untuk filter antrean device tertentu." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "device", type: "String (Query)", status: "opsional", desc: "URL Query untuk filter antrean device tertentu." }
         ],
         reqBody: "",
         resSuccess: `{
@@ -655,7 +704,8 @@ const endpoints = [
         summary: "Membatalkan seluruh pesan di antrean yang belum terkirim.",
         badge: "user",
         params: [
-            { field: "device", type: "String", status: "opsional", desc: "Nomor pengirim jika ingin membatalkan antrean spesifik." }
+            { field: "x-api-key", type: "String (Header)", status: "wajib", desc: "API Key milik Anda." },
+            { field: "device", type: "String (Body JSON)", status: "opsional", desc: "Nomor pengirim jika ingin membatalkan antrean spesifik." }
         ],
         reqBody: `{
   "device": "628123456789"
